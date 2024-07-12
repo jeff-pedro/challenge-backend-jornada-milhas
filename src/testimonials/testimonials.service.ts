@@ -1,12 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { CreateTestimonialDto } from './dto/create-testimonial.dto';
 
 @Injectable()
 export class TestimonialsService {
   private testimonials: any = [];
   private id: number = 0;
 
-  generateId() {
-    return (this.id += 1);
+  async create(testimonial: CreateTestimonialDto) {
+    const testimonialToSave = {
+      id: this.generateId(),
+      ...testimonial,
+    };
+    this.testimonials.push(testimonialToSave);
+    return testimonialToSave;
   }
 
   async findAll() {
@@ -14,19 +20,13 @@ export class TestimonialsService {
   }
 
   async findOne(id: number) {
-    const testimonial = await this.testimonials.find(
+    const testimonial = this.testimonials.find(
       (testimonial: any) => testimonial.id === Number(id),
     );
     return testimonial;
   }
 
-  async create(testimonial: object): Promise<object> {
-    const testimonialToSave = { id: this.generateId(), ...testimonial };
-    this.testimonials.push(testimonialToSave);
-    return testimonialToSave;
-  }
-
-  async update(id: number, newData: object): Promise<object> {
+  async update(id: number, newData: object) {
     const testimonialToUpdate = await this.testimonials.find(
       (testimonial: any) => testimonial.id === Number(id),
     );
@@ -34,7 +34,7 @@ export class TestimonialsService {
     return testimonialToUpdate;
   }
 
-  async delete(id: number) {
+  async remove(id: number) {
     const testimonialIndex = await this.testimonials.findIndex(
       (testimonial: any) => testimonial.id === Number(id),
     );
@@ -44,5 +44,9 @@ export class TestimonialsService {
     }
 
     return;
+  }
+
+  generateId() {
+    return (this.id += 1);
   }
 }
