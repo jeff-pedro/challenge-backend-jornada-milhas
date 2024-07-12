@@ -7,26 +7,26 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { TestimonialService } from './testimonial.service';
+import { TestimonialsService } from './testimonials.service';
 
 @Controller('testimonials')
-export class TestimonialController {
-  constructor(private readonly testimonialService: TestimonialService) {}
+export class TestimonialsController {
+  constructor(private readonly testimonialsService: TestimonialsService) {}
 
   @Get()
   async findAll(): Promise<object[]> {
-    const testimonialsList = await this.testimonialService.findAll();
+    const testimonialsList = await this.testimonialsService.findAll();
     return testimonialsList;
   }
 
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<object> {
-    return this.testimonialService.findOne(id);
+    return this.testimonialsService.findOne(id);
   }
 
   @Post()
   async create(@Body() newData: object): Promise<object> {
-    const savedTestimonial = await this.testimonialService.create(newData);
+    const savedTestimonial = await this.testimonialsService.create(newData);
     return {
       message: 'Testimonial was created',
       data: savedTestimonial,
@@ -38,7 +38,7 @@ export class TestimonialController {
     @Param('id') id: number,
     @Body() newData: object,
   ): Promise<object> {
-    const updatedTestimonial = await this.testimonialService.update(
+    const updatedTestimonial = await this.testimonialsService.update(
       id,
       newData,
     );
@@ -51,7 +51,7 @@ export class TestimonialController {
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<object> {
-    this.testimonialService.delete(id);
+    this.testimonialsService.delete(id);
     return { message: 'Testimonial deleted' };
   }
 }

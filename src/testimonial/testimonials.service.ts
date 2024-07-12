@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class TestimonialService {
+export class TestimonialsService {
   private testimonials: any = [];
   private id: number = 0;
 
