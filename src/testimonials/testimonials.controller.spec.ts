@@ -7,8 +7,6 @@ describe('TestimonialsController', () => {
   let testimonialsController: TestimonialsController;
 
   beforeEach(async () => {
-    // testimonialsService = new TestimonialsService();
-    // testimonialsController = new TestimonialsController(testimonialsService);
     const moduleRef = await Test.createTestingModule({
       controllers: [TestimonialsController],
       providers: [TestimonialsService],
