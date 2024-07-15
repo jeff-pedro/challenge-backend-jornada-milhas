@@ -1,3 +1,4 @@
+import { Test } from '@nestjs/testing';
 import { TestimonialsController } from './testimonials.controller';
 import { TestimonialsService } from './testimonials.service';
 
@@ -5,9 +6,19 @@ describe('TestimonialsController', () => {
   let testimonialsService: TestimonialsService;
   let testimonialsController: TestimonialsController;
 
-  beforeEach(() => {
-    testimonialsService = new TestimonialsService();
-    testimonialsController = new TestimonialsController(testimonialsService);
+  beforeEach(async () => {
+    // testimonialsService = new TestimonialsService();
+    // testimonialsController = new TestimonialsController(testimonialsService);
+    const moduleRef = await Test.createTestingModule({
+      controllers: [TestimonialsController],
+      providers: [TestimonialsService],
+    }).compile();
+
+    testimonialsService =
+      moduleRef.get<TestimonialsService>(TestimonialsService);
+    testimonialsController = moduleRef.get<TestimonialsController>(
+      TestimonialsController,
+    );
   });
 
   describe('findAll', () => {
