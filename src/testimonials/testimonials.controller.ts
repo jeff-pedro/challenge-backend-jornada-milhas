@@ -10,7 +10,6 @@ import {
 import { TestimonialsService } from './testimonials.service';
 import { CreateTestimonialDto } from './dto/create-testimonial.dto';
 import { UpdateTestimonialDto } from './dto/update-testimonial.dto';
-import { Testimonial } from './interfaces/testimonial.interface';
 import { v4 as uuid } from 'uuid';
 
 @Controller('testimonials')
@@ -27,15 +26,15 @@ export class TestimonialsController {
   }
 
   @Get()
-  async findAll(): Promise<Testimonial[]> {
+  async findAll(): Promise<object> {
     const testimonialsList = await this.testimonialsService.findAll();
-    return testimonialsList;
+    return { data: testimonialsList };
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Testimonial> {
+  async findOne(@Param('id') id: string): Promise<object> {
     const testimonialSaved = await this.testimonialsService.findById(id);
-    return testimonialSaved;
+    return { data: testimonialSaved };
   }
 
   @Put(':id')
