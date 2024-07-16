@@ -12,11 +12,11 @@ import { CreateTestimonialDto } from './dto/create-testimonial.dto';
 import { UpdateTestimonialDto } from './dto/update-testimonial.dto';
 import { v4 as uuid } from 'uuid';
 
-@Controller('testimonials')
+@Controller()
 export class TestimonialsController {
   constructor(private readonly testimonialsService: TestimonialsService) {}
 
-  @Post()
+  @Post('/testimonials')
   async create(@Body() createTestimonialDto: CreateTestimonialDto) {
     await this.testimonialsService.create({
       id: uuid(),
@@ -25,19 +25,19 @@ export class TestimonialsController {
     return { message: 'Testimonial was created' };
   }
 
-  @Get()
+  @Get('/testimonials')
   async findAll(): Promise<object> {
     const testimonialsList = await this.testimonialsService.findAll();
     return { data: testimonialsList };
   }
 
-  @Get(':id')
+  @Get('/testimonials/:id')
   async findOne(@Param('id') id: string): Promise<object> {
     const testimonialSaved = await this.testimonialsService.findById(id);
     return { data: testimonialSaved };
   }
 
-  @Put(':id')
+  @Put('/testimonials/:id')
   async update(
     @Param('id') id: string,
     @Body() updateTestimonialDto: UpdateTestimonialDto,
@@ -53,9 +53,16 @@ export class TestimonialsController {
     };
   }
 
-  @Delete(':id')
+  @Delete('/testimonials/:id')
   async remove(@Param('id') id: string) {
     const testimonialRemoved = await this.testimonialsService.remove(id);
     return { message: `Testimonial #${testimonialRemoved.id} was deleted` };
+  }
+
+  @Get('/testimonials-home')
+  async randomTestimonials() {
+    const testimonialsList =
+      await this.testimonialsService.getRandomTestimonials();
+    return { data: testimonialsList };
   }
 }
