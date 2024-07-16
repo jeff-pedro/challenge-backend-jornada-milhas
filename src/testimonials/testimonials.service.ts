@@ -45,4 +45,29 @@ export class TestimonialsService {
     this.testimonials.splice(testimonialIndex, 1);
     return savedTestimonial;
   }
+
+  private getRandomInt(maxNumber: number): number {
+    return Math.round(Math.random() * maxNumber);
+  }
+
+  async getRandomTestimonials(): Promise<Testimonial[]> {
+    const testimonialList: Testimonial[] = [];
+
+    if (this.testimonials.length === 0) {
+      throw new Error('Testimonials not found');
+    }
+
+    for (let i = 0; i < 3; ) {
+      const randomIntNumber = this.getRandomInt(this.testimonials.length - 1);
+
+      if (testimonialList.includes(this.testimonials[randomIntNumber])) {
+        continue;
+      }
+
+      testimonialList.push(this.testimonials[randomIntNumber]);
+      i++;
+    }
+
+    return testimonialList;
+  }
 }

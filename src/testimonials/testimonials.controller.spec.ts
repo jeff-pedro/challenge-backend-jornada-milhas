@@ -21,7 +21,7 @@ describe('TestimonialsController', () => {
 
   describe('findAll', () => {
     it('should return an array of testimonials', async () => {
-      const result = [
+      const testimonialsList = [
         {
           id: 'abcd',
           name: 'Foo',
@@ -29,24 +29,30 @@ describe('TestimonialsController', () => {
           testimonial: 'bla bla bla',
         },
       ];
-      jest.spyOn(testimonialsService, 'findAll').mockResolvedValue(result);
+      const result = { data: testimonialsList };
+      jest
+        .spyOn(testimonialsService, 'findAll')
+        .mockResolvedValue(testimonialsList);
 
-      expect(await testimonialsController.findAll()).toBe(result);
+      expect(await testimonialsController.findAll()).toEqual(result);
     });
   });
 
   describe('findOne', () => {
     it('should return an object of testimonial', async () => {
       const id = 'abcd';
-      const result = {
+      const testimonialObject = {
         id: 'abcd',
         name: 'Foo',
         photo: 'foo.jpg',
         testimonial: 'bla bla bla',
       };
-      jest.spyOn(testimonialsService, 'findById').mockResolvedValue(result);
+      const result = { data: testimonialObject };
+      jest
+        .spyOn(testimonialsService, 'findById')
+        .mockResolvedValue(testimonialObject);
 
-      expect(await testimonialsController.findOne(id)).toBe(result);
+      expect(await testimonialsController.findOne(id)).toEqual(result);
     });
   });
 
@@ -106,6 +112,38 @@ describe('TestimonialsController', () => {
         .mockResolvedValue(returnedObject);
 
       expect(await testimonialsController.remove(id)).toEqual(result);
+    });
+  });
+
+  describe('randomTestimonials', () => {
+    it('should return 3 random testimonials', async () => {
+      const result = [
+        {
+          id: 'abcd1',
+          name: 'Foo',
+          photo: 'foo.jpg',
+          testimonial: 'bla bla bla',
+        },
+        {
+          id: 'abcd2',
+          name: 'Bar',
+          photo: 'bar.jpg',
+          testimonial: 'bla bla bla',
+        },
+        {
+          id: 'abcd3',
+          name: 'Baz',
+          photo: 'baz.jpg',
+          testimonial: 'bla bla bla',
+        },
+      ];
+      jest
+        .spyOn(testimonialsService, 'getRandomTestimonials')
+        .mockResolvedValue(result);
+
+      const response = await testimonialsController.randomTestimonials();
+
+      expect(response.data).toHaveLength(3);
     });
   });
 });
