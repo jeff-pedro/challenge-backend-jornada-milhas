@@ -1,28 +1,28 @@
 import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { TestimonialsService } from '../../src/testimonials/testimonials.service';
-import TestimonialsModule from '../../src/testimonials/testimonials.module';
+import { DestinationsService } from '../../src/destinations/destinations.service';
+import { DestinationsModule } from '../../src/destinations/destinations.module';
 
-describe('TestimonialsController (e2e)', () => {
+describe('DestinationsController (e2e)', () => {
   let app: INestApplication;
-  const testimonialObject = {
+  const destinationObject = {
     id: 'abcd',
-    name: 'John',
-    photo: 'profile.jpg',
-    testimonial: 'Bla bla bla',
+    name: 'Berlin',
+    photo: 'berlin.jpg',
+    price: 6800,
   };
 
-  let testimonialsService: TestimonialsService;
+  let destinationsService: DestinationsService;
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
-      imports: [TestimonialsModule],
-      providers: [TestimonialsService],
+      imports: [DestinationsModule],
+      providers: [DestinationsService],
     }).compile();
 
-    testimonialsService =
-      moduleRef.get<TestimonialsService>(TestimonialsService);
+    destinationsService =
+      moduleRef.get<DestinationsService>(DestinationsService);
 
     app = moduleRef.createNestApplication();
 
@@ -37,10 +37,10 @@ describe('TestimonialsController (e2e)', () => {
     await app.init();
   });
 
-  describe('/GET testimonials', () => {
+  describe('/GET destinations', () => {
     it('should return status 200', async () => {
       return await request(app.getHttpServer())
-        .get('/testimonials')
+        .get('/destinations')
         .expect(200)
         .expect({
           data: [],
@@ -48,34 +48,34 @@ describe('TestimonialsController (e2e)', () => {
     });
   });
 
-  describe('/GET/:id testimonials', () => {
+  describe('/GET/:id destinations', () => {
     it('should return status 200', () => {
       jest
-        .spyOn(testimonialsService, 'findById')
-        .mockResolvedValue(testimonialObject);
-      return request(app.getHttpServer()).get('/testimonials/1234').expect(200);
+        .spyOn(destinationsService, 'findOne')
+        .mockResolvedValue(destinationObject);
+      return request(app.getHttpServer()).get('/destinations/1234').expect(200);
     });
   });
 
-  describe('/POST testimonials', () => {
+  describe('/POST destinations', () => {
     it('should return status 201', async () => {
       return request(app.getHttpServer())
-        .post('/testimonials')
+        .post('/destinations')
         .send({
-          name: 'John',
-          photo: 'profile.jpg',
-          testimonial: 'Bla bla bla ...',
+          name: 'Amsterdam',
+          photo: 'amsterdam.jpg',
+          price: 5900,
         })
         .expect(201);
     });
 
     it('should return an error when receiving invalid type data', async () => {
       const res = await request(app.getHttpServer())
-        .post('/testimonials')
+        .post('/destinations')
         .send({
-          name: 1,
           photo: true,
-          testimonial: false,
+          name: 1,
+          price: '4500.00',
         });
 
       expect(res.body).toEqual(
@@ -89,11 +89,11 @@ describe('TestimonialsController (e2e)', () => {
 
     it('should return an error when the property is empty', async () => {
       const res = await request(app.getHttpServer())
-        .post('/testimonials')
+        .post('/destinations')
         .send({
+          photo: 'amsterdam.jpg',
           name: '',
-          photo: 'profile.jpg',
-          testimonial: 'Bla bla bla ...',
+          price: 5800,
         });
 
       expect(res.body).toEqual(
@@ -107,11 +107,11 @@ describe('TestimonialsController (e2e)', () => {
 
     it('should return an error when the property does not exist', async () => {
       const res = await request(app.getHttpServer())
-        .post('/testimonials')
+        .post('/destinations')
         .send({
-          name: 'John',
-          photo: 'profile.jpg',
-          testimonial: 'Bla bla bla ...',
+          name: 'Berlin',
+          photo: 'berlin.jpg',
+          price: 4850,
           nonExistentProperty: '',
         });
 
@@ -125,27 +125,27 @@ describe('TestimonialsController (e2e)', () => {
     });
   });
 
-  describe('/PUT testimonials', () => {
+  describe('/PATCH destinations', () => {
     it('should return status 200', async () => {
       jest
-        .spyOn(testimonialsService, 'update')
-        .mockResolvedValue(testimonialObject);
+        .spyOn(destinationsService, 'update')
+        .mockResolvedValue(destinationObject);
       return request(app.getHttpServer())
-        .put('/testimonials/abcd')
+        .patch('/destinations/abcd')
         .send({
-          name: 'John Doe',
+          name: 'Pernambuco',
         })
         .expect(200);
     });
   });
 
-  describe('/DELETE testimonials', () => {
+  describe('/DELETE destinations', () => {
     it('should return status 200', async () => {
       jest
-        .spyOn(testimonialsService, 'remove')
-        .mockResolvedValue(testimonialObject);
+        .spyOn(destinationsService, 'remove')
+        .mockResolvedValue(destinationObject);
       return request(app.getHttpServer())
-        .delete('/testimonials/abcd')
+        .delete('/destinations/abcd')
         .expect(200);
     });
   });
