@@ -1,6 +1,6 @@
 import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { TestimonialsService } from '../../src/testimonials/testimonials.service';
 import TestimonialsModule from '../../src/testimonials/testimonials.module';
 
@@ -12,63 +12,142 @@ describe('TestimonialsController (e2e)', () => {
     photo: 'profile.jpg',
     testimonial: 'Bla bla bla',
   };
-  const testimonialsService = {
-    findAll: () => [testimonialObject],
-    findById: () => testimonialObject,
-    create: () => testimonialObject,
-    update: () => testimonialObject,
-    remove: () => testimonialObject,
-  };
+
+  let testimonialsService: TestimonialsService;
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       imports: [TestimonialsModule],
-    })
-      .overrideProvider(TestimonialsService)
-      .useValue(testimonialsService)
-      .compile();
+      providers: [TestimonialsService],
+    }).compile();
+
+    testimonialsService =
+      moduleRef.get<TestimonialsService>(TestimonialsService);
 
     app = moduleRef.createNestApplication();
+
+    app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+      }),
+    );
+
     await app.init();
   });
 
-  it('/GET testimonials', () => {
-    return request(app.getHttpServer())
-      .get('/testimonials')
-      .expect(200)
-      .expect({
-        data: testimonialsService.findAll(),
-      });
+  describe('/GET testimonials', () => {
+    it('should return status 200', async () => {
+      return await request(app.getHttpServer())
+        .get('/testimonials')
+        .expect(200)
+        .expect({
+          data: [],
+        });
+    });
   });
 
-  it('/GET/:id testimonials', () => {
-    return request(app.getHttpServer()).get('/testimonials/abcd').expect(200);
+  describe('/GET/:id testimonials', () => {
+    it('should return status 200', () => {
+      jest
+        .spyOn(testimonialsService, 'findById')
+        .mockResolvedValue(testimonialObject);
+      return request(app.getHttpServer()).get('/testimonials/1234').expect(200);
+    });
   });
 
-  it('/POST testimonials', async () => {
-    return request(app.getHttpServer())
-      .post('/testimonials')
-      .send({
-        name: 'John',
-        photo: 'profile.jpg',
-        testimonial: 'Bla bla bla ...',
-      })
-      .expect(201);
+  describe('/POST testimonials', () => {
+    it('should return status 201', async () => {
+      return request(app.getHttpServer())
+        .post('/testimonials')
+        .send({
+          name: 'John',
+          photo: 'profile.jpg',
+          testimonial: 'Bla bla bla ...',
+        })
+        .expect(201);
+    });
+
+    it('should return an error when receiving invalid type data', async () => {
+      const res = await request(app.getHttpServer())
+        .post('/testimonials')
+        .send({
+          name: 1,
+          photo: true,
+          testimonial: false,
+        });
+
+      expect(res.body).toEqual(
+        expect.objectContaining({
+          message: expect.any(Array),
+          error: expect.any(String),
+          statusCode: 400,
+        }),
+      );
+    });
+
+    it('should return an error when the property is empty', async () => {
+      const res = await request(app.getHttpServer())
+        .post('/testimonials')
+        .send({
+          name: '',
+          photo: 'profile.jpg',
+          testimonial: 'Bla bla bla ...',
+        });
+
+      expect(res.body).toEqual(
+        expect.objectContaining({
+          message: expect.any(Array),
+          error: expect.any(String),
+          statusCode: 400,
+        }),
+      );
+    });
+
+    it('should return an error when the property does not exist', async () => {
+      const res = await request(app.getHttpServer())
+        .post('/testimonials')
+        .send({
+          name: 'John',
+          photo: 'profile.jpg',
+          testimonial: 'Bla bla bla ...',
+          nonExistentProperty: '',
+        });
+
+      expect(res.body).toEqual(
+        expect.objectContaining({
+          message: expect.any(Array),
+          error: expect.any(String),
+          statusCode: 400,
+        }),
+      );
+    });
   });
 
-  it('/PUT testimonials', async () => {
-    return request(app.getHttpServer())
-      .put('/testimonials/abcd')
-      .send({
-        name: 'John Doe',
-      })
-      .expect(200);
+  describe('/PUT testimonials', () => {
+    it('should return status 200', async () => {
+      jest
+        .spyOn(testimonialsService, 'update')
+        .mockResolvedValue(testimonialObject);
+      return request(app.getHttpServer())
+        .put('/testimonials/abcd')
+        .send({
+          name: 'John Doe',
+        })
+        .expect(200);
+    });
   });
 
-  it('/DELETE testimonials', async () => {
-    return request(app.getHttpServer())
-      .delete('/testimonials/abcd')
-      .expect(200);
+  describe('/DELETE testimonials', () => {
+    it('should return status 200', async () => {
+      jest
+        .spyOn(testimonialsService, 'remove')
+        .mockResolvedValue(testimonialObject);
+      return request(app.getHttpServer())
+        .delete('/testimonials/abcd')
+        .expect(200);
+    });
   });
 
   afterAll(async () => {
