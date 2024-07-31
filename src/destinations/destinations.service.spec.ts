@@ -15,9 +15,11 @@ describe('DestinationsService', () => {
 
     destinationObject = {
       id: 'abcd',
-      photo: 'berlin.jpg',
       name: 'Berlin',
-      price: 7000,
+      photo_1: 'berlin1.jpg',
+      photo_2: 'berlin2.jpg',
+      target: 'Go to Berlin in 2025',
+      descriptive_text: 'Bla bla bla',
     };
 
     await service.create(destinationObject);
@@ -37,10 +39,12 @@ describe('DestinationsService', () => {
 
   it('should find all destinations by name', async () => {
     const destinationByName = {
-      id: 'aabb',
-      photo: 'paris.jpg',
+      id: 'bdca',
+      photo_1: 'paris1.jpg',
+      photo_2: 'paris2.jpg',
       name: 'Paris',
-      price: 9000,
+      target: 'Go to Paris in 2025',
+      descriptive_text: 'Bla bla bla',
     };
 
     await service.create(destinationByName);
@@ -53,7 +57,7 @@ describe('DestinationsService', () => {
   });
 
   it('should update one destination', async () => {
-    const destinationUpdated = { price: 9500 };
+    const destinationUpdated = { photo_1: 'photo1.jpg' };
     Object.assign(destinationObject, destinationUpdated);
 
     expect(await service.update('abcd', destinationUpdated)).toStrictEqual(

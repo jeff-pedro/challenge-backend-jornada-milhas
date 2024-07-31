@@ -19,9 +19,11 @@ describe('DestinationsController', () => {
 
     destinationObject = {
       id: 'abcd',
-      photo: 'berlin.jpg',
+      photo_1: 'berlin1.jpg',
+      photo_2: 'berlin2.jpg',
       name: 'Berlin',
-      price: 7000,
+      target: 'Go to Berlin in 2025',
+      descriptive_text: 'Bla bla bla',
     };
   });
 
@@ -39,7 +41,7 @@ describe('DestinationsController', () => {
 
   it('should call findAll route handler method', async () => {
     jest.spyOn(service, 'findAll').mockResolvedValue([destinationObject]);
-    expect(await controller.findAll()).toStrictEqual({
+    expect(await controller.findAll('')).toStrictEqual({
       data: [destinationObject],
     });
   });

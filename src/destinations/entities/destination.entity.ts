@@ -1,6 +1,8 @@
 export class Destination {
   id: string;
-  photo: string;
+  photo_1: string;
+  photo_2: string;
   name: string;
-  price: number;
+  target: string;
+  descriptive_text?: string;
 }
