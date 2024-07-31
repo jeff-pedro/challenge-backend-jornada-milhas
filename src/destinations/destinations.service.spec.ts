@@ -35,6 +35,19 @@ describe('DestinationsService', () => {
     expect(await service.findAll()).toStrictEqual([destinationObject]);
   });
 
+  it('should find all destinations by name', async () => {
+    const destinationByName = {
+      id: 'aabb',
+      photo: 'paris.jpg',
+      name: 'Paris',
+      price: 9000,
+    };
+
+    await service.create(destinationByName);
+
+    expect(await service.findAll('Paris')).toStrictEqual([destinationByName]);
+  });
+
   it('should find one destination by id', async () => {
     expect(await service.findOne('abcd')).toStrictEqual(destinationObject);
   });

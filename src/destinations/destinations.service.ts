@@ -11,7 +11,17 @@ export class DestinationsService {
     return this.destinations[this.destinations.length - 1];
   }
 
-  async findAll() {
+  async findAll(name?: string): Promise<Destination[]> {
+    if (name) {
+      const destinationSaved = this.destinations.filter(
+        (destination) => destination.name == name,
+      );
+
+      if (!destinationSaved[0]) throw new Error('Any destination was found');
+
+      return destinationSaved;
+    }
+
     return this.destinations;
   }
 
