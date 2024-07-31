@@ -1,15 +1,23 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class CreateDestinationDto {
   @IsNotEmpty()
   @IsString()
-  photo: string;
+  photo_1: string;
+
+  @IsNotEmpty()
+  @IsString()
+  photo_2: string;
 
   @IsNotEmpty()
   @IsString()
   name: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  price: number;
+  @IsString()
+  @MaxLength(160)
+  target: string;
+
+  @IsString()
+  descriptive_text?: string;
 }
