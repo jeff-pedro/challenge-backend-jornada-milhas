@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 import { DestinationsService } from './destinations.service';
@@ -26,9 +27,13 @@ export class DestinationsController {
   }
 
   @Get()
-  async findAll() {
-    const destinationList = await this.destinationsService.findAll();
-    return { data: destinationList };
+  async findAll(@Query('name') name: string) {
+    try {
+      const destinationList = await this.destinationsService.findAll(name);
+      return { data: destinationList };
+    } catch (error) {
+      return { message: error.message };
+    }
   }
 
   @Get(':id')
