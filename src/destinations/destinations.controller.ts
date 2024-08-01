@@ -12,6 +12,7 @@ import { v4 as uuid } from 'uuid';
 import { DestinationsService } from './destinations.service';
 import { CreateDestinationDto } from './dto/create-destination.dto';
 import { UpdateDestinationDto } from './dto/update-destination.dto';
+import { ListDestinationDto } from './dto/list-destination.dto';
 
 @Controller('destinations')
 export class DestinationsController {
@@ -38,8 +39,20 @@ export class DestinationsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const destinationObject = await this.destinationsService.findOne(id);
-    return { data: destinationObject };
+    try {
+      const destinationObject = await this.destinationsService.findOne(id);
+      return {
+        data: new ListDestinationDto(
+          destinationObject.photo_1,
+          destinationObject.photo_2,
+          destinationObject.name,
+          destinationObject.target,
+          destinationObject.descriptive_text,
+        ),
+      };
+    } catch (error) {
+      return { message: error.message };
+    }
   }
 
   @Patch(':id')

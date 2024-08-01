@@ -9,8 +9,10 @@ describe('DestinationsController (e2e)', () => {
   const destinationObject = {
     id: 'abcd',
     name: 'Berlin',
-    photo: 'berlin.jpg',
-    price: 6800,
+    photo_1: 'berlin1.jpg',
+    photo_2: 'berlin2.jpg',
+    target: 'Go to Berlin in 2025',
+    descriptive_text: 'Bla bla bla...',
   };
 
   let destinationsService: DestinationsService;
@@ -63,8 +65,10 @@ describe('DestinationsController (e2e)', () => {
         .post('/destinations')
         .send({
           name: 'Amsterdam',
-          photo: 'amsterdam.jpg',
-          price: 5900,
+          photo_1: 'amsterdam1.jpg',
+          photo_2: 'amsterdam2.jpg',
+          target: 'Go to Amsterdam in 2030',
+          descriptive_text: 'Bla bla bla...',
         })
         .expect(201);
     });

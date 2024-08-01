@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { DestinationsController } from './destinations.controller';
 import { DestinationsService } from './destinations.service';
 import { Destination } from './entities/destination.entity';
+import { ListDestinationDto } from './dto/list-destination.dto';
 
 describe('DestinationsController', () => {
   let controller: DestinationsController;
@@ -47,9 +48,16 @@ describe('DestinationsController', () => {
   });
 
   it('should call findOne route handler method', async () => {
+    const listDestination = new ListDestinationDto(
+      destinationObject.photo_1,
+      destinationObject.photo_2,
+      destinationObject.name,
+      destinationObject.target,
+      destinationObject.descriptive_text,
+    );
     jest.spyOn(service, 'findOne').mockResolvedValue(destinationObject);
     expect(await controller.findOne('abcd')).toStrictEqual({
-      data: destinationObject,
+      data: listDestination,
     });
   });
 
