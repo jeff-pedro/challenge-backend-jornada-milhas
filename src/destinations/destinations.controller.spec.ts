@@ -3,6 +3,7 @@ import { DestinationsController } from './destinations.controller';
 import { DestinationsService } from './destinations.service';
 import { Destination } from './entities/destination.entity';
 import { ListDestinationDto } from './dto/list-destination.dto';
+import { ConfigModule } from '@nestjs/config';
 
 describe('DestinationsController', () => {
   let controller: DestinationsController;
@@ -13,6 +14,7 @@ describe('DestinationsController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [DestinationsController],
       providers: [DestinationsService],
+      imports: [ConfigModule.forRoot()],
     }).compile();
 
     controller = module.get<DestinationsController>(DestinationsController);

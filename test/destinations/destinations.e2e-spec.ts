@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { DestinationsService } from '../../src/destinations/destinations.service';
 import { DestinationsModule } from '../../src/destinations/destinations.module';
+import { ConfigModule } from '@nestjs/config';
 
 describe('DestinationsController (e2e)', () => {
   let app: INestApplication;
@@ -19,7 +20,7 @@ describe('DestinationsController (e2e)', () => {
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
-      imports: [DestinationsModule],
+      imports: [DestinationsModule, ConfigModule.forRoot()],
       providers: [DestinationsService],
     }).compile();
 

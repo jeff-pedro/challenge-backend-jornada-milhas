@@ -1,14 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateDestinationDto } from './dto/update-destination.dto';
 import { Destination } from './entities/destination.entity';
+import { ConfigService } from '@nestjs/config';
+import { CohereClient } from 'cohere-ai';
 
 @Injectable()
 export class DestinationsService {
   private destinations: Destination[] = [];
 
+  constructor(private configService: ConfigService) {}
+
   async create(createDestinationDto: Destination) {
+    if (!createDestinationDto.descriptive_text) {
+      const textDescription = `Faça um resumo sobre ${createDestinationDto.name} enfatizando o 
+      porque este lugar é incrível. Utilize uma linguagem 
+      informal e até 100 caracteres no máximo em cada parágrafo. 
+      Crie 2 parágrafos neste resumo. O texto deve ser escrito em português do Brasil.`;
+
+      createDestinationDto.descriptive_text =
+        await this.generateText(textDescription);
+    }
+
     this.destinations.push(createDestinationDto);
     return this.destinations[this.destinations.length - 1];
+  }
+
+  private async generateText(prompt: string): Promise<string> {
+    const token = this.configService.get<string>('COHERE_API_KEY');
+
+    const cohere = new CohereClient({ token });
+
+    const chat = await cohere.chat({
+      model: 'command',
+      message: prompt,
+    });
+
+    return chat.text;
   }
 
   async findAll(name?: string): Promise<Destination[]> {
