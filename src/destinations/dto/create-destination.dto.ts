@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class CreateDestinationDto {
   @IsNotEmpty()
@@ -19,5 +19,7 @@ export class CreateDestinationDto {
   target: string;
 
   @IsString()
+  @IsNotEmpty()
+  @IsOptional()
   descriptive_text?: string;
 }
