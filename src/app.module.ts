@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DestinationsModule } from './destinations/destinations.module';
 import TestimonialsModule from './testimonials/testimonials.module';
 import configuration from './config/configuration';
+import { validate } from './validations/env.validation';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import configuration from './config/configuration';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
+      validate,
     }),
   ],
 })
