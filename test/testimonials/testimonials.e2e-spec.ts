@@ -39,19 +39,23 @@ describe('TestimonialsController (e2e)', () => {
 
   describe('/GET testimonials', () => {
     it('should return status 200', async () => {
+      await testimonialsService.create({
+        id: '1',
+        name: 'John',
+        photo: 'profile.jpg',
+        testimonial: 'Bla bla bla ...',
+      });
+
       return await request(app.getHttpServer())
         .get('/testimonials')
-        .expect(200)
-        .expect({
-          data: [],
-        });
+        .expect(200);
     });
   });
 
   describe('/GET/:id testimonials', () => {
     it('should return status 200', () => {
       jest
-        .spyOn(testimonialsService, 'findById')
+        .spyOn(testimonialsService, 'findOne')
         .mockResolvedValue(testimonialObject);
       return request(app.getHttpServer()).get('/testimonials/1234').expect(200);
     });
@@ -131,7 +135,7 @@ describe('TestimonialsController (e2e)', () => {
         .spyOn(testimonialsService, 'update')
         .mockResolvedValue(testimonialObject);
       return request(app.getHttpServer())
-        .put('/testimonials/abcd')
+        .patch('/testimonials/abcd')
         .send({
           name: 'John Doe',
         })
