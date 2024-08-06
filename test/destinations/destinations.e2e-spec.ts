@@ -20,7 +20,12 @@ describe('DestinationsController (e2e)', () => {
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
-      imports: [DestinationsModule, ConfigModule.forRoot()],
+      imports: [
+        DestinationsModule,
+        ConfigModule.forRoot({
+          isGlobal: true,
+        }),
+      ],
       providers: [DestinationsService],
     }).compile();
 

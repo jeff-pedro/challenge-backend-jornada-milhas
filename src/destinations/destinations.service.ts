@@ -8,7 +8,14 @@ import { CohereClient } from 'cohere-ai';
 export class DestinationsService {
   private destinations: Destination[] = [];
 
-  constructor(private configService: ConfigService) {}
+  constructor(
+    private configService: ConfigService<
+      {
+        accessKeys: { cohereApiKey: string };
+      },
+      true
+    >,
+  ) {}
 
   async create(createDestinationDto: Destination) {
     if (!createDestinationDto.descriptive_text) {
@@ -26,7 +33,9 @@ export class DestinationsService {
   }
 
   private async generateText(prompt: string): Promise<string> {
-    const token = this.configService.get<string>('COHERE_API_KEY');
+    const token = this.configService.get('accessKeys.cohereApiKey', {
+      infer: true,
+    });
 
     const cohere = new CohereClient({ token });
 
