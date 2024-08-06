@@ -4,8 +4,8 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
-  Put,
 } from '@nestjs/common';
 import { TestimonialsService } from './testimonials.service';
 import { CreateTestimonialDto } from './dto/create-testimonial.dto';
@@ -18,11 +18,11 @@ export class TestimonialsController {
 
   @Post('/testimonials')
   async create(@Body() createTestimonialDto: CreateTestimonialDto) {
-    await this.testimonialsService.create({
+    const testimonialSaved = await this.testimonialsService.create({
       id: uuid(),
       ...createTestimonialDto,
     });
-    return { message: 'Testimonial was created' };
+    return { data: testimonialSaved };
   }
 
   @Get('/testimonials')
@@ -33,11 +33,11 @@ export class TestimonialsController {
 
   @Get('/testimonials/:id')
   async findOne(@Param('id') id: string): Promise<object> {
-    const testimonialSaved = await this.testimonialsService.findById(id);
+    const testimonialSaved = await this.testimonialsService.findOne(id);
     return { data: testimonialSaved };
   }
 
-  @Put('/testimonials/:id')
+  @Patch('/testimonials/:id')
   async update(
     @Param('id') id: string,
     @Body() updateTestimonialDto: UpdateTestimonialDto,

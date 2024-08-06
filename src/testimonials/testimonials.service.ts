@@ -1,38 +1,44 @@
-import { Injectable } from '@nestjs/common';
-import { Testimonial } from './interfaces/testimonial.interface';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { Testimonial } from './entities/testimonial.entity';
 
 @Injectable()
 export class TestimonialsService {
   private readonly testimonials: Testimonial[] = [];
   private id: number = 0;
 
-  async create(testimonial: Testimonial): Promise<void> {
-    this.testimonials.push(testimonial);
+  async create(testimonial: Testimonial): Promise<Testimonial> {
+    try {
+      this.testimonials.push(testimonial);
+      return testimonial;
+    } catch (error) {
+      throw new BadRequestException('Something bad happened');
+    }
   }
 
   async findAll(): Promise<Testimonial[]> {
+    if (this.testimonials.length === 0) {
+      throw new NotFoundException('Any testimonial was found');
+    }
+
     return this.testimonials;
   }
 
-  async findById(id: string): Promise<Testimonial> {
-    const savedTestimonial = await this.testimonials.find(
-      (testimonial: any) => testimonial.id === id,
-    );
-
-    if (!savedTestimonial) {
-      throw new Error('Testimonial not found');
-    }
-
-    return savedTestimonial;
+  async findOne(id: string): Promise<Testimonial> {
+    return this.findTestimonial(id);
   }
 
   async update(id: string, dataToUpdate: Partial<Testimonial>) {
-    const testimonialToUpdate = await this.findById(id);
+    const testimonialToUpdate = await this.findTestimonial(id);
 
     Object.entries(dataToUpdate).forEach(([key, value]) => {
       if (key === 'id') {
         return;
       }
+
       Object.assign(testimonialToUpdate, { [key]: value });
     });
 
@@ -40,10 +46,22 @@ export class TestimonialsService {
   }
 
   async remove(id: string): Promise<Testimonial> {
-    const savedTestimonial = await this.findById(id);
+    const savedTestimonial = await this.findTestimonial(id);
     const testimonialIndex = this.testimonials.indexOf(savedTestimonial);
     this.testimonials.splice(testimonialIndex, 1);
     return savedTestimonial;
+  }
+
+  private async findTestimonial(id: string): Promise<Testimonial> {
+    const testimonial = await this.testimonials.find(
+      (testimonial) => testimonial.id === id,
+    );
+
+    if (!testimonial) {
+      throw new NotFoundException('Testimonial not found');
+    }
+
+    return testimonial;
   }
 
   private getRandomInt(maxNumber: number): number {
@@ -54,7 +72,7 @@ export class TestimonialsService {
     const testimonialList: Testimonial[] = [];
 
     if (this.testimonials.length === 0) {
-      throw new Error('Testimonials not found');
+      throw new NotFoundException('Testimonials not found');
     }
 
     for (let i = 0; i < 3; ) {
