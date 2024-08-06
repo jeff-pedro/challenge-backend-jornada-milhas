@@ -1,4 +1,4 @@
-export interface Testimonial {
+export class Testimonial {
   id: string;
   name: string;
   photo: string;

@@ -29,30 +29,22 @@ export class DestinationsController {
 
   @Get()
   async findAll(@Query('name') name: string) {
-    try {
-      const destinationList = await this.destinationsService.findAll(name);
-      return { data: destinationList };
-    } catch (error) {
-      return { message: error.message };
-    }
+    const destinationList = await this.destinationsService.findAll(name);
+    return { data: destinationList };
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    try {
-      const destinationObject = await this.destinationsService.findOne(id);
-      return {
-        data: new ListDestinationDto(
-          destinationObject.photo_1,
-          destinationObject.photo_2,
-          destinationObject.name,
-          destinationObject.target,
-          destinationObject.descriptive_text,
-        ),
-      };
-    } catch (error) {
-      return { message: error.message };
-    }
+    const destinationObject = await this.destinationsService.findOne(id);
+    return {
+      data: new ListDestinationDto(
+        destinationObject.photo_1,
+        destinationObject.photo_2,
+        destinationObject.name,
+        destinationObject.target,
+        destinationObject.descriptive_text,
+      ),
+    };
   }
 
   @Patch(':id')

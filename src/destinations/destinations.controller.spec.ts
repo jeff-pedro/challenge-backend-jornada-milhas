@@ -63,6 +63,20 @@ describe('DestinationsController', () => {
     });
   });
 
+  it('should call findOne route handler method', async () => {
+    const listDestination = new ListDestinationDto(
+      destinationObject.photo_1,
+      destinationObject.photo_2,
+      destinationObject.name,
+      destinationObject.target,
+      destinationObject.descriptive_text,
+    );
+    jest.spyOn(service, 'findOne').mockResolvedValue(destinationObject);
+    expect(await controller.findOne('abcd')).toStrictEqual({
+      data: listDestination,
+    });
+  });
+
   it('should call update route handler method', async () => {
     jest.spyOn(service, 'update').mockResolvedValue(destinationObject);
 

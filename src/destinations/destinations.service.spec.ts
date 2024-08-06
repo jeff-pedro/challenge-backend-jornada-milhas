@@ -3,6 +3,7 @@ import { DestinationsService } from './destinations.service';
 import { Destination } from './entities/destination.entity';
 import { ConfigService } from '@nestjs/config';
 import { CohereClient } from 'cohere-ai';
+import { NotFoundException } from '@nestjs/common';
 
 describe('DestinationsService', () => {
   let service: DestinationsService;
@@ -115,6 +116,13 @@ describe('DestinationsService', () => {
 
       expect(result).toEqual([destination1]);
     });
+
+    it('should throw an error if destination name not found', async () => {
+      const result = service.findAll('Test');
+
+      expect(result).rejects.toBeInstanceOf(NotFoundException);
+      expect(result).rejects.toThrow('Any destination was found');
+    });
   });
 
   describe('findOne', () => {
@@ -135,9 +143,10 @@ describe('DestinationsService', () => {
     });
 
     it('should throw an error if destination not found', async () => {
-      await expect(service.findOne('invalid-id')).rejects.toThrow(
-        'Destination not found',
-      );
+      const result = service.findOne('invalid-id');
+
+      expect(result).rejects.toBeInstanceOf(NotFoundException);
+      expect(result).rejects.toThrow('Destination not found');
     });
   });
 
@@ -158,6 +167,15 @@ describe('DestinationsService', () => {
 
       expect(result).toEqual({ ...destination, ...updateDto });
     });
+
+    it('should throw an error if destination not found', async () => {
+      const result = service.update('invalid-id', {
+        name: 'Some destination ',
+      });
+
+      expect(result).rejects.toBeInstanceOf(NotFoundException);
+      expect(result).rejects.toThrow('Destination not found');
+    });
   });
 
   describe('remove', () => {
@@ -176,6 +194,13 @@ describe('DestinationsService', () => {
 
       expect(result).toEqual(destination);
       expect(await service.findAll()).toEqual([]);
+    });
+
+    it('should throw an error if destination not found', async () => {
+      const result = service.remove('invalid-id');
+
+      expect(result).rejects.toBeInstanceOf(NotFoundException);
+      expect(result).rejects.toThrow('Destination not found');
     });
   });
 });

@@ -49,7 +49,7 @@ describe('TestimonialsController', () => {
       };
       const result = { data: testimonialObject };
       jest
-        .spyOn(testimonialsService, 'findById')
+        .spyOn(testimonialsService, 'findOne')
         .mockResolvedValue(testimonialObject);
 
       expect(await testimonialsController.findOne(id)).toEqual(result);
@@ -58,16 +58,17 @@ describe('TestimonialsController', () => {
 
   describe('create', () => {
     it('should return an object with a successful message', async () => {
-      const result = { message: 'Testimonial was created' };
       const object = {
         id: 'abcd',
         name: 'Foo',
         photo: 'foo.jpg',
         testimonial: 'bla bla bla',
       };
-      jest.spyOn(testimonialsService, 'create').mockResolvedValue(undefined);
+      jest.spyOn(testimonialsService, 'create').mockResolvedValue(object);
 
-      expect(await testimonialsController.create(object)).toEqual(result);
+      expect(await testimonialsController.create(object)).toEqual({
+        data: object,
+      });
     });
   });
 
