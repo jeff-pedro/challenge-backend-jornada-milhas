@@ -6,4 +6,4 @@ import { TestimonialsService } from './testimonials.service';
   controllers: [TestimonialsController],
   providers: [TestimonialsService],
 })
-export default class TestimonialsModule {}
+export class TestimonialsModule {}
