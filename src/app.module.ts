@@ -8,6 +8,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { Testimonial } from './testimonials/testimonial.entity';
 import { Destination } from './destinations/destination.entity';
+import { UsersModule } from './users/users.module';
+import { User } from './users/user.entity';
 
 @Module({
   imports: [
@@ -25,9 +27,10 @@ import { Destination } from './destinations/destination.entity';
       username: 'root',
       password: 'root',
       database: 'jornadamilhas',
-      entities: [Testimonial, Destination],
+      entities: [User, Testimonial, Destination],
       synchronize: true,
     }),
+    UsersModule,
   ],
 })
 export class AppModule {
