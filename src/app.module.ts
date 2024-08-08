@@ -7,6 +7,7 @@ import { validate } from './validations/env.validation';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { Testimonial } from './testimonials/testimonial.entity';
+import { Destination } from './destinations/destination.entity';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { Testimonial } from './testimonials/testimonial.entity';
       username: 'root',
       password: 'root',
       database: 'jornadamilhas',
-      entities: [Testimonial],
+      entities: [Testimonial, Destination],
       synchronize: true,
     }),
   ],

@@ -5,15 +5,19 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { UpdateDestinationDto } from './dto/update-destination.dto';
-import { Destination } from './entities/destination.entity';
+import { Destination } from './destination.entity';
 import { ConfigService } from '@nestjs/config';
 import { CohereClient, CohereError, CohereTimeoutError } from 'cohere-ai';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class DestinationsService {
   private destinations: Destination[] = [];
 
   constructor(
+    @InjectRepository(Destination)
+    private destinationRepository: Repository<Destination>,
     private configService: ConfigService<
       {
         accessKeys: { cohereApiKey: string };
@@ -23,28 +27,21 @@ export class DestinationsService {
   ) {}
 
   async create(createDestinationDto: Destination) {
-    if (!createDestinationDto.descriptive_text) {
+    if (!createDestinationDto.descriptiveText) {
       const textDescription = `Faça um resumo sobre ${createDestinationDto.name} enfatizando o 
       porque este lugar é incrível. Utilize uma linguagem 
       informal e até 100 caracteres no máximo em cada parágrafo. 
       Crie 2 parágrafos neste resumo. O texto deve ser escrito em português do Brasil.`;
 
-      createDestinationDto.descriptive_text =
+      createDestinationDto.descriptiveText =
         await this.generateText(textDescription);
     }
 
-    this.destinations.push(createDestinationDto);
-    return this.destinations[this.destinations.length - 1];
+    return this.destinationRepository.save(createDestinationDto);
   }
 
   async findAll(name?: string): Promise<Destination[]> {
-    if (!name) {
-      return this.destinations;
-    }
-
-    const destinationSaved = this.destinations.filter(
-      (destination) => destination.name === name,
-    );
+    const destinationSaved = await this.destinationRepository.findBy({ name });
 
     if (destinationSaved.length === 0) {
       throw new NotFoundException('Any destination was found');
@@ -53,44 +50,36 @@ export class DestinationsService {
     return destinationSaved;
   }
 
-  async update(id: string, updateDestinationDto: UpdateDestinationDto) {
-    const destinationUpdated = await this.findDestination(id);
+  async findOne(id: string): Promise<Destination> {
+    const destinationSaved = await this.destinationRepository.findOneBy({ id });
 
-    Object.entries(updateDestinationDto).forEach(([key, value]) => {
-      if (key === 'id') {
-        return;
-      }
-
-      Object.assign(destinationUpdated, { [key]: value });
-    });
-
-    return destinationUpdated;
-  }
-
-  async remove(id: string) {
-    const destinationSaved = await this.findDestination(id);
-
-    this.destinations = this.destinations.filter(
-      (destination) => destination.id !== id,
-    );
+    if (!destinationSaved) {
+      throw new NotFoundException('Destination not found');
+    }
 
     return destinationSaved;
   }
 
-  private async findDestination(id: string): Promise<Destination> {
-    const destination = this.destinations.find(
-      (destination) => destination.id === id,
+  async update(
+    id: string,
+    updateDestinationDto: UpdateDestinationDto,
+  ): Promise<void> {
+    const destinationToUpdate = await this.destinationRepository.update(
+      { id },
+      updateDestinationDto,
     );
 
-    if (!destination) {
+    if (destinationToUpdate.affected === 0) {
       throw new NotFoundException('Destination not found');
     }
-
-    return destination;
   }
 
-  async findOne(id: string) {
-    return this.findDestination(id);
+  async remove(id: string): Promise<void> {
+    const destinationToDelete = await this.destinationRepository.delete(id);
+
+    if (destinationToDelete.affected === 0) {
+      throw new NotFoundException('Destination not found');
+    }
   }
 
   private async generateText(prompt: string): Promise<string> {

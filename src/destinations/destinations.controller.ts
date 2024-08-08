@@ -13,6 +13,7 @@ import { DestinationsService } from './destinations.service';
 import { CreateDestinationDto } from './dto/create-destination.dto';
 import { UpdateDestinationDto } from './dto/update-destination.dto';
 import { ListDestinationDto } from './dto/list-destination.dto';
+import { Destination } from './destination.entity';
 
 @Controller('destinations')
 export class DestinationsController {
@@ -20,10 +21,11 @@ export class DestinationsController {
 
   @Post()
   async create(@Body() createDestinationDto: CreateDestinationDto) {
-    const destinationSaved = await this.destinationsService.create({
-      id: uuid(),
-      ...createDestinationDto,
-    });
+    const destination = new Destination();
+    Object.assign(destination, { ...createDestinationDto, id: uuid() });
+
+    const destinationSaved = await this.destinationsService.create(destination);
+
     return { data: destinationSaved };
   }
 
@@ -35,14 +37,15 @@ export class DestinationsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const destinationObject = await this.destinationsService.findOne(id);
+    const destination = await this.destinationsService.findOne(id);
+
     return {
       data: new ListDestinationDto(
-        destinationObject.photo_1,
-        destinationObject.photo_2,
-        destinationObject.name,
-        destinationObject.target,
-        destinationObject.descriptive_text,
+        destination.photo1,
+        destination.photo2,
+        destination.name,
+        destination.target,
+        destination.descriptiveText,
       ),
     };
   }
@@ -52,16 +55,13 @@ export class DestinationsController {
     @Param('id') id: string,
     @Body() updateDestinationDto: UpdateDestinationDto,
   ) {
-    const destinationUpdated = await this.destinationsService.update(
-      id,
-      updateDestinationDto,
-    );
-    return { message: 'Destination updated', data: destinationUpdated };
+    await this.destinationsService.update(id, updateDestinationDto);
+    return { message: `Destination #${id} was updated` };
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    const destinationRemoved = await this.destinationsService.remove(id);
-    return { message: `Destination #${destinationRemoved.id} was deleted` };
+    await this.destinationsService.remove(id);
+    return { message: `Destination #${id} was deleted` };
   }
 }

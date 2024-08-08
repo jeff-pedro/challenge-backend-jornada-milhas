@@ -3,11 +3,11 @@ import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 export class CreateDestinationDto {
   @IsNotEmpty()
   @IsString()
-  photo_1: string;
+  photo1: string;
 
   @IsNotEmpty()
   @IsString()
-  photo_2: string;
+  photo2: string;
 
   @IsNotEmpty()
   @IsString()
@@ -21,5 +21,5 @@ export class CreateDestinationDto {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
-  descriptive_text?: string;
+  descriptiveText?: string;
 }
