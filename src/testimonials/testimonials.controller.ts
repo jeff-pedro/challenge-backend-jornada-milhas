@@ -10,8 +10,7 @@ import {
 import { TestimonialsService } from './testimonials.service';
 import { CreateTestimonialDto } from './dto/create-testimonial.dto';
 import { UpdateTestimonialDto } from './dto/update-testimonial.dto';
-import { v4 as uuid } from 'uuid';
-import { Testimonial } from './testimonial.entity';
+import { ListTestimonialDto } from './dto/list-testimonial.dto';
 
 @Controller()
 export class TestimonialsController {
@@ -21,12 +20,18 @@ export class TestimonialsController {
   async create(
     @Body() createTestimonialDto: CreateTestimonialDto,
   ): Promise<{ data: object }> {
-    const testimonial = new Testimonial();
-    Object.assign(testimonial, { ...createTestimonialDto, id: uuid() });
+    const testimonialSaved =
+      await this.testimonialsService.create(createTestimonialDto);
 
-    const testimonialSaved = await this.testimonialsService.create(testimonial);
-
-    return { data: testimonialSaved };
+    return {
+      data: new ListTestimonialDto(
+        testimonialSaved.id,
+        testimonialSaved.user.toString(),
+        testimonialSaved.name,
+        testimonialSaved.photo,
+        testimonialSaved.testimonial,
+      ),
+    };
   }
 
   @Get('/testimonials')
@@ -38,7 +43,15 @@ export class TestimonialsController {
   @Get('/testimonials/:id')
   async findOne(@Param('id') id: string): Promise<{ data: object | null }> {
     const testimonialSaved = await this.testimonialsService.findOne(id);
-    return { data: testimonialSaved };
+    return {
+      data: new ListTestimonialDto(
+        testimonialSaved.id,
+        testimonialSaved.user?.toString(),
+        testimonialSaved.name,
+        testimonialSaved.photo,
+        testimonialSaved.testimonial,
+      ),
+    };
   }
 
   @Patch('/testimonials/:id')

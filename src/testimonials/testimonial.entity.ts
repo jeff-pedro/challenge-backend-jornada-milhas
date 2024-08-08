@@ -1,8 +1,11 @@
+import { User } from 'src/users/user.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -29,4 +32,13 @@ export class Testimonial {
 
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt: string;
+
+  @ManyToOne(() => User, (user) => user.testimonials)
+  @JoinColumn([
+    {
+      name: 'user_id',
+      referencedColumnName: 'id',
+    },
+  ])
+  user: User;
 }

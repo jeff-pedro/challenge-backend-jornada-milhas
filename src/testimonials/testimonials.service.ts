@@ -6,6 +6,7 @@ import {
 import { Testimonial } from './testimonial.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateTestimonialDto } from './dto/create-testimonial.dto';
 
 @Injectable()
 export class TestimonialsService {
@@ -14,8 +15,15 @@ export class TestimonialsService {
     private testimonialRepository: Repository<Testimonial>,
   ) {}
 
-  async create(testimonial: Testimonial): Promise<Testimonial> {
+  async create(
+    createTestimonialDto: CreateTestimonialDto,
+  ): Promise<Testimonial> {
     try {
+      const testimonial = new Testimonial();
+      Object.assign(testimonial, {
+        ...createTestimonialDto,
+        user: createTestimonialDto.userId,
+      });
       return this.testimonialRepository.save(testimonial);
     } catch (error) {
       throw new BadRequestException('Something bad happened');
@@ -32,8 +40,14 @@ export class TestimonialsService {
     return testimonialSaved;
   }
 
-  async findOne(id: string): Promise<Testimonial | null> {
-    return this.testimonialRepository.findOneBy({ id });
+  async findOne(id: string): Promise<Testimonial> {
+    const testimonialSaved = await this.testimonialRepository.findOneBy({ id });
+
+    if (!testimonialSaved) {
+      throw new NotFoundException('Testimonials not found');
+    }
+
+    return testimonialSaved;
   }
 
   async update(id: string, dataToUpdate: Partial<Testimonial>): Promise<void> {

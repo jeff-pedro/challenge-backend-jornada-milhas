@@ -1,8 +1,10 @@
+import { Testimonial } from 'src/testimonials/testimonial.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -35,4 +37,7 @@ export class User {
 
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt: string;
+
+  @OneToMany(() => Testimonial, (testimonial) => testimonial.user)
+  testimonials: Testimonial[];
 }
