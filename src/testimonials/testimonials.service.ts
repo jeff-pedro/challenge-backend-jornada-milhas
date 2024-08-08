@@ -9,9 +9,6 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class TestimonialsService {
-  private readonly testimonials: Testimonial[] = [];
-  private id: number = 0;
-
   constructor(
     @InjectRepository(Testimonial)
     private testimonialRepository: Repository<Testimonial>,
@@ -39,7 +36,7 @@ export class TestimonialsService {
     return this.testimonialRepository.findOneBy({ id });
   }
 
-  async update(id: string, dataToUpdate: Partial<Testimonial>) {
+  async update(id: string, dataToUpdate: Partial<Testimonial>): Promise<void> {
     const testimonialToUpdate = await this.testimonialRepository.update(
       { id },
       dataToUpdate,

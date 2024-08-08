@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Testimonial {
@@ -13,4 +20,13 @@ export class Testimonial {
 
   @Column()
   testimonial: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: string;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: string;
+
+  @DeleteDateColumn({ name: 'deleted_at' })
+  deletedAt: string;
 }
