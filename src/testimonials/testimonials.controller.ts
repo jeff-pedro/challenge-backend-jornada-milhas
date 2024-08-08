@@ -42,27 +42,25 @@ export class TestimonialsController {
     @Param('id') id: string,
     @Body() updateTestimonialDto: UpdateTestimonialDto,
   ) {
-    const testimonialUpdated = await this.testimonialsService.update(
-      id,
-      updateTestimonialDto,
-    );
+    await this.testimonialsService.update(id, updateTestimonialDto);
 
     return {
-      message: 'Testimonial updated',
-      data: testimonialUpdated,
+      message: `Testimonial #${id} was updated`,
     };
   }
 
   @Delete('/testimonials/:id')
   async remove(@Param('id') id: string) {
-    const testimonialRemoved = await this.testimonialsService.remove(id);
-    return { message: `Testimonial #${testimonialRemoved.id} was deleted` };
+    await this.testimonialsService.remove(id);
+    return { message: `Testimonial #${id} was deleted` };
   }
 
   @Get('/testimonials-home')
-  async randomTestimonials() {
-    const testimonialsList =
-      await this.testimonialsService.getRandomTestimonials();
-    return { data: testimonialsList };
+  async pick() {
+    const testimonials = await this.testimonialsService.findAll({
+      order: { id: 'ASC' },
+      take: 3,
+    });
+    return { data: testimonials };
   }
 }
