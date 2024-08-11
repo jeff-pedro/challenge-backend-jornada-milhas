@@ -12,23 +12,23 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
     return this.userRepository.save(createUserDto);
   }
 
-  findAll() {
+  async findAll() {
     return this.userRepository.find();
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     return this.userRepository.findOneBy({ id });
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     return this.userRepository.update({ id }, updateUserDto);
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     return this.userRepository.delete(id);
   }
 }

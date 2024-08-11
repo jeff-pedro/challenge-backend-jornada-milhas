@@ -1,4 +1,4 @@
-import { Testimonial } from 'src/testimonials/testimonial.entity';
+import { Testimonial } from '../testimonials/testimonial.entity';
 import {
   Column,
   CreateDateColumn,
