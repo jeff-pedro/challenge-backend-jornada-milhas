@@ -11,6 +11,7 @@ import { TestimonialsService } from './testimonials.service';
 import { CreateTestimonialDto } from './dto/create-testimonial.dto';
 import { UpdateTestimonialDto } from './dto/update-testimonial.dto';
 import { ListTestimonialDto } from './dto/list-testimonial.dto';
+import { Testimonial } from './testimonial.entity';
 
 @Controller()
 export class TestimonialsController {
@@ -19,16 +20,14 @@ export class TestimonialsController {
   @Post('/testimonials')
   async create(
     @Body() createTestimonialDto: CreateTestimonialDto,
-  ): Promise<{ data: object }> {
+  ): Promise<{ data: object | void }> {
     const testimonialSaved =
       await this.testimonialsService.create(createTestimonialDto);
 
     return {
       data: new ListTestimonialDto(
         testimonialSaved.id,
-        testimonialSaved.user.toString(),
-        testimonialSaved.name,
-        testimonialSaved.photo,
+        testimonialSaved.userId,
         testimonialSaved.testimonial,
       ),
     };
@@ -41,16 +40,10 @@ export class TestimonialsController {
   }
 
   @Get('/testimonials/:id')
-  async findOne(@Param('id') id: string): Promise<{ data: object | null }> {
+  async findOne(@Param('id') id: string) {
     const testimonialSaved = await this.testimonialsService.findOne(id);
     return {
-      data: new ListTestimonialDto(
-        testimonialSaved.id,
-        testimonialSaved.user?.toString(),
-        testimonialSaved.name,
-        testimonialSaved.photo,
-        testimonialSaved.testimonial,
-      ),
+      data: testimonialSaved,
     };
   }
 
@@ -73,11 +66,8 @@ export class TestimonialsController {
   }
 
   @Get('/testimonials-home')
-  async pick(): Promise<{ data: object[] }> {
-    const testimonials = await this.testimonialsService.findAll({
-      order: { id: 'ASC' },
-      take: 3,
-    });
+  async pick(): Promise<{ data: Testimonial[] }> {
+    const testimonials = await this.testimonialsService.getRandomTestimonials();
     return { data: testimonials };
   }
 }

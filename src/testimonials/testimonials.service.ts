@@ -1,33 +1,41 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Testimonial } from './testimonial.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateTestimonialDto } from './dto/create-testimonial.dto';
+import { UpdateTestimonialDto } from './dto/update-testimonial.dto';
+import { User } from '../users/user.entity';
 
 @Injectable()
 export class TestimonialsService {
   constructor(
     @InjectRepository(Testimonial)
     private testimonialRepository: Repository<Testimonial>,
+
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
-  async create(
-    createTestimonialDto: CreateTestimonialDto,
-  ): Promise<Testimonial> {
-    try {
-      const testimonial = new Testimonial();
-      Object.assign(testimonial, {
-        ...createTestimonialDto,
-        user: createTestimonialDto.userId,
-      });
-      return this.testimonialRepository.save(testimonial);
-    } catch (error) {
-      throw new BadRequestException('Something bad happened');
+  async create(createTestimonialDto: CreateTestimonialDto) {
+    const { userId, testimonial } = createTestimonialDto;
+
+    const user = await this.userRepository.findOneBy({ id: userId });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
     }
+
+    const newTestimonial = new Testimonial();
+    Object.assign(newTestimonial, { testimonial, user });
+
+    const testimonialSaved =
+      await this.testimonialRepository.save(newTestimonial);
+
+    return {
+      id: testimonialSaved.id,
+      userId: testimonialSaved.user.id,
+      testimonial: testimonialSaved.testimonial,
+    };
   }
 
   async findAll(options?: object): Promise<Testimonial[]> {
@@ -40,24 +48,44 @@ export class TestimonialsService {
     return testimonialSaved;
   }
 
-  async findOne(id: string): Promise<Testimonial> {
-    const testimonialSaved = await this.testimonialRepository.findOneBy({ id });
+  async findOne(id: string) {
+    const testimonialSaved = await this.testimonialRepository.findOne({
+      where: { id },
+      relations: {
+        user: true,
+      },
+      select: {
+        user: {
+          firstName: true,
+          lastName: true,
+          photo: true,
+        },
+      },
+    });
 
     if (!testimonialSaved) {
-      throw new NotFoundException('Testimonials not found');
+      throw new NotFoundException('Testimonial not found');
     }
 
-    return testimonialSaved;
+    return {
+      id: testimonialSaved.id,
+      name: `${testimonialSaved.user.firstName} ${testimonialSaved.user.lastName}`,
+      photo: testimonialSaved.user.photo,
+      testimonial: testimonialSaved.testimonial,
+    };
   }
 
-  async update(id: string, dataToUpdate: Partial<Testimonial>): Promise<void> {
+  async update(
+    id: string,
+    updateTestimonialDto: UpdateTestimonialDto,
+  ): Promise<void> {
     const testimonialToUpdate = await this.testimonialRepository.update(
       { id },
-      dataToUpdate,
+      updateTestimonialDto,
     );
 
     if (testimonialToUpdate.affected === 0) {
-      throw new NotFoundException('Testimonials not found');
+      throw new NotFoundException('Testimonial not found');
     }
   }
 
@@ -65,11 +93,14 @@ export class TestimonialsService {
     const testimonialToDelete = await this.testimonialRepository.delete(id);
 
     if (testimonialToDelete.affected === 0) {
-      throw new NotFoundException('Testimonials not found');
+      throw new NotFoundException('Testimonial not found');
     }
   }
 
-  async getRandomTestimonials(): Promise<Testimonial[] | void> {
-    return await this.testimonialRepository.find({ take: 3 });
+  async getRandomTestimonials(): Promise<Testimonial[]> {
+    return await this.testimonialRepository.find({
+      order: { id: 'ASC' },
+      take: 3,
+    });
   }
 }

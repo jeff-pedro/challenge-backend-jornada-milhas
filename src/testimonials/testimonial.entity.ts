@@ -1,4 +1,4 @@
-import { User } from 'src/users/user.entity';
+import { User } from '../users/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -14,12 +14,6 @@ import {
 export class Testimonial {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column()
-  name: string;
-
-  @Column()
-  photo: string;
 
   @Column()
   testimonial: string;
