@@ -3,20 +3,16 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Photo } from '../../photos/entities/photo.entity';
 
 @Entity()
 export class Destination {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column({ name: 'photo1', nullable: false })
-  photo1: string;
-
-  @Column({ name: 'photo2', nullable: true })
-  photo2: string;
 
   @Column({ name: 'name', length: 100, nullable: false })
   name: string;
@@ -35,4 +31,9 @@ export class Destination {
 
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt?: string;
+
+  @OneToMany(() => Photo, (photo) => photo.destination, {
+    cascade: true,
+  })
+  photos: Photo[];
 }

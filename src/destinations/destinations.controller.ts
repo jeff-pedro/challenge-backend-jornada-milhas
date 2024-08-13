@@ -8,12 +8,10 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
-import { v4 as uuid } from 'uuid';
 import { DestinationsService } from './destinations.service';
 import { CreateDestinationDto } from './dto/create-destination.dto';
 import { UpdateDestinationDto } from './dto/update-destination.dto';
 import { ListDestinationDto } from './dto/list-destination.dto';
-import { Destination } from './destination.entity';
 
 @Controller('destinations')
 export class DestinationsController {
@@ -21,18 +19,15 @@ export class DestinationsController {
 
   @Post()
   async create(@Body() createDestinationDto: CreateDestinationDto) {
-    const destination = new Destination();
-    Object.assign(destination, { ...createDestinationDto, id: uuid() });
-
-    const destinationSaved = await this.destinationsService.create(destination);
-
-    return { data: destinationSaved };
+    const destination =
+      await this.destinationsService.create(createDestinationDto);
+    return { data: destination };
   }
 
   @Get()
   async findAll(@Query('name') name: string) {
-    const destinationList = await this.destinationsService.findAll(name);
-    return { data: destinationList };
+    const destinations = await this.destinationsService.findAll(name);
+    return { data: destinations };
   }
 
   @Get(':id')
@@ -41,8 +36,8 @@ export class DestinationsController {
 
     return {
       data: new ListDestinationDto(
-        destination.photo1,
-        destination.photo2,
+        destination.id,
+        destination.photos,
         destination.name,
         destination.target,
         destination.descriptiveText,

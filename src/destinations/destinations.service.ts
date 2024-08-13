@@ -5,11 +5,12 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { UpdateDestinationDto } from './dto/update-destination.dto';
-import { Destination } from './destination.entity';
+import { Destination } from './entities/destination.entity';
 import { ConfigService } from '@nestjs/config';
 import { CohereClient, CohereError, CohereTimeoutError } from 'cohere-ai';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateDestinationDto } from './dto/create-destination.dto';
 
 @Injectable()
 export class DestinationsService {
@@ -26,7 +27,9 @@ export class DestinationsService {
     >,
   ) {}
 
-  async create(createDestinationDto: Destination) {
+  async create(
+    createDestinationDto: CreateDestinationDto,
+  ): Promise<Destination> {
     if (!createDestinationDto.descriptiveText) {
       const textDescription = `Faça um resumo sobre ${createDestinationDto.name} enfatizando o 
       porque este lugar é incrível. Utilize uma linguagem 
@@ -51,7 +54,17 @@ export class DestinationsService {
   }
 
   async findOne(id: string): Promise<Destination> {
-    const destinationSaved = await this.destinationRepository.findOneBy({ id });
+    const destinationSaved = await this.destinationRepository.findOne({
+      where: { id },
+      relations: {
+        photos: true,
+      },
+      select: {
+        photos: {
+          url: true,
+        },
+      },
+    });
 
     if (!destinationSaved) {
       throw new NotFoundException('Destination not found');
@@ -82,7 +95,7 @@ export class DestinationsService {
     }
   }
 
-  private async generateText(prompt: string): Promise<string> {
+  async generateText(prompt: string): Promise<string> {
     try {
       const token = this.configService.get('accessKeys.cohereApiKey', {
         infer: true,
