@@ -9,15 +9,15 @@ import {
   MaxLength,
   ValidateNested,
 } from 'class-validator';
-import { PhotoDestinationDTO } from './photo-destination.dto';
+import { PhotoDestinationDto } from './photo-destination.dto';
 
 export class CreateDestinationDto {
   @IsArray()
   @ArrayMinSize(1)
   @ArrayMaxSize(2)
   @ValidateNested()
-  @Type(() => PhotoDestinationDTO)
-  photos: PhotoDestinationDTO[];
+  @Type(() => PhotoDestinationDto)
+  photos: PhotoDestinationDto[];
 
   @IsNotEmpty()
   @IsString()

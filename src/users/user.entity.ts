@@ -1,3 +1,4 @@
+import { Photo } from '../photos/entities/photo.entity';
 import { Testimonial } from '../testimonials/testimonial.entity';
 import {
   Column,
@@ -5,6 +6,7 @@ import {
   DeleteDateColumn,
   Entity,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -26,9 +28,6 @@ export class User {
   @Column({ name: 'password', length: 255, nullable: false })
   password: string;
 
-  @Column({ name: 'photo', length: 255, nullable: true })
-  photo: string;
-
   @Column({ name: 'is_active', default: true })
   isActive: boolean;
 
@@ -43,4 +42,9 @@ export class User {
 
   @OneToMany(() => Testimonial, (testimonial) => testimonial.user)
   testimonials: Testimonial[];
+
+  @OneToOne(() => Photo, (photo) => photo.user, {
+    cascade: true,
+  })
+  photo: Photo;
 }

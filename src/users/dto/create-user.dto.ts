@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import {
   IsBoolean,
   IsEmail,
@@ -5,7 +6,10 @@ import {
   IsOptional,
   IsString,
   MinLength,
+  ValidateNested,
 } from 'class-validator';
+import { PhotoUserDto } from './photo-user.dto';
+import { Photo } from '../../photos/entities/photo.entity';
 
 export class CreateUserDto {
   @IsString()
@@ -15,6 +19,10 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   lastName: string;
+
+  @ValidateNested()
+  @Type(() => PhotoUserDto)
+  photo?: Photo;
 
   @IsNotEmpty()
   @IsEmail()
