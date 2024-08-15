@@ -2,6 +2,7 @@ import { Test } from '@nestjs/testing';
 import { TestimonialsController } from './testimonials.controller';
 import { TestimonialsService } from './testimonials.service';
 import { ListTestimonialDto } from './dto/list-testimonial.dto';
+import { Photo } from '../photos/entities/photo.entity';
 
 describe('TestimonialsController', () => {
   let testimonialsService: TestimonialsService;
@@ -92,7 +93,7 @@ describe('TestimonialsController', () => {
       const testimonial = {
         id: '1',
         name: 'Foo',
-        photo: 'foo.jpg',
+        photo: new Photo(),
         testimonial: 'bla bla bla',
         user: [] as never,
         createdAt: '2024-01-01',

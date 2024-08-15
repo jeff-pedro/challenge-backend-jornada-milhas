@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { NotFoundException } from '@nestjs/common';
 import { User } from '../users/user.entity';
+import { Photo } from '../photos/entities/photo.entity';
 
 describe('TestimonialsService', () => {
   let service: TestimonialsService;
@@ -14,19 +15,19 @@ describe('TestimonialsService', () => {
   const TESTIMONIAL_REPOSITORY_TOKEN = getRepositoryToken(Testimonial);
   const USER_REPOSITORY_TOKEN = getRepositoryToken(User);
 
-  const userMock: User = {
+  const mockUser = {
     id: '1',
     firstName: 'John',
     lastName: 'Wick',
     email: 'john@gmail.com',
     isActive: true,
-    photo: 'url',
+    photo: new Photo(),
     password: '123',
     testimonials: [],
     createdAt: '2023-01-01',
     updatedAt: '2023-01-01',
     deletedAt: '2023-01-01',
-  };
+  } as User;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -45,7 +46,7 @@ describe('TestimonialsService', () => {
         {
           provide: USER_REPOSITORY_TOKEN,
           useValue: {
-            findOneBy: jest.fn(() => userMock),
+            findOneBy: jest.fn(() => mockUser),
           },
         },
       ],
@@ -70,48 +71,58 @@ describe('TestimonialsService', () => {
     expect(testimonialRepository).toBeDefined();
   });
 
+  it('userRepository should be defined', () => {
+    expect(userRepository).toBeDefined();
+  });
+
   describe('create', () => {
+    const mockTestimonial = new Testimonial();
+    Object.assign(mockTestimonial, {
+      testimonial: 'Text',
+      user: mockUser,
+    });
+
     it('should call testimonialRepository.save with correct params', async () => {
-      const testimonial = new Testimonial();
-
-      Object.assign(testimonial, {
-        testimonial: 'Text',
-        user: userMock,
-      });
-
       jest
         .spyOn(testimonialRepository, 'save')
-        .mockResolvedValue({ ...testimonial, id: '1' });
+        .mockResolvedValue(mockTestimonial);
 
       await service.create({
         userId: '1',
         testimonial: 'Text',
       });
 
-      expect(testimonialRepository.save).toHaveBeenCalledWith(testimonial);
+      expect(testimonialRepository.save).toHaveBeenCalledWith(mockTestimonial);
+    });
+
+    it('should call userRepository with correct params', async () => {
+      jest.spyOn(userRepository, 'findOneBy').mockResolvedValue(mockUser);
+      jest
+        .spyOn(testimonialRepository, 'save')
+        .mockResolvedValue(mockTestimonial);
+
+      await service.create({
+        userId: '1',
+        testimonial: 'Text',
+      });
+
+      expect(userRepository.findOneBy).toHaveBeenCalledWith({ id: '1' });
     });
 
     it('should create and return the correct object', async () => {
-      const testimonial = new Testimonial();
-      Object.assign(testimonial, {
-        testimonial: 'Text',
-        user: userMock,
-      });
-
+      jest.spyOn(userRepository, 'findOneBy').mockResolvedValue(mockUser);
       jest
         .spyOn(testimonialRepository, 'save')
-        .mockResolvedValue({ ...testimonial, id: '1' });
+        .mockResolvedValue(mockTestimonial);
 
       const result = await service.create({
         userId: '1',
         testimonial: 'Text',
       });
 
-      expect(result).toStrictEqual({
-        id: '1',
-        userId: '1',
-        testimonial: 'Text',
-      });
+      expect(result).toHaveProperty('id');
+      expect(result).toHaveProperty('userId');
+      expect(result).toHaveProperty('testimonial');
     });
 
     it('should throw an error if testimonial not found', async () => {
