@@ -3,9 +3,11 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Destination } from '../../destinations/entities/destination.entity';
+import { User } from '../../users/user.entity';
 
 @Entity()
 export class Photo {
@@ -24,4 +26,11 @@ export class Photo {
     referencedColumnName: 'id',
   })
   destination: Destination;
+
+  @OneToOne(() => User, (user) => user.photo, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 }

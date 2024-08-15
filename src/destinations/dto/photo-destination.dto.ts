@@ -1,10 +1,11 @@
-import { IsNotEmpty, IsOptional, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
 
-export class PhotoDestinationDTO {
+export class PhotoDestinationDto {
   @IsNotEmpty()
   @IsUrl()
   url: string;
 
   @IsOptional()
+  @IsString()
   description: string;
 }
