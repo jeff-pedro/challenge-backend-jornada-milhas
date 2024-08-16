@@ -44,7 +44,11 @@ export class DestinationsService {
   }
 
   async findAll(name?: string): Promise<Destination[]> {
-    const destinationSaved = await this.destinationRepository.findBy({ name });
+    const destinationSaved = await this.destinationRepository.find({
+      where: { name },
+      relations: ['photos'],
+      select: { photos: { url: true } },
+    });
 
     if (destinationSaved.length === 0) {
       throw new NotFoundException('Any destination was found');
@@ -56,9 +60,7 @@ export class DestinationsService {
   async findOne(id: string): Promise<Destination> {
     const destinationSaved = await this.destinationRepository.findOne({
       where: { id },
-      relations: {
-        photos: true,
-      },
+      relations: ['photos'],
       select: {
         photos: {
           url: true,
