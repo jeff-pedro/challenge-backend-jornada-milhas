@@ -20,7 +20,9 @@ export class Photo {
   @Column({ nullable: true })
   description: string;
 
-  @ManyToOne(() => Destination, (destination) => destination.photos)
+  @ManyToOne(() => Destination, (destination) => destination.photos, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({
     name: 'destination_id',
     referencedColumnName: 'id',
@@ -29,7 +31,6 @@ export class Photo {
 
   @OneToOne(() => User, (user) => user.photo, {
     onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
   })
   @JoinColumn({ name: 'user_id' })
   user: User;
