@@ -21,7 +21,7 @@ export class TestimonialsController {
   @Post('/testimonials')
   async create(
     @Body() createTestimonialDto: CreateTestimonialDto,
-  ): Promise<{ data: object | void }> {
+  ): Promise<{ data: ListTestimonialDto }> {
     const testimonialSaved =
       await this.testimonialsService.create(createTestimonialDto);
 
@@ -35,13 +35,15 @@ export class TestimonialsController {
   }
 
   @Get('/testimonials')
-  async findAll(): Promise<{ data: object }> {
+  async findAll(): Promise<{ data: Testimonial[] }> {
     const testimonialsList = await this.testimonialsService.findAll();
     return { data: testimonialsList };
   }
 
   @Get('/testimonials/:id')
-  async findOne(@Param('id', ParseUUIDPipe) id: string) {
+  async findOne(
+    @Param('id', ParseUUIDPipe) id: string,
+  ): Promise<{ data: object }> {
     const testimonialSaved = await this.testimonialsService.findOne(id);
     return {
       data: testimonialSaved,
