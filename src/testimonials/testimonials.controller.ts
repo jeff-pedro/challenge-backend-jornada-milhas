@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -40,7 +41,7 @@ export class TestimonialsController {
   }
 
   @Get('/testimonials/:id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
     const testimonialSaved = await this.testimonialsService.findOne(id);
     return {
       data: testimonialSaved,
