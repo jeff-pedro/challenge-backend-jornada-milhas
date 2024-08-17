@@ -1,91 +1,116 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
-import { Testimonial } from './entities/testimonial.entity';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Testimonial } from './testimonial.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateTestimonialDto } from './dto/create-testimonial.dto';
+import { UpdateTestimonialDto } from './dto/update-testimonial.dto';
+import { User } from '../users/user.entity';
+import { Photo } from 'src/photos/entities/photo.entity';
 
 @Injectable()
 export class TestimonialsService {
-  private readonly testimonials: Testimonial[] = [];
-  private id: number = 0;
+  constructor(
+    @InjectRepository(Testimonial)
+    private testimonialRepository: Repository<Testimonial>,
 
-  async create(testimonial: Testimonial): Promise<Testimonial> {
-    try {
-      this.testimonials.push(testimonial);
-      return testimonial;
-    } catch (error) {
-      throw new BadRequestException('Something bad happened');
-    }
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+  ) {}
+
+  async create(
+    createTestimonialDto: CreateTestimonialDto,
+  ): Promise<{ id: string; userId: string; testimonial: string }> {
+    const { userId, testimonial } = createTestimonialDto;
+
+    const user = await this.findUserById(userId);
+
+    const testimonialSaved = await this.testimonialRepository.save({
+      testimonial,
+      user,
+    });
+
+    return {
+      id: testimonialSaved.id,
+      userId: testimonialSaved.user.id,
+      testimonial: testimonialSaved.testimonial,
+    };
   }
 
-  async findAll(): Promise<Testimonial[]> {
-    if (this.testimonials.length === 0) {
+  private async findUserById(id: string): Promise<User> {
+    const user = await this.userRepository.findOneBy({ id });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
+  }
+
+  async findAll(options?: object): Promise<Testimonial[]> {
+    const testimonialSaved = await this.testimonialRepository.find(options);
+
+    if (testimonialSaved.length === 0) {
       throw new NotFoundException('Any testimonial was found');
     }
 
-    return this.testimonials;
+    return testimonialSaved;
   }
 
-  async findOne(id: string): Promise<Testimonial> {
-    return this.findTestimonial(id);
-  }
-
-  async update(id: string, dataToUpdate: Partial<Testimonial>) {
-    const testimonialToUpdate = await this.findTestimonial(id);
-
-    Object.entries(dataToUpdate).forEach(([key, value]) => {
-      if (key === 'id') {
-        return;
-      }
-
-      Object.assign(testimonialToUpdate, { [key]: value });
+  async findOne(
+    id: string,
+  ): Promise<{ id: string; name: string; photo: Photo; testimonial: string }> {
+    const testimonialSaved = await this.testimonialRepository.findOne({
+      where: { id },
+      relations: ['user'],
+      select: {
+        user: {
+          firstName: true,
+          lastName: true,
+          photo: {
+            url: true,
+          },
+        },
+      },
     });
 
-    return testimonialToUpdate;
-  }
-
-  async remove(id: string): Promise<Testimonial> {
-    const savedTestimonial = await this.findTestimonial(id);
-    const testimonialIndex = this.testimonials.indexOf(savedTestimonial);
-    this.testimonials.splice(testimonialIndex, 1);
-    return savedTestimonial;
-  }
-
-  private async findTestimonial(id: string): Promise<Testimonial> {
-    const testimonial = await this.testimonials.find(
-      (testimonial) => testimonial.id === id,
-    );
-
-    if (!testimonial) {
+    if (!testimonialSaved) {
       throw new NotFoundException('Testimonial not found');
     }
 
-    return testimonial;
+    return {
+      id: testimonialSaved.id,
+      name: `${testimonialSaved.user.firstName} ${testimonialSaved.user.lastName}`,
+      photo: testimonialSaved.user.photo,
+      testimonial: testimonialSaved.testimonial,
+    };
   }
 
-  private getRandomInt(maxNumber: number): number {
-    return Math.round(Math.random() * maxNumber);
+  async update(
+    id: string,
+    updateTestimonialDto: UpdateTestimonialDto,
+  ): Promise<void> {
+    const testimonialToUpdate = await this.testimonialRepository.update(
+      { id },
+      updateTestimonialDto,
+    );
+
+    if (testimonialToUpdate.affected === 0) {
+      throw new NotFoundException('Testimonial not found');
+    }
+  }
+
+  async remove(id: string): Promise<void> {
+    const testimonialToDelete = await this.testimonialRepository.delete(id);
+
+    if (testimonialToDelete.affected === 0) {
+      throw new NotFoundException('Testimonial not found');
+    }
   }
 
   async getRandomTestimonials(): Promise<Testimonial[]> {
-    const testimonialList: Testimonial[] = [];
-
-    if (this.testimonials.length === 0) {
-      throw new NotFoundException('Testimonials not found');
-    }
-
-    for (let i = 0; i < 3; ) {
-      const randomIntNumber = this.getRandomInt(this.testimonials.length - 1);
-
-      if (testimonialList.includes(this.testimonials[randomIntNumber])) {
-        continue;
-      }
-
-      testimonialList.push(this.testimonials[randomIntNumber]);
-      i++;
-    }
-
-    return testimonialList;
+    return await this.testimonialRepository.find({
+      order: { id: 'ASC' },
+      take: 3,
+    });
   }
 }

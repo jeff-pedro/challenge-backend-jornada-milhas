@@ -1,13 +1,9 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CreateTestimonialDto {
   @IsNotEmpty()
-  @IsString()
-  name: string;
-
-  @IsNotEmpty()
-  @IsString()
-  photo: string;
+  @IsUUID()
+  userId: string;
 
   @IsNotEmpty()
   @IsString()

@@ -1,98 +1,112 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DestinationsController } from './destinations.controller';
 import { DestinationsService } from './destinations.service';
-import { Destination } from './entities/destination.entity';
-import { ListDestinationDto } from './dto/list-destination.dto';
-import { ConfigModule } from '@nestjs/config';
+import { Photo } from '../photos/entities/photo.entity';
 
 describe('DestinationsController', () => {
   let controller: DestinationsController;
-  let service: DestinationsService;
-  let destinationObject: Destination;
+  let destinationService: DestinationsService;
+
+  const photos = new Photo();
+  photos.url = 'http://photo1.jpg';
+
+  const destination = {
+    id: '1',
+    photos: [photos],
+    name: 'Test',
+    target: 'Test target',
+    descriptiveText: 'Text description',
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [DestinationsController],
-      providers: [DestinationsService],
-      imports: [ConfigModule.forRoot()],
+      providers: [
+        {
+          provide: DestinationsService,
+          useValue: {
+            create: jest.fn(),
+            findAll: jest.fn(),
+            findOne: jest.fn(),
+            update: jest.fn(),
+            remove: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
     controller = module.get<DestinationsController>(DestinationsController);
-    service = module.get<DestinationsService>(DestinationsService);
-
-    destinationObject = {
-      id: 'abcd',
-      photo_1: 'berlin1.jpg',
-      photo_2: 'berlin2.jpg',
-      name: 'Berlin',
-      target: 'Go to Berlin in 2025',
-      descriptive_text: 'Bla bla bla',
-    };
+    destinationService = module.get<DestinationsService>(DestinationsService);
   });
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should call create route handler method', async () => {
-    jest.spyOn(service, 'create').mockResolvedValue(destinationObject);
-
-    const result = await controller.create(destinationObject);
-
-    expect(result).toStrictEqual({ data: destinationObject });
+  it('destinationService should be defined', () => {
+    expect(destinationService).toBeDefined();
   });
 
-  it('should call findAll route handler method', async () => {
-    jest.spyOn(service, 'findAll').mockResolvedValue([destinationObject]);
-    expect(await controller.findAll('')).toStrictEqual({
-      data: [destinationObject],
+  describe('create', () => {
+    it('should return an object of destination', async () => {
+      const createDestinationDto = {
+        photos: [
+          { url: 'http://photo1.jpg', description: 'photo description' },
+        ],
+        name: 'Test',
+        target: 'Test target',
+        descriptiveText: 'Text description',
+      };
+      const result = { data: destination };
+      jest.spyOn(destinationService, 'create').mockResolvedValue(destination);
+
+      expect(await controller.create(createDestinationDto)).toEqual(result);
     });
   });
 
-  it('should call findOne route handler method', async () => {
-    const listDestination = new ListDestinationDto(
-      destinationObject.photo_1,
-      destinationObject.photo_2,
-      destinationObject.name,
-      destinationObject.target,
-      destinationObject.descriptive_text,
-    );
-    jest.spyOn(service, 'findOne').mockResolvedValue(destinationObject);
-    expect(await controller.findOne('abcd')).toStrictEqual({
-      data: listDestination,
+  describe('findAll', () => {
+    it('should return an object of destination', async () => {
+      jest
+        .spyOn(destinationService, 'findAll')
+        .mockResolvedValue([destination]);
+
+      expect(await controller.findAll('')).toStrictEqual({
+        data: [destination],
+      });
     });
   });
 
-  it('should call findOne route handler method', async () => {
-    const listDestination = new ListDestinationDto(
-      destinationObject.photo_1,
-      destinationObject.photo_2,
-      destinationObject.name,
-      destinationObject.target,
-      destinationObject.descriptive_text,
-    );
-    jest.spyOn(service, 'findOne').mockResolvedValue(destinationObject);
-    expect(await controller.findOne('abcd')).toStrictEqual({
-      data: listDestination,
+  describe('findOne', () => {
+    it('should return an array of destinations', async () => {
+      const result = {
+        data: destination,
+      };
+
+      jest.spyOn(destinationService, 'findOne').mockResolvedValue(destination);
+
+      expect(await controller.findOne('1')).toEqual(result);
     });
   });
 
-  it('should call update route handler method', async () => {
-    jest.spyOn(service, 'update').mockResolvedValue(destinationObject);
+  describe('update', () => {
+    it('should return a sucesseful message', async () => {
+      const result = {
+        message: `Destination #${destination.id} was updated`,
+      };
 
-    expect(
-      await controller.update('abcd', { name: 'Netherlands' }),
-    ).toStrictEqual({
-      message: 'Destination updated',
-      data: destinationObject,
+      expect(await controller.update('1', { name: 'Netherlands' })).toEqual(
+        result,
+      );
     });
   });
 
-  it('should call delete route handler mothod', async () => {
-    jest.spyOn(service, 'remove').mockResolvedValue(destinationObject);
+  describe('delete', () => {
+    it('should return a sucesseful message', async () => {
+      const result = {
+        message: `Destination #${destination.id} was deleted`,
+      };
 
-    expect(await controller.remove('abcd')).toStrictEqual({
-      message: `Destination #${destinationObject.id} was deleted`,
+      expect(await controller.remove('1')).toEqual(result);
     });
   });
 });

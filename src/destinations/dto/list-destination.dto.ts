@@ -1,9 +1,11 @@
+import { Photo } from '../../photos/entities/photo.entity';
+
 export class ListDestinationDto {
   constructor(
-    readonly photo_1: string,
-    readonly photo_2: string,
+    readonly id: string,
+    readonly photos: Photo[],
     readonly name: string,
     readonly target: string,
-    readonly descriptive_text: string | undefined,
+    readonly descriptiveText: string,
   ) {}
 }

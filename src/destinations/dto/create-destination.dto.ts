@@ -1,13 +1,23 @@
-import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  ArrayMaxSize,
+  ArrayMinSize,
+  IsArray,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+  ValidateNested,
+} from 'class-validator';
+import { PhotoDestinationDto } from './photo-destination.dto';
 
 export class CreateDestinationDto {
-  @IsNotEmpty()
-  @IsString()
-  photo_1: string;
-
-  @IsNotEmpty()
-  @IsString()
-  photo_2: string;
+  @IsArray()
+  @ArrayMinSize(1)
+  @ArrayMaxSize(2)
+  @ValidateNested()
+  @Type(() => PhotoDestinationDto)
+  photos: PhotoDestinationDto[];
 
   @IsNotEmpty()
   @IsString()
@@ -18,8 +28,8 @@ export class CreateDestinationDto {
   @MaxLength(160)
   target: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   @IsOptional()
-  descriptive_text?: string;
+  descriptiveText?: string;
 }

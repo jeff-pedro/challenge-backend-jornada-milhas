@@ -1,149 +1,150 @@
 import { Test } from '@nestjs/testing';
 import { TestimonialsController } from './testimonials.controller';
 import { TestimonialsService } from './testimonials.service';
+import { ListTestimonialDto } from './dto/list-testimonial.dto';
+import { Photo } from '../photos/entities/photo.entity';
 
 describe('TestimonialsController', () => {
   let testimonialsService: TestimonialsService;
-  let testimonialsController: TestimonialsController;
+  let controller: TestimonialsController;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       controllers: [TestimonialsController],
-      providers: [TestimonialsService],
+      providers: [
+        {
+          provide: TestimonialsService,
+          useValue: {
+            create: jest.fn(),
+            findAll: jest.fn(),
+            findOne: jest.fn(),
+            update: jest.fn(),
+            remove: jest.fn(),
+            getRandomTestimonials: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
     testimonialsService =
       moduleRef.get<TestimonialsService>(TestimonialsService);
-    testimonialsController = moduleRef.get<TestimonialsController>(
-      TestimonialsController,
-    );
+    controller = moduleRef.get<TestimonialsController>(TestimonialsController);
+    testimonialsService =
+      moduleRef.get<TestimonialsService>(TestimonialsService);
+  });
+
+  it('should be defined', () => {
+    expect(controller).toBeDefined();
+  });
+
+  it('testimonialsService should be defined', () => {
+    expect(testimonialsService).toBeDefined();
+  });
+
+  describe('create', () => {
+    it('should return an object of testimonial', async () => {
+      const testimonialDto = {
+        userId: '1',
+        testimonial: 'Text',
+      };
+      const testimonialSaved = {
+        id: '1',
+        ...testimonialDto,
+      };
+      const result = {
+        data: new ListTestimonialDto(
+          testimonialSaved.id,
+          testimonialSaved.userId,
+          testimonialSaved.testimonial,
+        ),
+      };
+      jest
+        .spyOn(testimonialsService, 'create')
+        .mockResolvedValueOnce(testimonialSaved);
+
+      expect(await controller.create(testimonialDto)).toStrictEqual(result);
+    });
   });
 
   describe('findAll', () => {
     it('should return an array of testimonials', async () => {
-      const testimonialsList = [
+      const testimonialSaved = [
         {
           id: 'abcd',
-          name: 'Foo',
-          photo: 'foo.jpg',
-          testimonial: 'bla bla bla',
+          testimonial: 'Text',
+          user: [] as never,
+          createdAt: '2024-01-01',
+          updatedAt: '2024-01-01',
+          deletedAt: '2024-01-01',
         },
       ];
-      const result = { data: testimonialsList };
+      const result = { data: testimonialSaved };
       jest
         .spyOn(testimonialsService, 'findAll')
-        .mockResolvedValue(testimonialsList);
+        .mockResolvedValue(testimonialSaved);
 
-      expect(await testimonialsController.findAll()).toEqual(result);
+      expect(await controller.findAll()).toStrictEqual(result);
     });
   });
 
   describe('findOne', () => {
     it('should return an object of testimonial', async () => {
-      const id = 'abcd';
-      const testimonialObject = {
-        id: 'abcd',
+      const id = '1';
+      const testimonial = {
+        id: '1',
         name: 'Foo',
-        photo: 'foo.jpg',
+        photo: new Photo(),
         testimonial: 'bla bla bla',
+        user: [] as never,
+        createdAt: '2024-01-01',
+        updatedAt: '2024-01-01',
+        deletedAt: '2024-01-01',
       };
-      const result = { data: testimonialObject };
-      jest
-        .spyOn(testimonialsService, 'findOne')
-        .mockResolvedValue(testimonialObject);
+      const expected = { data: testimonial };
+      jest.spyOn(testimonialsService, 'findOne').mockResolvedValue(testimonial);
 
-      expect(await testimonialsController.findOne(id)).toEqual(result);
-    });
-  });
+      const result = await controller.findOne(id);
 
-  describe('create', () => {
-    it('should return an object with a successful message', async () => {
-      const object = {
-        id: 'abcd',
-        name: 'Foo',
-        photo: 'foo.jpg',
-        testimonial: 'bla bla bla',
-      };
-      jest.spyOn(testimonialsService, 'create').mockResolvedValue(object);
-
-      expect(await testimonialsController.create(object)).toEqual({
-        data: object,
-      });
+      expect(result).toEqual(expected);
     });
   });
 
   describe('update', () => {
-    it('should return an object with a message and the data updated', async () => {
-      const id = 'abcd';
-      const dataToUpdate = { name: 'Bar' };
-      const retunedObject = {
-        id: 'abcd',
-        name: 'Bar',
-        photo: 'foo.jpg',
-        testimonial: 'bla bla bla',
-      };
-      const result = {
-        message: 'Testimonial updated',
-        data: { ...retunedObject },
-      };
+    it('should return a message with the updated id', async () => {
+      const id = '1';
+      const dataToUpdate = { testimonial: 'Text updated' };
+      const result = { message: `Testimonial #${id} was updated` };
       jest
         .spyOn(testimonialsService, 'update')
-        .mockResolvedValue(retunedObject);
+        .mockResolvedValueOnce(undefined);
 
-      expect(await testimonialsController.update(id, dataToUpdate)).toEqual(
-        result,
-      );
+      expect(await controller.update(id, dataToUpdate)).toEqual(result);
     });
   });
 
   describe('delete', () => {
-    it('should return a message with the id of the testimonial deleted', async () => {
-      const id = 'abcd';
-      const returnedObject = {
-        id: 'abcd',
-        name: 'Bar',
-        photo: 'foo.jpg',
-        testimonial: 'bla bla bla',
-      };
-      const result = {
-        message: `Testimonial #${returnedObject.id} was deleted`,
-      };
-      jest
-        .spyOn(testimonialsService, 'remove')
-        .mockResolvedValue(returnedObject);
+    it('should return a message with the deleted id', async () => {
+      const id = '1';
+      const expected = { message: `Testimonial #${id} was deleted` };
+      jest.spyOn(testimonialsService, 'remove').mockResolvedValueOnce();
 
-      expect(await testimonialsController.remove(id)).toEqual(result);
+      const result = await controller.remove(id);
+
+      expect(result).toEqual(expected);
     });
   });
 
   describe('randomTestimonials', () => {
     it('should return 3 random testimonials', async () => {
-      const result = [
-        {
-          id: 'abcd1',
-          name: 'Foo',
-          photo: 'foo.jpg',
-          testimonial: 'bla bla bla',
-        },
-        {
-          id: 'abcd2',
-          name: 'Bar',
-          photo: 'bar.jpg',
-          testimonial: 'bla bla bla',
-        },
-        {
-          id: 'abcd3',
-          name: 'Baz',
-          photo: 'baz.jpg',
-          testimonial: 'bla bla bla',
-        },
-      ];
+      const result = { data: Array(3) };
+
       jest
         .spyOn(testimonialsService, 'getRandomTestimonials')
-        .mockResolvedValue(result);
+        .mockResolvedValue(Array(3));
 
-      const response = await testimonialsController.randomTestimonials();
+      const response = await controller.pick();
 
+      expect(response).toEqual(result);
       expect(response.data).toHaveLength(3);
     });
   });
