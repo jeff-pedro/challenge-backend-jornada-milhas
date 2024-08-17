@@ -28,6 +28,23 @@ class EnvironmentVariables {
 
   @IsString()
   COHERE_API_KEY: string;
+
+  @IsNumber()
+  @Min(0)
+  @Max(65535)
+  DB_PORT: number;
+
+  @IsString()
+  DB_HOST: string;
+
+  @IsString()
+  DB_USERNAME: string;
+
+  @IsString()
+  DB_PASSWORD: string;
+
+  @IsString()
+  DB_NAME: string;
 }
 
 export function validate(config: Record<string, unknown>) {
