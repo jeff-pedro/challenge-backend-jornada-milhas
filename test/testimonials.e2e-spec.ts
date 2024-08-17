@@ -5,7 +5,7 @@ import { AppModule } from '../src/app.module';
 
 describe('TestimonialsController (e2e)', () => {
   let app: INestApplication;
-  let user: request.Response;
+  let userId: string;
   let testimonial: request.Response;
   let testimonialId: string;
 
@@ -28,7 +28,7 @@ describe('TestimonialsController (e2e)', () => {
 
     await app.init();
 
-    user = await request(app.getHttpServer())
+    const user = await request(app.getHttpServer())
       .post('/users')
       .send({
         firstName: 'Jane',
@@ -38,10 +38,12 @@ describe('TestimonialsController (e2e)', () => {
         password: '123456',
       });
 
+    userId = user.body.data.id;
+
     testimonial = await request(app.getHttpServer())
       .post('/testimonials')
       .send({
-        userId: user.body.id,
+        userId,
         testimonial: 'Some testimonial.',
       });
 
@@ -53,7 +55,7 @@ describe('TestimonialsController (e2e)', () => {
       return request(app.getHttpServer())
         .post(TESTIMONIAL_URL)
         .send({
-          userId: user.body.id,
+          userId,
           testimonial: 'Some testimonial.',
         })
         .expect(201);
@@ -109,9 +111,7 @@ describe('TestimonialsController (e2e)', () => {
     it('should return a 400 when testimonial property was not provided ', async () => {
       return request(app.getHttpServer())
         .post(TESTIMONIAL_URL)
-        .send({
-          userId: user.body?.id,
-        })
+        .send({ userId })
         .expect(400);
     });
 
@@ -119,7 +119,7 @@ describe('TestimonialsController (e2e)', () => {
       const response = await request(app.getHttpServer())
         .post(TESTIMONIAL_URL)
         .send({
-          userId: user.body?.id,
+          userId,
           testimonial: '',
         });
 
@@ -131,7 +131,7 @@ describe('TestimonialsController (e2e)', () => {
       const response = await request(app.getHttpServer())
         .post(TESTIMONIAL_URL)
         .send({
-          userId: user.body.id,
+          userId,
           testimonial: 'Some testimonial.',
           nonExistentProperty: '',
         });
