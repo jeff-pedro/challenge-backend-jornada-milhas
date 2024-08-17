@@ -28,8 +28,8 @@ export class CreateDestinationDto {
   @MaxLength(160)
   target: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   @IsOptional()
   descriptiveText?: string;
 }
