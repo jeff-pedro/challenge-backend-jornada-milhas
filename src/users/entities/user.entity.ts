@@ -1,5 +1,5 @@
-import { Photo } from '../photos/entities/photo.entity';
-import { Testimonial } from '../testimonials/testimonial.entity';
+import { Photo } from '../../photos/entities/photo.entity';
+import { Testimonial } from '../../testimonials/entities/testimonial.entity';
 import {
   Column,
   CreateDateColumn,

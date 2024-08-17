@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Testimonial } from './testimonial.entity';
+import { Testimonial } from './entities/testimonial.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateTestimonialDto } from './dto/create-testimonial.dto';
 import { UpdateTestimonialDto } from './dto/update-testimonial.dto';
-import { User } from '../users/user.entity';
+import { User } from '../users/entities/user.entity';
 import { Photo } from 'src/photos/entities/photo.entity';
 
 @Injectable()

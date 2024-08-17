@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TestimonialsService } from './testimonials.service';
-import { Testimonial } from './testimonial.entity';
+import { Testimonial } from './entities/testimonial.entity';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { NotFoundException } from '@nestjs/common';
-import { User } from '../users/user.entity';
+import { User } from '../users/entities/user.entity';
 import { Photo } from '../photos/entities/photo.entity';
 
 describe('TestimonialsService', () => {
