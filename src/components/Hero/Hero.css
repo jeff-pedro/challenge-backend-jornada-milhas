@@ -1,0 +1,28 @@
+.hero {
+  min-height: 50vmin;
+  background-image: url('../../../public/img/banner-homepage-fundo.png');
+  background-size: cover;
+  background-position: center;
+  color: var(--neutral-light-white-color);
+  padding: 40px 18%;
+  overflow: hidden;
+}
+
+.hero__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+.hero__content h1 {
+  color: var(--neutral-light-white-color);
+  font-family: var(--primary-font-family);
+  font-weight: 400;
+  font-size: 45px;
+  line-height: 1.2;
+}
+
+.hero__content h1 span {
+  font-weight: 700;
+}
