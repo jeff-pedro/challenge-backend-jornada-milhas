@@ -1,4 +1,7 @@
+import Button from './components/Button';
+import Form from './components/Form';
 import Hero from './components/Hero';
+import SearchInput from './components/SearchInput';
 
 function App() {
   return (
@@ -7,6 +10,12 @@ function App() {
         titleFirstPart='Compartilhe milhas,'
         titleSecondPart='compartilhe o mundo.'
       />
+      <Form>
+        <SearchInput />
+        <Button>
+          Buscar
+        </Button>
+      </Form>
     </div>
   );
 }

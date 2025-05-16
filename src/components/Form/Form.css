@@ -1,0 +1,22 @@
+.form__container {
+  max-width: 60vw;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: var(--neutral-light-white-bg-color);
+  border-radius: 16px;
+}
+
+.form__container h2 {
+  font-family: var(--primary-font-family);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.25;
+  margin-bottom: 32px;
+  color: #000;
+}
+
+.form__container form {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
