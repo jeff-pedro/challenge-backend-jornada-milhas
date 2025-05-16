@@ -1,0 +1,17 @@
+.outlined__link__button {
+  padding: 10px 24px;
+  border: 1px solid var(--neutral-dark-medium-grey-color);
+  border-radius: 5px;
+  font-family: var(--primary-font-family);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--primary-color);
+  text-decoration: none;
+  background-color: transparent;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.outlined__link__button:hover {
+  background-color: var(--primary-click-color);
+}

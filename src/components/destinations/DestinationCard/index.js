@@ -1,3 +1,4 @@
+import LinkButton from '../../ui/LinkButton';
 import './DestinationCard.css';
 
 const DestinationCard = ({ name, price, imageAddress, imageDescription, linkText }) => {
@@ -7,9 +8,12 @@ const DestinationCard = ({ name, price, imageAddress, imageDescription, linkText
       <div class="card__info">
         <h3 class="card__name">{name}</h3>
         <p class="card__price">{price}</p>
-        <a class="card__link" href="destination.html" target='_blank' rel='noopener noreferrer'>
+        <LinkButton 
+          to='destination.html'
+          buttonStyle={{ lineHeight: '1.4' }}
+        >
           {linkText}
-        </a>    
+        </LinkButton>
       </div>
     </div>
   );

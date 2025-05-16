@@ -1,0 +1,18 @@
+.link__button {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 5px;
+  font-family: var(--primary-font-family);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--neutral-light-white-color);
+  text-decoration: none;
+  background-color: var(--primary-color);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  outline: none;
+}
+
+.link__button:hover {
+  background-color: var(--primary-click-color);
+}
