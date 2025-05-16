@@ -1,6 +1,6 @@
 import './Form.css';
 
-const Form = ({ children }) => {
+const Form = ({ children, title }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(e.target.value)
@@ -8,7 +8,7 @@ const Form = ({ children }) => {
 
   return (
     <section className="form__container">
-      <h2>Encontre seu próximo destino</h2>
+      <h2>{title}</h2>
       <form onSubmit={onSubmit}>
         { children }
       </form>

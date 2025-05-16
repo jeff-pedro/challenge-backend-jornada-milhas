@@ -1,7 +1,6 @@
-import Button from './components/Button';
-import Form from './components/Form';
-import Hero from './components/Hero';
-import SearchInput from './components/SearchInput';
+import Hero from './components/layout/Hero';
+import SearchBar from './components/search/SearchBar';
+import DestinationGrid from './components/destinations/DestinationGrid';
 
 function App() {
   return (
@@ -10,12 +9,8 @@ function App() {
         titleFirstPart='Compartilhe milhas,'
         titleSecondPart='compartilhe o mundo.'
       />
-      <Form>
-        <SearchInput />
-        <Button>
-          Buscar
-        </Button>
-      </Form>
+      <SearchBar />
+      <DestinationGrid />
     </div>
   );
 }

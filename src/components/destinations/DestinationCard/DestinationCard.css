@@ -1,0 +1,65 @@
+.card {
+  border-radius: 12px;
+  border: 1px solid var(--neutral-dark-light-grey-color);
+  background-color: var(--neutral-light-surface1-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+  overflow: hidden;
+  padding-bottom: 20px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+.card__info {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 24px;
+  padding: 16px;
+}
+
+.card__name {
+  margin: 0;
+  font-family: var(--primary-font-family);
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--neutral-dark-black-color);
+  line-height: 1.33;
+}
+
+.card__price {
+  margin: 0;
+  font-family: var(--primary-font-family);
+  font-weight: 400;
+  font-size: 32px;
+  color: var(--neutral-dark-grey-color);
+  line-height: 1.25;
+}
+
+.card__link {
+  padding: 10px 30px;
+  border-radius: 5px;
+  font-size: var(--primary-font-family);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--neutral-light-white-color);
+  text-transform: uppercase;
+  background-color: var(--primary-color);
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.card__link:hover {
+  background-color: var(--primary-click-color);
+} 

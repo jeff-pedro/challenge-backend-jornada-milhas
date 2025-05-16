@@ -8,7 +8,7 @@ const Hero = ({ titleFirstPart, titleSecondPart }) => {
           {titleFirstPart}<br />
           <span>{titleSecondPart}</span>
         </h1>
-        <img src='/img/woman-traveler.png' alt='Traveler woman with a backpack'></img>
+        <img src='/images/woman-traveler.png' alt='Traveler woman with a backpack'></img>
       </div>
     </section>
   );

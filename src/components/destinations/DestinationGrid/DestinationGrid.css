@@ -1,0 +1,10 @@
+.destination {
+  max-width: 60vw;
+  margin: 40px auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,  minmax(317px, 1fr));
+  gap: 10px 24px;
+}

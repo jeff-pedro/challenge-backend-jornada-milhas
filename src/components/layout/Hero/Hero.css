@@ -1,6 +1,6 @@
 .hero {
   min-height: 50vmin;
-  background-image: url('../../../public/img/banner-homepage-fundo.png');
+  background-image: url('../../../../public/images/banner-homepage-fundo.png');
   background-size: cover;
   background-position: center;
   color: var(--neutral-light-white-color);
