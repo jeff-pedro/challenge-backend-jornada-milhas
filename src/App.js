@@ -4,6 +4,7 @@ import SearchBar from './components/search/SearchBar';
 import DestinationGrid from './components/destinations/DestinationGrid';
 import TestimonialSection from './components/testimonials/TestimonialSection';
 import Footer from './components/layout/Footer';
+import HomePageBottom from './components/layout/HomePageBottom';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <SearchBar />
       <DestinationGrid />
       <TestimonialSection />
+      <HomePageBottom />
       <Footer />
     </div>
   );
