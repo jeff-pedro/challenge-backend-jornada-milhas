@@ -50,7 +50,7 @@ const Grid = () => {
 
   return (
     <section className='destination'>
-      <Title text='Destinos' />
+      <Title>Destinos</Title>
       <div className='grid'>
         {destinations.map(destination => 
           <DestinationCard 

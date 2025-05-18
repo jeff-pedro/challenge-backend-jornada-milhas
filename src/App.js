@@ -2,6 +2,7 @@ import Header from './components/layout/Header';
 import Hero from './components/layout/Hero';
 import SearchBar from './components/search/SearchBar';
 import DestinationGrid from './components/destinations/DestinationGrid';
+import TestimonialSection from './components/testimonials/TestimonialSection';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       />
       <SearchBar />
       <DestinationGrid />
+      <TestimonialSection />
     </div>
   );
 }

@@ -1,0 +1,10 @@
+.testimonials {
+  max-width: 60vw;
+  margin: 40px auto;
+}
+
+.testimonial__container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
