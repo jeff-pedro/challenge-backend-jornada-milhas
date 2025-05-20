@@ -1,10 +1,15 @@
 import './SearchInput.css';
 
-const SearchInput = ({ placeholder }) => {
+const SearchInput = ({ placeholder, onChange }) => {
+  const onType = (e) => {
+    e.preventDefault();
+    onChange(e.target.value);
+  }
+  
   return (
-    <div class="search">
-        <div class="search__icon">
-          <input type="text" placeholder={ placeholder } aria-label={ placeholder } />
+    <div className="search">
+        <div className="search__icon">
+          <input onChange={onType} id='search-input' type="text" placeholder={ placeholder } aria-label={ placeholder } />
         </div>
     </div>
   );

@@ -2,11 +2,11 @@ import './TestimonialCard.css';
 
 const TestimonialCard = ({ text, author, image }) => {
   return(
-      <div class="testimonial__card">
+      <div className="testimonial__card">
         <img src={image} alt={author} />
-        <div class="testimonial__content">
-          <p class="testimonial__text">{text}</p>
-          <p class="testimonial__author">{author}</p>
+        <div className="testimonial__content">
+          <p className="testimonial__text">{text}</p>
+          <p className="testimonial__author">{author}</p>
         </div>
       </div>
   );

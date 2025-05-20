@@ -1,11 +1,6 @@
 import './Form.css';
 
-const Form = ({ children, title }) => {
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target.value)
-  }
-
+const Form = ({ children, title, onSubmit }) => {
   return (
     <section className="form__container">
       <h2>{title}</h2>

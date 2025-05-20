@@ -3,11 +3,11 @@ import './DestinationCard.css';
 
 const DestinationCard = ({ name, price, imageAddress, imageDescription, linkText }) => {
   return (
-    <div class="card">
+    <div className="card">
       <img src={imageAddress} alt={imageDescription} />
-      <div class="card__info">
-        <h3 class="card__name">{name}</h3>
-        <p class="card__price">{price}</p>
+      <div className="card__info">
+        <h3 className="card__name">{name}</h3>
+        <p className="card__price">{price}</p>
         <LinkButton 
           to='destination.html'
           buttonStyle={{ lineHeight: '1.4' }}

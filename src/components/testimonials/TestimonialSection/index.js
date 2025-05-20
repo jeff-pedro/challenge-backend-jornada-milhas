@@ -5,7 +5,7 @@ import TestimonialCarousel from '../TestimonalCarousel';
 
 const TestimonialSection = () => {
   return(
-    <section class="testimonials">
+    <section className="testimonials">
       <Title>Depoimentos</Title>
       <TestimonialCarousel testimonials={testimonials}/>
     </section>
