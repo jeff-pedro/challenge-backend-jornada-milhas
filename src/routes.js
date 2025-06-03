@@ -10,6 +10,7 @@ function AppRoutes() {
       
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='destinations' element='destination page' />
         <Route path='*' element="Página não encontrada..." />
       </Routes>
    
