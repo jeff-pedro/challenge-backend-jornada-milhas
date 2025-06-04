@@ -1,4 +1,4 @@
-import './SearchInput.css';
+import styles from './SearchInput.module.css';
 
 const SearchInput = ({ placeholder, onChange }) => {
   const onType = (e) => {
@@ -7,9 +7,15 @@ const SearchInput = ({ placeholder, onChange }) => {
   }
   
   return (
-    <div className="search">
-        <div className="search__icon">
-          <input onChange={onType} id='search-input' type="text" placeholder={ placeholder } aria-label={ placeholder } />
+    <div className={styles.search}>
+        <div className={styles.searchIcon}>
+          <input 
+            onChange={onType} 
+            id='search-input' 
+            type="text" 
+            placeholder={ placeholder } 
+            aria-label={ placeholder } 
+          />
         </div>
     </div>
   );

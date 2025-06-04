@@ -1,9 +1,11 @@
+
+import { useState } from 'react';
+
 import Hero from 'components/layout/Hero';
 import SearchBar from 'components/search/SearchBar';
 import DestinationGrid from 'components/destinations/DestinationGrid';
 import TestimonialSection from 'components/testimonials/TestimonialSection';
 import HomePageBottom from 'components/layout/HomePageBottom';
-import { useState } from 'react';
 
 const Home = () => {
   const [destination, setDestination] = useState({});
@@ -13,16 +15,13 @@ const Home = () => {
     : setDestination({});
 
   return(
-    <div>
-      <Hero 
-        titleFirstPart='Compartilhe milhas,'
-        titleSecondPart='compartilhe o mundo.'
-      />
-      <SearchBar onSear ch={handleSearch} />
+    <main>
+      <Hero />
+      <SearchBar onSearch={handleSearch} />
       <DestinationGrid filteredDestination={destination} />
       <TestimonialSection />
       <HomePageBottom />
-    </div>
+    </main>
   )
 }
 

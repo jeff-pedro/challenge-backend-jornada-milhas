@@ -1,9 +1,10 @@
-import './Form.css';
+import styles from './Form.module.css';
 
 const Form = ({ children, title, onSubmit }) => {
   return (
-    <section className="form__container">
+    <section className={styles.formContainer}>
       <h2>{title}</h2>
+      
       <form onSubmit={onSubmit}>
         { children }
       </form>

@@ -28,11 +28,11 @@
   border-color: var(--primary-container-on-color);
 }
 
-.search__icon {
+.searchIcon {
   position: relative;
 }
 
-.search__icon::after {
+.searchIcon::after {
   content: '';
   position: absolute;
   right: 1.5%;

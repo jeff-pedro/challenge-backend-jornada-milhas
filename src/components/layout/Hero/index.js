@@ -1,14 +1,21 @@
-import './Hero.css';
+import styles from './Hero.module.css';
+import banner from 'assets/banner-homepage-hero.png';
+import womanTraveler from 'assets/woman-traveler.png';
 
-const Hero = ({ titleFirstPart, titleSecondPart }) => {
+const Hero = () => {
   return (
-    <section className='hero'>
-      <div className='hero__content'>
+    <section 
+      className={styles.heroContainer} 
+      style={{ backgroundImage: `url(${banner})` }}
+    >
+      <div className={styles.content}>
+      
         <h1>
-          {titleFirstPart}<br />
-          <span>{titleSecondPart}</span>
+          Compartilhe milhas<br />
+          <span>compartilhe o mundo.</span>
         </h1>
-        <img src='/images/woman-traveler.png' alt='Traveler woman with a backpack'></img>
+      
+        <img src={womanTraveler} alt='Traveler woman with a backpack'></img>
       </div>
     </section>
   );
