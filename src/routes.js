@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from 'pages/Home';
 import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
+import Destination from 'pages/Destination';
 
 function AppRoutes() {
   return (
@@ -10,7 +11,7 @@ function AppRoutes() {
       
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='destinations' element='destination page' />
+        <Route path='destinations' element={<Destination />} />
         <Route path='*' element="Página não encontrada..." />
       </Routes>
    
