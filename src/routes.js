@@ -11,7 +11,7 @@ function AppRoutes() {
       
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='destinations' element={<Destination />} />
+        <Route path='destinations/:id' element={<Destination />} />
         <Route path='*' element="Página não encontrada..." />
       </Routes>
    

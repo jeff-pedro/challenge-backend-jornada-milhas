@@ -1,11 +1,20 @@
+// dependencies
+import { useParams } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown'
+
+// styles
 import styles from './Destination.module.css';
+import './Destination.css';
 
 // API data
 import { destinations } from 'data/destinations';
 
 const Destination = () => {
-  const destination = destinations[0]; // change to route url params 
+  const params = useParams();
+
+  const destination = destinations.find(destination => destination.id === params.id);
   
+  // get only 2 photos
   const photosUrl = destination.photos.slice(0, 2);
 
   return(
@@ -39,9 +48,12 @@ const Destination = () => {
           )}
         </ul>
 
-        <p className={styles.text}>
-          {destination.descriptiveText.text}
-        </p>
+        {/* Markdown Text */}
+        <div className="text">
+          <ReactMarkdown>
+            {destination.descriptiveText.text}
+          </ReactMarkdown>
+        </div>
       </div>
     </article>
   )
