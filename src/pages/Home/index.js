@@ -5,7 +5,7 @@ import Hero from 'components/layout/Hero';
 import SearchBar from 'components/search/SearchBar';
 import DestinationGrid from 'components/destinations/DestinationGrid';
 import TestimonialSection from 'components/testimonials/TestimonialSection';
-import HomePageBottom from 'components/layout/HomePageBottom';
+import BannerBottom from 'components/layout/BannerBottom';
 
 const Home = () => {
   const [destination, setDestination] = useState({});
@@ -20,7 +20,7 @@ const Home = () => {
       <SearchBar onSearch={handleSearch} />
       <DestinationGrid filteredDestination={destination} />
       <TestimonialSection />
-      <HomePageBottom />
+      <BannerBottom />
     </main>
   )
 }

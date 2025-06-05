@@ -1,16 +1,17 @@
-import './DestinationGrid.css';
-import DestinationCard from '../DestinationCard';
-import Title from '../../ui/Title';
-import { destinations } from '../../../data/destinations';
+import styles from './DestinationGrid.module.css';
+import DestinationCard from 'components/destinations/DestinationCard';
+import Title from 'components/ui/Title';
+// data
+import { destinations } from 'data/destinations';
 
 const Grid = ({ filteredDestination }) => {
 
   return (
-    <section className='destination'>
+    <section className={styles.destination}>
       <Title>Destinos</Title>
       {Object.keys(filteredDestination).length === 0 
         ? 
-          <div className='grid'>
+          <div className={styles.grid}>
             {destinations.map(destination => 
               <DestinationCard 
                 key={destination.id}
@@ -23,7 +24,7 @@ const Grid = ({ filteredDestination }) => {
             )}
           </div>
         :
-          <div className='grid'>
+          <div className={styles.grid}>
               <DestinationCard 
                 key={filteredDestination.id}
                 name={filteredDestination.name}

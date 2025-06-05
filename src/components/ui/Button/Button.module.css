@@ -1,18 +1,18 @@
-.link__button {
-  padding: 10px 24px;
+.button {  
+  padding: 0.625rem 1.875rem;
   border: none;
   border-radius: 5px;
   font-family: var(--primary-font-family);
-  font-size: 14px;
   font-weight: 500;
+  font-size: 0.875rem;
   color: var(--neutral-light-white-color);
-  text-decoration: none;
-  background-color: var(--primary-color);
-  transition: all 0.3s ease;
   text-transform: uppercase;
-  outline: none;
+  line-height: 1.5;
+  background-color: var(--primary-color);
+  transition: background-color 0.3s;
+  cursor: pointer;
 }
 
-.link__button:hover {
+.button:hover {
   background-color: var(--primary-click-color);
 }

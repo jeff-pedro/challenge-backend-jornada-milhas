@@ -1,16 +1,25 @@
-import Navbar from '../Navbar';
-import LinkButton from '../../ui/LinkButton';
-import OutlinedLinkButton from '../../ui/OutlinedLinkButton';
+import Navbar from 'components/layout/Navbar';
+import LinkButton from 'components/ui/LinkButton';
+import OutlinedLinkButton from 'components/ui/OutlinedLinkButton';
+
+import logo from 'assets/white-logo1.png';
 
 const Header = () => {
   return(
     <header>
         <Navbar
-          logoImage='/images/white-logo1.png'
+          logoImage={logo}
           logoDiscription='Jornada Milhas'
         >
-        <LinkButton to='index.html'>CADASTRE-SE</LinkButton>
-        <OutlinedLinkButton to='index.html'>LOGIN</OutlinedLinkButton>
+        
+          <LinkButton to='index.html'>
+            CADASTRE-SE
+          </LinkButton>
+          
+          <OutlinedLinkButton to='index.html'>
+            LOGIN
+          </OutlinedLinkButton>
+      
       </ Navbar>
     </header>
   );

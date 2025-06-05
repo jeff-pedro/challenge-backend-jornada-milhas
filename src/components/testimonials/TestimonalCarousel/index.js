@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import './TestimonialCarousel.css';
-import TestimonialCard from '../TestimonialCard';
+import styles from './TestimonialCarousel.module.css';
+import TestimonialCard from 'components/testimonials/TestimonialCard';
 
 const TestimonialCarousel = ({ testimonials }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,7 +13,7 @@ const TestimonialCarousel = ({ testimonials }) => {
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => 
-      prevIndex + testimonialsPerPage >= testimonials.length
+      prevIndex + testimonialsPerPage >= testimonials.testimonial
         ? prevIndex
         : prevIndex + testimonialsPerPage
     );
@@ -34,8 +34,8 @@ const TestimonialCarousel = ({ testimonials }) => {
   );
 
   return (
-    <div className="carousel">
-      <div className="carousel__container">
+    <div className={styles.carousel}>
+      <div className={styles.carouselContainer}>
         {currentTestimonials.map(testimonial => (
           <TestimonialCard
             key={testimonial.id}
@@ -46,20 +46,25 @@ const TestimonialCarousel = ({ testimonials }) => {
         ))}
       </div>
       
-      <div className="carousel__controls">
+      <div className={styles.carouselControls}>
         <button
-          className={`carousel__button carousel__button--prev ${currentIndex === 0 ? 'carousel__button--inactive' : ''}`} 
+          className={`
+            ${styles.carouselControls} 
+            ${styles.carouselButton} 
+            ${styles.carouselButtonPrev} 
+            ${currentIndex === 0 ? styles.carouselButtonInactive : ''}
+          `} 
           onClick={prevSlide}
           aria-label="Previous testimonials"
         >
           &#10094;
         </button>
         
-        <div className="carousel__indicators">
+        <div className={styles.carouselIndicators}>
           {Array.from({ length: totalPages }).map((_, index) => (
             <button
               key={index}
-              className={`carousel__indicator ${currentIndex === index * testimonialsPerPage ? 'carousel__indicator--active' : ''}`}
+              className={`${styles.carouselIndicator} ${currentIndex === index * testimonialsPerPage ? styles.carouselIndicatorActive : ''}`}
               onClick={() => setCurrentIndex(index * testimonialsPerPage)}
               aria-label={`Página ${index + 1} de depoimentos`}
             />
@@ -67,7 +72,11 @@ const TestimonialCarousel = ({ testimonials }) => {
         </div>
         
         <button 
-          className={`carousel__button carousel__button--next ${currentIndex + testimonialsPerPage >= testimonials.length ? 'carousel__button--inactive' : ''}`}
+          className={`
+            ${styles.carouselButton} 
+            ${styles.carouselButtonNext} 
+            ${currentIndex + testimonialsPerPage >= testimonials.length ? styles.carouselButtonInactive : ''}
+          `}
           onClick={nextSlide}
           aria-label="Próximos testimonials"
         >

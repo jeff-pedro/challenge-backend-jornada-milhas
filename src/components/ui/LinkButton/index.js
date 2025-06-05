@@ -1,10 +1,10 @@
-import './LinkButton.css';
+import styles from './LinkButton.module.css';
 
 const LinkButton = ({ children, to, buttonStyle }) => {
   return (
     <a 
       href={to} 
-      className="link__button" 
+      className={styles.linkButton} 
       style={buttonStyle} 
       target='_blank' 
       rel='noopener noreferrer'

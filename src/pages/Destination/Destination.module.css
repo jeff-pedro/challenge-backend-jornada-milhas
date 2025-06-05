@@ -21,7 +21,8 @@
 }
 
 .contentContainer {
-  padding: 2.5rem 12rem 3.5rem;
+  width: 60vw;
+  margin: 2.5rem auto 3.5rem;
 }
 
 .title {

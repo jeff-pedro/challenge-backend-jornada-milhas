@@ -1,66 +1,66 @@
 .footer {
   display: flex;
   justify-content: space-between;
-  padding: 60px 20%;
+  padding: 3.75rem 20%;
   background-color: var(--neutral-dark-black-color);
 }
 
-.footer__info img {
-  padding-bottom: 16px;
+.footerInfo img {
+  padding-bottom: 1rem;
 }
 
-.footer__info p {
-  margin: 0px;
+.footerInfo p {
+  margin: 0;
   font-family: var(--primary-font-family);
   font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.75;
   color: var(--neutral-light-white-bg-color);
 }
 
-.footer__social {
+.footerSocial {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 1rem;
 }
 
-.footer__social p {
+.footerSocial p {
   font-family: var(--primary-font-family);
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.5;
   color: var(--neutral-light-white-bg-color);
 }
 
-.footer__social_icons {
+.footerSocialIcons {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
-.footer__social_icons img {
+.footerSocialIcons img {
   filter: brightness(0) invert(1);
 }
 
-.footer__social_icons a {
+.footerSocialIcons a {
   cursor: pointer;
   transition: filter 0.3s ease, transform 0.3s ease;
 }
 
-.footer__social_icons a:hover {
+.footerSocialIcons a:hover {
   transform: scale(1.2); /* Aumenta ligeiramente o ícone */
 }
 
-.social__whatsapp:hover {
+.socialWhatsapp:hover {
   filter: invert(72%) sepia(31%) saturate(1304%) hue-rotate(101deg) brightness(95%) contrast(98%);
 }
 
-.social__instagram:hover {
+.socialInstagram:hover {
   filter: invert(37%) sepia(97%) saturate(1055%) hue-rotate(298deg) brightness(94%) contrast(98%);
 }
 
-.social__twitter:hover {
+.socialTwitter:hover {
   filter: invert(48%) sepia(94%) saturate(1887%) hue-rotate(176deg) brightness(103%) contrast(91%);
 }

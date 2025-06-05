@@ -1,7 +1,6 @@
-.homepage__bottom {
+.bannerBottom {
   min-height: 50vmin;
   box-sizing: border-box;
-  background-image: url('../../../../public//images/banner-homepage-bottom.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

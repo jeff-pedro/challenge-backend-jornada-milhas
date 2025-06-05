@@ -1,4 +1,4 @@
-.outlined__link__button {
+.outlinedLinkButton {
   padding: 10px 24px;
   border: 1px solid var(--neutral-dark-medium-grey-color);
   border-radius: 5px;
@@ -12,6 +12,6 @@
   text-transform: uppercase;
 }
 
-.outlined__link__button:hover {
+.outlinedLinkButton:hover {
   background-color: var(--primary-click-color);
 }

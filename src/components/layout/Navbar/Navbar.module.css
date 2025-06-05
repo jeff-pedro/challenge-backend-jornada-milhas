@@ -3,13 +3,13 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 16px 20%;
+  padding: 1rem 20%;
   box-sizing: border-box;
   background-color: var(--neutral-dark-black-color);
 }
 
-.navbar__buttons {
+.navbarButtons {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
 }

@@ -1,12 +1,12 @@
-import './TestimonialCard.css';
+import styles from './TestimonialCard.module.css';
 
 const TestimonialCard = ({ text, author, image }) => {
   return(
-      <div className="testimonial__card">
+      <div className={styles.testimonialCard}>
         <img src={image} alt={author} />
-        <div className="testimonial__content">
-          <p className="testimonial__text">{text}</p>
-          <p className="testimonial__author">{author}</p>
+        <div className={styles.testimonialContent}>
+          <p className={styles.testimonialText}>{text}</p>
+          <p className={styles.testimonialAuthor}>{author}</p>
         </div>
       </div>
   );

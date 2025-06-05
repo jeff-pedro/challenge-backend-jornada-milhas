@@ -1,9 +1,9 @@
 .card {
-  padding-bottom: 20px;
+  padding-bottom: 1.25rem;
   border: 1px solid var(--neutral-dark-light-grey-color);
   border-radius: 12px;
   background-color: var(--neutral-light-surface1-color);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.05);
   transition: transform 0.3s, box-shadow 0.3s;
   overflow: hidden;
 }
@@ -13,45 +13,45 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.card img {
+.cardImage {
   width: 100%;
-  height: 260px;
+  height: 33vmin;
   object-fit: cover;
   display: block;
 }
 
-.card__info {
+.cardInfo {
   display: flex;
   flex-direction: column;
   text-align: center;
-  gap: 24px;
-  padding: 16px;
+  gap: 1.5rem;
+  padding: 1rem;
 }
 
-.card__name {
+.cardName {
   margin: 0;
   font-family: var(--primary-font-family);
   font-weight: 400;
-  font-size: 24px;
+  font-size: 1.5rem;
   color: var(--neutral-dark-black-color);
   line-height: 1.33;
 }
 
-.card__price {
+.cardPrice {
   margin: 0;
   font-family: var(--primary-font-family);
   font-weight: 400;
-  font-size: 32px;
+  font-size: 2rem;
   color: var(--neutral-dark-grey-color);
   line-height: 1.25;
 }
 
-.card__link {
-  padding: 10px 30px;
+.cardLink {
+  padding: 0.625rem 1.875rem;
   border-radius: 5px;
   font-size: var(--primary-font-family);
   font-weight: 500;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.4;
   color: var(--neutral-light-white-color);
   text-transform: uppercase;
@@ -60,6 +60,6 @@
   transition: background-color 0.3s;
 }
 
-.card__link:hover {
+.cardLink:hover {
   background-color: var(--primary-click-color);
 } 

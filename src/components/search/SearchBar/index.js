@@ -1,10 +1,10 @@
 import { useState } from "react";
-import Button from "../../ui/Button";
-import Form from "../../ui/Form";
-import SearchInput from "../../ui/SearchInput";
-import { destinations } from "../../../data/destinations";
+import Button from "components/ui/Button";
+import Form from "components/ui/Form";
+import SearchInput from "components/ui/SearchInput";
+import { destinations } from "data/destinations";
 
-const SearchBar = ({onSearch}) => {
+const SearchBar = ({ onSearch }) => {
 
   const [destination, setDestination] = useState('');
   
@@ -16,7 +16,11 @@ const SearchBar = ({onSearch}) => {
 
   return (
           <Form onSubmit={handleSubmit} title='Encontre seu próximo destino' >
-            <SearchInput placeholder='Origem' onChange={(destination) => setDestination(destination)}/>
+            <SearchInput 
+              placeholder='Origem' 
+              onChange={(destination) => setDestination(destination)}
+            />
+            
             <Button>
               Buscar
             </Button>

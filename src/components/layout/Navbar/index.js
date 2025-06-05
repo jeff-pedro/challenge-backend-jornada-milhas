@@ -1,11 +1,12 @@
-import './Navbar.css';
+import styles from './Navbar.module.css';
 
 const Navbar = ({ children, logoImage, logoDiscription }) => {
   return(
     <header>
-      <nav className="navbar">
+      <nav className={styles.navbar}>
         <img src={logoImage} alt={logoDiscription} />
-        <div className="navbar__buttons">
+        
+        <div className={styles.navbarButtons}>
           { children }
         </div>
       </nav>

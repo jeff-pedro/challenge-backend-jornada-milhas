@@ -2,32 +2,32 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
 }
 
-.carousel__container {
+.carouselContainer {
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap;
-  gap: 20px;
-  margin-bottom: 20px;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
-.carousel__controls {
+.carouselControls {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 1.25rem;
 }
 
-.carousel__button {
-  width: 40px;
-  height: 40px;
+.carouselButton {
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   background-color: var(--primary-color);
   color: var(--neutral-light-white-color);
   border: none;
-  font-size: 18px;
+  font-size: 1.125rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,22 +35,22 @@
   transition: background-color 0.3s;
 }
 
-.carousel__button--inactive {
+.carouselButtonInactive {
   background-color: var(--neutral-dark-light-grey-color);
 }
 
-.carousel__button:hover {
+.carouselButton:hover {
   background-color: var(--primary-click-color);
 }
 
-.carousel__indicators {
+.carouselIndicators {
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
-.carousel__indicator {
-  width: 12px;
-  height: 12px;
+.carouselIndicator {
+  width: 0.75rem;
+  height: 0.75rem;
   border-radius: 50%;
   border: none;
   background-color: var(--neutral-dark-light-grey-color);
@@ -58,12 +58,12 @@
   transition: background-color 0.3s;
 }
 
-.carousel__indicator--active {
+.carouselIndicatorActive {
   background-color: var(--primary-color);
 }
 
 /* Modificar o estilo do TestimonialCard para se ajustar ao carousel */
-.testimonial__card {
-  width: calc(33.33% - 14px);
+.testimonialCard {
+  width: calc(33.33% - 0.875rem);
   flex-shrink: 0;
 }

@@ -1,22 +1,43 @@
-import './Footer.css';
+import styles from './Footer.module.css';
+// images
+import whataspp from 'assets/whatsapp.png';
+import instragram from 'assets/instagram.png';
+import twitter from 'assets/twitter.png';
+import logo from 'assets/white-logo2.png';
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className={styles.footer}>
 
-      <div className="footer__info">
-        <img src="/images/white-logo2.png" alt="Jornada Milhas" />
-        <p>Horário de atendimento: 08h - 20h (Segunda a Sábado)</p>
-        <p>Desenvolvido por Jefferson Pedro. Projeto fictício sem fins comerciais.</p>
+      <div className={styles.footerInfo}>
+        <img src={logo} alt="Jornada Milhas" />
+        
+        <p>
+          Horário de atendimento: 08h - 20h (Segunda a Sábado)
+        </p>
+
+        <p>
+          Desenvolvido por Jefferson Pedro. Projeto fictício sem fins comerciais.
+        </p>
       </div>
 
-      <div className="footer__social">
+      <div className={styles.footerSocial}>
         <p>Acesse nossas redes:</p>
-        <div className="footer__social_icons">
-          <a className="social__whatsapp" href="whatsapp.com"><img src="/images/whatsapp.png" alt="WhatsApp" /></a>
-          <a className="social__instagram" href="instragram.com"><img src="/images/instagram.png" alt="Instagram" /></a>
-          <a className="social__twitter" href="twitter.com"><img src="/images/twitter.png" alt="Twiter" /></a>
+        
+        <div className={styles.footerSocialIcons}>
+          <a className={styles.socialWhatsapp} href="whatsapp.com">
+              <img src={whataspp} alt="WhatsApp" />
+          </a>
+        
+          <a className={styles.socialInstagram} href="instragram.com">
+            <img src={instragram} alt="Instagram" />
+          </a>
+        
+          <a className={styles.socialTwitter} href="twitter.com">
+            <img src={twitter} alt="Twiter" />
+          </a>
         </div>
+
       </div>
 
     </footer>
