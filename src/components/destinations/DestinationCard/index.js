@@ -1,5 +1,5 @@
+import DefaultButton from 'components/ui/DefaultButton';
 import styles from './DestinationCard.module.css';
-import LinkButton from 'components/ui/LinkButton';
 
 const DestinationCard = ({ destination, linkText }) => {
   const photo = destination.photos[0].url;
@@ -21,13 +21,13 @@ const DestinationCard = ({ destination, linkText }) => {
         <p className={styles.cardPrice}>
           {destination.price}
         </p>
-      
-        <LinkButton
+
+        <DefaultButton
           to={`destinations/${destination.id}`}
-          buttonStyle={{ lineHeight: '1.4' }}
+          size='lg'
         >
           {linkText}
-        </LinkButton>
+        </DefaultButton>
       </div>
     </div>
   );
