@@ -16,7 +16,3 @@
 .button:hover {
   background-color: var(--primary-click-color);
 }
-
-.lg {
-  line-height: 1.4;
-}

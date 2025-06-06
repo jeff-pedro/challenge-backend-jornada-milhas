@@ -1,7 +1,9 @@
 import { useState } from "react";
-import Button from "components/ui/Button";
+// components
 import Form from "components/ui/Form";
+import DefaultButton from "components/ui/DefaultButton";
 import SearchInput from "components/ui/SearchInput";
+// data
 import { destinations } from "data/destinations";
 
 const SearchBar = ({ onSearch }) => {
@@ -20,10 +22,10 @@ const SearchBar = ({ onSearch }) => {
               placeholder='Origem' 
               onChange={(destination) => setDestination(destination)}
             />
-            
-            <Button>
+
+            <DefaultButton>
               Buscar
-            </Button>
+            </DefaultButton>
           </Form>
   );
 }

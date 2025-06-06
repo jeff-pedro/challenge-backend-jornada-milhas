@@ -1,4 +1,4 @@
-import DefaultButton from 'components/ui/DefaultButton';
+import DefaultLinkButton from 'components/ui/DefaultLinkButton';
 import styles from './DestinationCard.module.css';
 
 const DestinationCard = ({ destination, linkText }) => {
@@ -22,12 +22,12 @@ const DestinationCard = ({ destination, linkText }) => {
           {destination.price}
         </p>
 
-        <DefaultButton
+        <DefaultLinkButton
           to={`destinations/${destination.id}`}
           size='lg'
         >
           {linkText}
-        </DefaultButton>
+        </DefaultLinkButton>
       </div>
     </div>
   );

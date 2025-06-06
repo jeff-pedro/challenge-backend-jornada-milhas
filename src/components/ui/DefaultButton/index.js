@@ -1,18 +1,7 @@
-import { Link } from 'react-router-dom';
 import styles from './DefaultButton.module.css';
 
-const DefaultButton = ({ children, to, size }) => {
-  return (
-    <Link
-      to={to}
-      className={`
-        ${styles.button}
-        ${styles[size]}
-      `}
-    >
-      {children}
-    </Link>
-  )
+const DefaultButton = ({ children }) => {
+  return (<button className={styles.button}>{children}</button>);
 }
 
 export default DefaultButton;
