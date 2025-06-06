@@ -1,0 +1,57 @@
+.notfoundContainer {
+  position: relative;
+}
+
+.banner {
+  position: relative;
+  height: 45vmin;
+  background-color: var(--primary-color);
+  text-align: center;
+  opacity: 0.7;
+}
+
+.banner .titulo {
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+}
+
+.banner .paragrafo {
+  font-size: 1.25rem;
+}
+
+.banner .bannerContainer {
+  position: absolute;
+  display: block;
+  left: 50%;
+  transform: translateX(-50%);  
+  bottom: calc(-30vw * 0.05);
+}
+
+.banner .text404 {
+  font-size: 20rem;
+  color: var(--primary-container-color);
+}
+
+.banner .image404 {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%)
+}
+
+.backLinkContainer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 1rem;
+}
+
+.backLink {
+  font-size: 1.25rem;
+  border-bottom: solid 1px #000;
+}
+
+.whiteSpace {
+  height: 10vw;
+}

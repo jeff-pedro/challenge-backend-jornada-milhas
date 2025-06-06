@@ -6,6 +6,7 @@ import Destination from 'pages/Destination';
 // components
 import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
+import NotFound from 'pages/NotFound';
 
 function AppRoutes() {
   return (
@@ -15,7 +16,7 @@ function AppRoutes() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='destinations/:id' element={<Destination />} />
-        <Route path='*' element="Página não encontrada..." />
+        <Route path='*' element={<NotFound />} />
       </Routes>
    
       <Footer />
