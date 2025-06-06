@@ -6,7 +6,7 @@
 }
 
 .footerInfo img {
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
 }
 
 .footerInfo p {
@@ -14,7 +14,7 @@
   font-family: var(--primary-font-family);
   font-weight: 400;
   font-size: 1rem;
-  line-height: 1.75;
+  line-height: 2;
   color: var(--neutral-light-white-bg-color);
 }
 

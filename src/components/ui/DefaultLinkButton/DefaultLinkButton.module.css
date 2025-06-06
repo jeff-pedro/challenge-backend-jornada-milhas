@@ -3,10 +3,11 @@
   border: none;
   border-radius: 5px;
   font-family: var(--primary-font-family);
-  font-weight: 500;
   font-size: 0.875rem;
+  font-weight: 500;
   color: var(--neutral-light-white-color);
   text-transform: uppercase;
+  
   line-height: 1.5;
   background-color: var(--primary-color);
   transition: background-color 0.3s;
@@ -19,4 +20,11 @@
 
 .lg {
   line-height: 1.4;
+}
+
+.outlined {
+  padding: 0.625rem 1.5rem;
+  border: 1px solid var(--neutral-dark-medium-grey-color);
+  background-color: transparent;
+  color: var(--primary-color);
 }

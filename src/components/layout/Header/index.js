@@ -1,8 +1,7 @@
 import Navbar from 'components/layout/Navbar';
-import LinkButton from 'components/ui/LinkButton';
-import OutlinedLinkButton from 'components/ui/OutlinedLinkButton';
 
-import logo from 'assets/white-logo1.png';
+import logo from 'assets/white-logo1.png'
+import DefaultLinkButton from 'components/ui/DefaultLinkButton';
 
 const Header = () => {
   return(
@@ -12,14 +11,18 @@ const Header = () => {
           logoDiscription='Jornada Milhas'
         >
         
-          <LinkButton to='index.html'>
-            CADASTRE-SE
-          </LinkButton>
-          
-          <OutlinedLinkButton to='index.html'>
-            LOGIN
-          </OutlinedLinkButton>
-      
+        <DefaultLinkButton 
+          to={'/register'}
+        >
+          CADASTRE-SE
+        </DefaultLinkButton>
+
+        <DefaultLinkButton 
+          to={'/login'}
+          outlined
+        >
+          LOGIN
+        </DefaultLinkButton>
       </ Navbar>
     </header>
   );
