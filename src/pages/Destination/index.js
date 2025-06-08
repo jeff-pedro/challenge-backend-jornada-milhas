@@ -8,6 +8,7 @@ import './Destination.css';
 
 // API data
 import { destinations } from 'data/destinations';
+import ScrollToTop from 'components/ui/ScrollToTop';
 
 const Destination = () => {
   const params = useParams();
@@ -55,6 +56,8 @@ const Destination = () => {
           </ReactMarkdown>
         </div>
       </div>
+
+      <ScrollToTop />
     </article>
   )
 }
