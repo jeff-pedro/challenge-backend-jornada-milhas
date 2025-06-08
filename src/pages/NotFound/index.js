@@ -10,15 +10,18 @@ const NotFound  = () => {
     <div className={styles.notfoundContainer}>
 
       <div className={styles.banner}>
-        <h1 className={styles.titulo}>
-          Oops!
-        </h1>
+      
+        <div className={styles.bannerTextContainer}>
+          <h1 className={styles.title}>
+            Oops!
+          </h1>
 
-        <p className={styles.paragrafo}>
-          Você não deveria estar aqui.
-        </p>      
+          <p className={styles.paragraph}>
+            Você não deveria estar aqui.
+          </p>      
+        </div>
 
-        <div className={styles.bannerContainer}>
+        <div className={styles.banner404Container}>
           <span className={styles.text404}>
             404
           </span>
@@ -29,6 +32,7 @@ const NotFound  = () => {
             alt='Shipwrecked man with buoy' 
           />
         </div>
+
       </div>
 
       <div 
