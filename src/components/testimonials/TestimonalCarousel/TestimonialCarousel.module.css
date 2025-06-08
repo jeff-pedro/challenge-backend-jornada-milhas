@@ -7,7 +7,6 @@
 
 .carouselContainer {
   display: flex;
-  justify-content: space-between;
   flex-wrap: nowrap;
   gap: 1.25rem;
   margin-bottom: 1.25rem;
@@ -21,18 +20,17 @@
 }
 
 .carouselButton {
+  display: flex;
   width: 2.5rem;
   height: 2.5rem;
+  justify-content: center;
+  align-items: center;
+  border: none;
   border-radius: 50%;
   background-color: var(--primary-color);
   color: var(--neutral-light-white-color);
-  border: none;
-  font-size: 1.125rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
   transition: background-color 0.3s;
+  cursor: pointer;
 }
 
 .carouselButtonInactive {
@@ -54,8 +52,8 @@
   border-radius: 50%;
   border: none;
   background-color: var(--neutral-dark-light-grey-color);
-  cursor: pointer;
   transition: background-color 0.3s;
+  cursor: pointer;
 }
 
 .carouselIndicatorActive {

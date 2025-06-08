@@ -2,6 +2,8 @@ import { useState } from 'react';
 import styles from './TestimonialCarousel.module.css';
 import TestimonialCard from 'components/testimonials/TestimonialCard';
 
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+
 const TestimonialCarousel = ({ testimonials }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -11,14 +13,16 @@ const TestimonialCarousel = ({ testimonials }) => {
   // Calculate total number of pages
   const totalPages = Math.ceil(testimonials.length / testimonialsPerPage);
 
+  // Go to the next index of testimonials array
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => 
-      prevIndex + testimonialsPerPage >= testimonials.testimonial
+      prevIndex + testimonialsPerPage >= testimonials.length
         ? prevIndex
         : prevIndex + testimonialsPerPage
     );
   }
 
+  // Go to the prev index of testimonials array
   const prevSlide = () => {
     setCurrentIndex((prevIndex) => 
       prevIndex - testimonialsPerPage <= 0
@@ -26,7 +30,7 @@ const TestimonialCarousel = ({ testimonials }) => {
         : prevIndex - testimonialsPerPage
     );
   }
-
+  
   // Get the testimonials of current page
   const currentTestimonials = testimonials.slice(
     currentIndex,
@@ -36,14 +40,19 @@ const TestimonialCarousel = ({ testimonials }) => {
   return (
     <div className={styles.carousel}>
       <div className={styles.carouselContainer}>
-        {currentTestimonials.map(testimonial => (
-          <TestimonialCard
-            key={testimonial.id}
-            text={testimonial.text}
-            author={testimonial.author}
-            image={testimonial.image}
-          />
-        ))}
+        {currentTestimonials.map(testimonial => {
+          return (
+            <TestimonialCard
+              key={testimonial.id}
+              text={testimonial.text}
+              author={testimonial.author}
+              image={testimonial.image}
+            />
+          )
+
+        }
+        
+        )}
       </div>
       
       <div className={styles.carouselControls}>
@@ -57,7 +66,7 @@ const TestimonialCarousel = ({ testimonials }) => {
           onClick={prevSlide}
           aria-label="Previous testimonials"
         >
-          &#10094;
+          <MdNavigateBefore size={35} />
         </button>
         
         <div className={styles.carouselIndicators}>
@@ -80,7 +89,7 @@ const TestimonialCarousel = ({ testimonials }) => {
           onClick={nextSlide}
           aria-label="Próximos testimonials"
         >
-          &#10095;
+          <MdNavigateNext size={35} />
         </button>
       </div>
     </div>

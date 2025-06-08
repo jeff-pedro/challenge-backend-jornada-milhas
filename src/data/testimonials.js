@@ -19,26 +19,14 @@ export const testimonials = [
   },
   {
     id: '4',
-    text: 'Minha viagem com a Jornada foi incrível! Recomendo muito a agência para quem busca uma experiência emocionante e personalizada a partir das nossas necessidades.',
-    author: 'Mariana Faustino',
-    image: '/images/avatar3.png'
+    text: 'Melhor viagem! Recomendo muito a agência para quem busca uma experiência emocionante e personalizada a partir das nossas necessidades.',
+    author: 'Jefferson Santos',
+    image: '/images/avatar4.png'
   },
   {
     id: '5',
-    text: 'Minha viagem com a Jornada foi incrível! Recomendo muito a agência para quem busca uma experiência emocionante e personalizada a partir das nossas necessidades.',
-    author: 'Mariana Faustino',
-    image: '/images/avatar3.png'
-  },
-  {
-    id: '6',
-    text: 'Minha viagem com a Jornada foi incrível! Recomendo muito a agência para quem busca uma experiência emocionante e personalizada a partir das nossas necessidades.',
-    author: 'Mariana Faustino',
-    image: '/images/avatar3.png'
-  },
-  {
-    id: '7',
-    text: 'Minha viagem com a Jornada foi incrível! Recomendo muito a agência para quem busca uma experiência emocionante e personalizada a partir das nossas necessidades.',
-    author: 'Mariana Faustino',
-    image: '/images/avatar3.png'
+    text: 'Amei! Recomendo muito a agência para quem busca uma experiência emocionante e personalizada a partir das nossas necessidades.',
+    author: 'Helena Amélia',
+    image: '/images/avatar5.png'
   }
-] 
+];
