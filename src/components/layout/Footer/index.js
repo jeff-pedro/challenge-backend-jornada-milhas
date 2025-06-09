@@ -9,20 +9,21 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
 
-      <div className={styles.footerInfo}>
-        <img src={logo} alt="Jornada Milhas" />
-        
-        <p>
+      <img className={styles.logo} src={logo} alt="Jornada Milhas" />
+
+      <div className={styles.infoContainer}>
+        <p className={styles.info}>
           Horário de atendimento: 08h - 20h (Segunda a Sábado)
         </p>
 
-        <p>
+        <p className={styles.info}>
           Desenvolvido por Jefferson Pedro. Projeto fictício sem fins comerciais.
         </p>
       </div>
 
+
       <div className={styles.footerSocial}>
-        <p>Acesse nossas redes:</p>
+        <p className={styles.footerSocialParagraph}>Acesse nossas redes:</p>
         
         <div className={styles.footerSocialIcons}>
           <a className={styles.socialWhatsapp} href="whatsapp.com">

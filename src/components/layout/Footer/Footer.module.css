@@ -1,15 +1,19 @@
 .footer {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto auto;
   padding: 3.75rem 20%;
   background-color: var(--neutral-dark-black-color);
 }
 
-.footerInfo img {
+.logo {
   padding-bottom: 0.5rem;
 }
 
-.footerInfo p {
+.infoContainer {
+  grid-row: 2 / 3;
+}
+
+.info {
   margin: 0;
   font-family: var(--primary-font-family);
   font-weight: 400;
@@ -24,9 +28,10 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  grid-row: 1 / 3;
 }
 
-.footerSocial p {
+.footerSocialParagraph {
   font-family: var(--primary-font-family);
   font-weight: 400;
   font-size: 1rem;
@@ -63,4 +68,31 @@
 
 .socialTwitter:hover {
   filter: invert(48%) sepia(94%) saturate(1887%) hue-rotate(176deg) brightness(103%) contrast(91%);
+}
+
+@media (max-width: 1000px) {
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+    padding: 3.75rem 5%;
+  }
+  
+  .logo {
+    width: 35vmin;
+  }
+
+  .infoContainer {
+    order: 3;
+    text-align: center;
+  }
+
+  .footerSocial {
+    flex-direction: row;
+  }
+
+  .footerSocialParagraph {
+    font-weight: 700;
+  }
 }
