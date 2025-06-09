@@ -1,9 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
 import styles from './Navbar.module.css';
 
+import { IoMenu, IoCloseOutline } from "react-icons/io5";
+import { useState } from 'react';
+
+
 const Navbar = ({ children, logoImage, logoDiscription }) => {
   const { pathname } = useLocation();
-  
+
+  const [isActive, setIsActive] = useState(false);
+
   return(
     <header>
       <nav className={styles.navbar}>
@@ -17,6 +23,35 @@ const Navbar = ({ children, logoImage, logoDiscription }) => {
         <div className={styles.navbarButtons}>
           { children }
         </div>
+
+        {/* Menu */}
+        <div className={styles.menuIcons}>
+          <IoMenu
+            onClick={() => setIsActive(true)}
+            size={32}
+            className={`
+              ${styles.menuButton}
+              ${isActive ? styles.active : ''}
+            `}
+          />
+
+          <IoCloseOutline
+              onClick={() => setIsActive(false)}
+              size={32}
+              className={`
+                ${styles.menuButtonClose}
+                ${isActive ? styles.active : ''}
+              `}
+          />
+        </div>
+
+        <ul className={`
+          ${styles.menu}
+          ${isActive ? styles.active : ''}
+        `}>
+          <li><a href="/">CADASTRE-SE</a></li>
+          <li><a href="/">LOGIN</a></li>
+        </ul>
       </nav>
     </header>
   );

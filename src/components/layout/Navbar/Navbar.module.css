@@ -13,3 +13,94 @@
   align-items: center;
   gap: 1rem;
 }
+
+.navigation {
+  display: none;
+}
+
+.menuIcons { 
+  display: none;
+}
+
+.menu {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .navbar {
+    padding: 1rem 5%;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    padding: 1rem 5%;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+  }
+
+  .navbarButtons {
+    display: none;
+  }
+
+  .menuIcons {
+    display: flex;
+    padding: 3px;
+    border: solid 1px rgba(208, 188, 255, 0.3);
+    z-index: 3;
+  }
+
+  .menuButton.active {
+    display: none;
+  }
+
+  .menu {
+   display: none;
+   flex-direction: column;
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100vh;
+   background-color: rgba(0, 0, 0, 0.9);
+   padding: 10% 5% 10%;
+   z-index: 2;
+  }
+
+  .menu li {
+    color: var(--neutral-light-white-color);
+    font-weight: 1rem;
+    font-weight: 700;
+    line-height: 2rem;
+   }
+
+  .menu.active {
+    display: flex;
+  }
+
+  .menuButton {
+    cursor: pointer;
+    color: white;
+    z-index: 3;
+  }
+
+  .menuButtonClose {
+    display: none;
+  }
+  
+  .menuButtonClose.active {
+    display: flex;
+    color: white;
+    z-index: 3;
+    animation: iconRotate 0.3s linear;
+  }
+
+  @keyframes iconRotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(90deg);
+    }
+  }
+}
