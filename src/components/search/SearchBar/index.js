@@ -6,6 +6,8 @@ import SearchInput from "components/ui/SearchInput";
 // data
 import { destinations } from "data/destinations";
 
+import styles from './SearchBar.module.css';
+
 const SearchBar = ({ onSearch }) => {
 
   const [destination, setDestination] = useState('');
@@ -17,16 +19,21 @@ const SearchBar = ({ onSearch }) => {
   } 
 
   return (
+    <div className={styles.searchForm}>
           <Form onSubmit={handleSubmit} title='Encontre seu próximo destino' >
             <SearchInput 
               placeholder='Origem' 
               onChange={(destination) => setDestination(destination)}
             />
 
-            <DefaultButton>
-              Buscar
-            </DefaultButton>
+            <div className={styles.searchFormButton}>
+              <DefaultButton>
+                Buscar
+              </DefaultButton>
+            </div>
+
           </Form>
+    </div>
   );
 }
 

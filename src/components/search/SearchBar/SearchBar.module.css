@@ -1,0 +1,17 @@
+.searchForm {
+  padding: 0 20%;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 1200px) {
+  .searchForm {
+    padding: 1rem 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchFormButton {
+    display: none;
+  }
+}
