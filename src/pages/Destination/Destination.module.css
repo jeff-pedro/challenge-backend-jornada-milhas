@@ -59,3 +59,14 @@
   object-position: center;
 }
 
+@media (max-width: 1200px) {
+  .contentContainer {
+    width: 100%;
+    padding: 2.5rem 5% 2rem;
+  }
+
+  .photoItem {
+    height: 25vw;
+  }
+}
+
