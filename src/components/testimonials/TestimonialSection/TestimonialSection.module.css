@@ -1,4 +1,10 @@
 .testimonials {
-  max-width: 60vw;
-  margin: 2.5rem auto;
+  max-width: 100%;
+  padding: 2.5rem 20%;
+}
+
+@media (max-width: 1200px) {
+  .testimonials {
+    padding: 2.5rem 5%;
+  }
 }

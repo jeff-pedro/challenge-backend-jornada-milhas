@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './TestimonialCarousel.module.css';
 import TestimonialCard from 'components/testimonials/TestimonialCard';
 
@@ -6,9 +6,23 @@ import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 
 const TestimonialCarousel = ({ testimonials }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
   // Define how many testimonials card at a time 
-  const testimonialsPerPage = 3;
+  const [testimonialsPerPage, setTestimonialsPerPage] = useState(3);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setTestimonialsPerPage(window.innerWidth <= 767 ? 1 : 3);
+    }
+
+    // Set initial value to run when the component is mounted
+    handleResize();
+
+    // Add event listener to monitor when user resizes screen
+    window.addEventListener('resize', handleResize);
+
+    // Remove the event when the component is unmounted
+    return () => window.removeEventListener('resize', handleResize);
+  }, [])
   
   // Calculate total number of pages
   const totalPages = Math.ceil(testimonials.length / testimonialsPerPage);
@@ -40,21 +54,25 @@ const TestimonialCarousel = ({ testimonials }) => {
   return (
     <div className={styles.carousel}>
       <div className={styles.carouselContainer}>
-        {currentTestimonials.map(testimonial => {
-          return (
+        {currentTestimonials.map(testimonial =>
             <TestimonialCard
               key={testimonial.id}
               text={testimonial.text}
               author={testimonial.author}
               image={testimonial.image}
             />
-          )
-
-        }
-        
         )}
+
+        {/* Button for Smaller Screens */}
+        <button className={styles.prev} onClick={prevSlide}>
+          <MdNavigateBefore size={40} />
+        </button>
+        
+        <button className={styles.next} onClick={nextSlide}>
+          <MdNavigateNext size={40} />
+        </button>
       </div>
-      
+          
       <div className={styles.carouselControls}>
         <button
           className={`

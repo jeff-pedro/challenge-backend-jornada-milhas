@@ -10,6 +10,33 @@
   flex-wrap: nowrap;
   gap: 1.25rem;
   margin-bottom: 1.25rem;
+
+  position: relative;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 1rem;
+  border: none;
+  color: var(--primary-color);
+  opacity: 0.7;
+  transform: translateY(-50%);
+  user-select: none;
+}
+
+.next {
+  right: -1.5rem;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev {
+  left: -1.5rem;
+  border-radius: 3px 0 0 3px;
 }
 
 .carouselControls {
@@ -60,8 +87,17 @@
   background-color: var(--primary-color);
 }
 
-/* Modificar o estilo do TestimonialCard para se ajustar ao carousel */
-.testimonialCard {
-  width: calc(33.33% - 0.875rem);
-  flex-shrink: 0;
+@media (max-width: 767px) {
+  .carouselContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .prev, .next {
+    display: unset;
+  }
+  
+  .carouselButton {
+    display: none;
+  }
 }
