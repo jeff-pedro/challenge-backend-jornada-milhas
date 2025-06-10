@@ -10,10 +10,10 @@ const Hero = () => {
     >
       <div className={styles.content}>
       
-        <h1>
-          Compartilhe milhas<br />
+        <div className={styles.title}>
+          <span>Compartilhe milhas</span>
           <span>compartilhe o mundo.</span>
-        </h1>
+        </div>
       
         <img src={womanTraveler} alt='Traveler woman with a backpack'></img>
       </div>
