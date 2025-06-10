@@ -6,12 +6,12 @@
 }
 
 .carouselContainer {
+  position: relative;
   display: flex;
+  justify-content: space-between;
   flex-wrap: nowrap;
   gap: 1.25rem;
   margin-bottom: 1.25rem;
-
-  position: relative;
 }
 
 /* Next & previous buttons */
