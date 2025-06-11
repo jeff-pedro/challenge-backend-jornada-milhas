@@ -1,36 +1,11 @@
-.formContainer {
+.register {
   padding: 1.5rem 25%;
-  text-align: center;
 }
 
-.formContainer p {
+.paragraph {
   font-size: 1.125rem;
   line-height: 1.5;
   color: var(--primary-color);
   margin-top: 0.5rem;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  row-gap: 1rem;
-  margin: 3.5rem 5rem;
-  padding: 1.5rem 7rem;
-  border-radius: 16px;
-  background-color: var(--neutral-light-white-bg-color);
-}
-
-.button {
   text-align: center;
 }
-
-.button > * {
-  width: 40%;
-  height: 3rem;
-  margin-top: 1.5rem;
-}
-
-
-
-
-

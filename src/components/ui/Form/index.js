@@ -1,14 +1,16 @@
 import styles from './Form.module.css';
+import DefaultButton from '../DefaultButton';
 
-const Form = ({ children, title, onSubmit }) => {
+const Form = ({ children, buttonText, onSubmit }) => {
   return (
-    <section className={styles.formContainer}>
-      <h2>{title}</h2>
+    <form className={styles.form} onSubmit={onSubmit}>
       
-      <form onSubmit={onSubmit}>
-        { children }
-      </form>
-    </section>
+      { children }
+      
+      <div className={styles.button}>
+        <DefaultButton children={buttonText} />
+      </div>
+    </form>
   );
 }
 
