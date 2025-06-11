@@ -70,13 +70,13 @@
   filter: invert(48%) sepia(94%) saturate(1887%) hue-rotate(176deg) brightness(103%) contrast(91%);
 }
 
-@media (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
   .footer {
     padding: 3.75rem 5%;
   }
 }
 
-@media (max-width: 767px) {
+@media screen and (max-width: 896px) {
   .footer {
     display: flex;
     flex-direction: column;
@@ -103,7 +103,7 @@
   }
 }
 
-@media (max-width: 563px) {
+@media screen and (max-width: 563px) {
   .info {
     font-size: 0.825rem;
   }
