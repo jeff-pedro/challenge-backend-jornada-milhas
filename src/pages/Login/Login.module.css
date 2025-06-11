@@ -1,0 +1,22 @@
+.login {
+  padding: 1.5rem 25%;
+  text-align: center;
+}
+
+.paragraph {
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  margin-top: 1rem;
+}
+
+.link {
+  font-size: 0.875rem;
+  text-decoration: underline;
+  color: var(--primary-color);
+}
+
+@media screen and (max-width: 1200px) {
+  .login {
+    padding: 1.5rem 5%;
+  }
+}
