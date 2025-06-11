@@ -76,3 +76,10 @@
     transform: translateX(20%);
   }
 }
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.625rem;
+  }
+}
+
