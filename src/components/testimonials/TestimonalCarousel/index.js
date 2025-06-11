@@ -8,10 +8,12 @@ const TestimonialCarousel = ({ testimonials }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   // Define how many testimonials card at a time 
   const [testimonialsPerPage, setTestimonialsPerPage] = useState(3);
+  
+  const screenSize = 896;
 
   useEffect(() => {
     const handleResize = () => {
-      setTestimonialsPerPage(window.innerWidth <= 767 ? 1 : 3);
+      setTestimonialsPerPage(window.innerWidth <= screenSize ? 1 : 3);
     }
 
     // Set initial value to run when the component is mounted

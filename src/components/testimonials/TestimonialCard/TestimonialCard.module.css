@@ -8,7 +8,6 @@
   box-sizing: border-box;
 }
 
-
 .testimonialCard img {
   width: 3.5rem;
   height: 3.5rem;
@@ -38,10 +37,10 @@
   color: var(--neutral-dark-black-color);
 }
 
-@media (max-width: 767px) {
+@media screen and (max-width: 896px) {
   .testimonialCard {
     width: 100%;
-    height: 20vmin;
+    height: 35vmin;
     padding: 0.75rem 1.5rem 0.75rem 1.5rem;
   }
 }
