@@ -29,13 +29,16 @@ const Register = () => {
 
   return (
     <main className={styles.register}>
-        <p className={styles.paragraph}>
+
+      <div className={styles.titleContainer}>
+        <h1 className={styles.title}>
           Ainda não tem cadastro?
-        </p>
+        </h1>
 
         <p className={styles.paragraph}>
           Então antes de procurar um novo destino precisamos de alguns dados:
         </p>
+      </div>
       
       <Form 
         onSubmit={handleSubmit}

@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
 
-      <img className={styles.logo} src={logo} alt="Jornada Milhas" />
+      <img className={styles.logo} src={logo} alt='Jornada Milhas' />
 
       <div className={styles.infoContainer}>
         <p className={styles.info}>
@@ -26,16 +26,31 @@ const Footer = () => {
         <p className={styles.footerSocialParagraph}>Acesse nossas redes:</p>
         
         <div className={styles.footerSocialIcons}>
-          <a className={styles.socialWhatsapp} href="whatsapp.com">
-              <img src={whataspp} alt="WhatsApp" />
+          <a 
+            className={styles.socialWhatsapp} 
+            target='_blank'
+            rel='noopener noreferrer'
+            href='https://wa.me/+5511912345678'
+          >
+              <img src={whataspp} alt='WhatsApp' />
           </a>
         
-          <a className={styles.socialInstagram} href="instragram.com">
-            <img src={instragram} alt="Instagram" />
+          <a 
+            className={styles.socialInstagram}
+            target='_blank'
+            rel='noopener noreferrer'
+            href='https://instagram.com'
+          >
+            <img src={instragram} alt='Instagram' />
           </a>
         
-          <a className={styles.socialTwitter} href="twitter.com">
-            <img src={twitter} alt="Twiter" />
+          <a 
+            className={styles.socialTwitter}
+            target='_blank'
+            rel='noopener noreferrer'
+            href='https://x.com'
+          >
+            <img src={twitter} alt='Twiter' />
           </a>
         </div>
 
