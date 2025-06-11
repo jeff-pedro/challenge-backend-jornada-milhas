@@ -1,0 +1,28 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.field input {
+  width: 100%;
+  padding: 0.9375rem 2.5rem;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  letter-spacing: 0.0025em;
+  color: var(--neutral-dark-black-color);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.field input:focus {
+  border-color: var(--primary-container-on-color);
+}
+
+.field label {
+  font-size: 1.125rem;
+  color: var(--neutral-dark-grey-color);
+}
