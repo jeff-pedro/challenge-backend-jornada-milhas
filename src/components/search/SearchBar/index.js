@@ -19,21 +19,27 @@ const SearchBar = ({ onSearch }) => {
   } 
 
   return (
-    <div className={styles.searchForm}>
-          <Form onSubmit={handleSubmit} title='Encontre seu próximo destino' >
-            <SearchInput 
-              placeholder='Origem' 
-              onChange={(destination) => setDestination(destination)}
-            />
+    <section className={styles.search}>
+      <form 
+        className={styles.form}
+        onSubmit={handleSubmit}
+      >
+        
+        <h2 className={styles.title}>
+          Encontre seu próximo destino
+        </h2>
+        
+        <div className={styles.inputContainer}>
+          <SearchInput 
+            placeholder='Origem' 
+            onChange={(destination) => setDestination(destination)}
+          />
 
-            <div className={styles.searchFormButton}>
-              <DefaultButton>
-                Buscar
-              </DefaultButton>
-            </div>
-
-          </Form>
-    </div>
+          <DefaultButton children='Buscar' />
+        </div>
+      
+      </form>
+    </section>
   );
 }
 
