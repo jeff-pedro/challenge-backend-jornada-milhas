@@ -8,6 +8,7 @@ import Register from 'pages/Register';
 // components
 import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
+import Login from 'pages/Login';
 
 function AppRoutes() {
   return (
@@ -17,6 +18,7 @@ function AppRoutes() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
         <Route path='destinations/:id' element={<Destination />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
