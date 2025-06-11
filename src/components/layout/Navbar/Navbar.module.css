@@ -3,8 +3,8 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  height: 76px;
   padding: 1rem 20%;
-  box-sizing: border-box;
   background-color: var(--neutral-dark-black-color);
 }
 
@@ -26,13 +26,13 @@
   display: none;
 }
 
-@media (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
   .navbar {
     padding: 1rem 5%;
   }
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 896px) {
   .navbar {
     padding: 1rem 5%;
     justify-content: space-between;
@@ -58,12 +58,12 @@
    display: none;
    flex-direction: column;
    position: absolute;
-   top: 0;
+   top: 76px;
    left: 0;
    width: 100%;
    height: 100vh;
    background-color: rgba(0, 0, 0, 0.9);
-   padding: 10% 5% 10%;
+   padding-left: 5%;
    z-index: 2;
   }
 

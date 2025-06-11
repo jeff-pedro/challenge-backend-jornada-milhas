@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import styles from './Navbar.module.css';
 
-import { IoMenu, IoCloseOutline } from "react-icons/io5";
+import { IoMenu, IoCloseOutline } from 'react-icons/io5';
 import { useState } from 'react';
 
 
@@ -49,8 +49,22 @@ const Navbar = ({ children, logoImage, logoDiscription }) => {
           ${styles.menu}
           ${isActive ? styles.active : ''}
         `}>
-          <li><a href="/">CADASTRE-SE</a></li>
-          <li><a href="/">LOGIN</a></li>
+          <li>
+            <Link 
+              to='/register' 
+              onClick={() => setIsActive(false)}
+            >
+              CADASTRE-SE
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to='/login'
+              onClick={() => setIsActive(false)}
+            >
+              LOGIN
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>
