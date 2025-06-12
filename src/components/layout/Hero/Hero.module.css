@@ -32,7 +32,7 @@
   height: auto;
 }
 
-@media (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
   .heroContainer {
     padding: 2.5rem 5%;
   }
@@ -42,13 +42,13 @@
   }
 }
 
-@media (max-width: 974px) {
+@media screen and (max-width: 974px) {
   .title {
     font-size: 2.25rem;
   }
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .heroContainer {
     padding: 1rem 5%;
   }
@@ -78,7 +78,7 @@
   }
 }
 
-@media (max-width: 414px) {
+@media screen and (max-width: 414px) {
   .title {
     font-size: 1.625rem;
     padding: 1rem;

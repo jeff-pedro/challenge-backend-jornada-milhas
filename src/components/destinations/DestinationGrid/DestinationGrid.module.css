@@ -9,7 +9,7 @@
   gap: 1rem 1.5rem;
 }
 
-@media (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
   .destination {
     padding: 2.5rem 5%;
   }

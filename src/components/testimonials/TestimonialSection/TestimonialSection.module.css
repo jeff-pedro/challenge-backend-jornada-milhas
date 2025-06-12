@@ -3,7 +3,7 @@
   padding: 2.5rem 20%;
 }
 
-@media (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
   .testimonials {
     padding: 2.5rem 5%;
   }

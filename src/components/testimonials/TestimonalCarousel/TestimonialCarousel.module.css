@@ -87,7 +87,7 @@
   background-color: var(--primary-color);
 }
 
-@media (max-width: 896px) {
+@media screen and (max-width: 896px) {
   .carouselContainer {
     flex-direction: column;
     align-items: center;
