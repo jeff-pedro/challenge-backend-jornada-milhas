@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 2.5rem;
+
+  touch-action: auto;
 }
 
 .carouselContainer {
