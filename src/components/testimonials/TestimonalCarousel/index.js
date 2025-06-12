@@ -8,8 +8,42 @@ const TestimonialCarousel = ({ testimonials }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   // Define how many testimonials card at a time 
   const [testimonialsPerPage, setTestimonialsPerPage] = useState(3);
+
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  const minSwipeDistance = 50;
   
   const screenSize = 896;
+
+  const onTouchStart = (e) => {
+    setTouchStart(null);
+    setTouchEnd(e.touches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.touches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance
+
+    if (isLeftSwipe) {
+      nextSlide();
+    }
+    if (isRightSwipe) {
+      prevSlide();
+    }
+  };
+
+
+
+
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -55,7 +89,13 @@ const TestimonialCarousel = ({ testimonials }) => {
 
   return (
     <div className={styles.carousel}>
-      <div className={styles.carouselContainer}>
+      <div 
+        className={styles.carouselContainer}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+      
         {currentTestimonials.map(testimonial =>
             <TestimonialCard
               key={testimonial.id}
@@ -63,7 +103,8 @@ const TestimonialCarousel = ({ testimonials }) => {
               author={testimonial.author}
               image={testimonial.image}
             />
-        )}
+      
+      )}
 
         {/* Button for Smaller Screens */}
         <button className={styles.prev} onClick={prevSlide}>

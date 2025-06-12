@@ -4,7 +4,6 @@
   flex-direction: column;
   margin-bottom: 2.5rem;
 
-  touch-action: auto;
 }
 
 .carouselContainer {
@@ -14,6 +13,13 @@
   flex-wrap: nowrap;
   gap: 1.25rem;
   margin-bottom: 1.25rem;
+  touch-action: pan-x;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.carouselContainer {
+  transition: transform 0.3s ease-out;
 }
 
 /* Next & previous buttons */
