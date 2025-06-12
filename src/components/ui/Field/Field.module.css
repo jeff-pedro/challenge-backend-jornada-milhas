@@ -26,3 +26,9 @@
   font-size: 1.125rem;
   color: var(--neutral-dark-grey-color);
 }
+
+/* @media screen and (max-width: 414px) {
+  .field input {
+    padding: 0;
+  }
+} */

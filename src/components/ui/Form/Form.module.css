@@ -17,3 +17,22 @@
   height: 3rem;
   margin-top: 1.5rem;
 }
+
+@media screen and (max-width: 700px) {
+  .form {
+    margin: 1.5rem 0;
+    padding: 1.5rem 4rem;
+  }
+
+}
+
+@media screen and (max-width: 414px) {
+  .form {
+    margin: 1.5rem 0;
+    padding: 1.5rem 1rem;
+  }
+
+  .button > * {
+    width: 60%;
+  }
+}
