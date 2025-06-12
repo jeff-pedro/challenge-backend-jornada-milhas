@@ -6,9 +6,11 @@ import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 
 const TestimonialCarousel = ({ testimonials }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  
   // Define how many testimonials card at a time 
   const [testimonialsPerPage, setTestimonialsPerPage] = useState(3);
-
+  
+  // Set the start and end of the screen tap action
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
 
@@ -17,8 +19,8 @@ const TestimonialCarousel = ({ testimonials }) => {
   const screenSize = 896;
 
   const onTouchStart = (e) => {
-    setTouchStart(null);
-    setTouchEnd(e.touches[0].clientX);
+    setTouchEnd(null);
+    setTouchStart(e.touches[0].clientX);
   };
 
   const onTouchMove = (e) => {
@@ -26,11 +28,12 @@ const TestimonialCarousel = ({ testimonials }) => {
   };
 
   const onTouchEnd = () => {
+    if (window.innerWidth <= screenSize) return;
     if (!touchStart || !touchEnd) return;
     
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance;
 
     if (isLeftSwipe) {
       nextSlide();
@@ -39,11 +42,6 @@ const TestimonialCarousel = ({ testimonials }) => {
       prevSlide();
     }
   };
-
-
-
-
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,7 +56,7 @@ const TestimonialCarousel = ({ testimonials }) => {
 
     // Remove the event when the component is unmounted
     return () => window.removeEventListener('resize', handleResize);
-  }, [])
+  }, []);
   
   // Calculate total number of pages
   const totalPages = Math.ceil(testimonials.length / testimonialsPerPage);
@@ -87,7 +85,7 @@ const TestimonialCarousel = ({ testimonials }) => {
     Math.min(currentIndex + testimonialsPerPage, testimonials.length)
   );
 
-  return (
+  return (  
     <div className={styles.carousel}>
       <div 
         className={styles.carouselContainer}
