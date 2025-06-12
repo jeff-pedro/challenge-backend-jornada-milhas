@@ -49,7 +49,7 @@ const Navbar = ({ children, logoImage, logoDiscription }) => {
           ${styles.menu}
           ${isActive ? styles.active : ''}
         `}>
-          <li>
+          <li style={{"--i": 1}}>
             <Link 
               to='/register' 
               onClick={() => setIsActive(false)}
@@ -57,7 +57,7 @@ const Navbar = ({ children, logoImage, logoDiscription }) => {
               CADASTRE-SE
             </Link>
           </li>
-          <li>
+          <li style={{"--i": 2}}>
             <Link 
               to='/login'
               onClick={() => setIsActive(false)}
