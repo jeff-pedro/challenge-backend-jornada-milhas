@@ -11,7 +11,7 @@
 }
 
 .bannerTextContainer {
-  padding-top: 0.5rem;
+  padding-top: 1rem;
 }
 
 .title {
@@ -23,25 +23,11 @@
   font-size: 1.25rem;
 }
 
-.banner404Container {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);  
-  bottom: calc(-30vw * 0.05);
-  width: 100%;
-  height: 85%;
-}
-
-.text404 {
-  font-size: 20rem;
-  color: var(--primary-container-color);
-}
-
 .image404 {
   position: absolute;
   left: 50%;
-  height: 70%;
-  bottom: calc(-20vw * 0.05);
+  height: 60%;
+  bottom: calc(-25vw * 0.05);
   transform: translateX(-50%)
 }
 
@@ -62,29 +48,53 @@
   height: 10vw;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 563px) {
   .bannerTextContainer {
-    padding-top: 0.25rem;
-  }
-
-  .title {
-    font-size: 3.5rem;
-    margin-bottom: 0.25rem;
-  }
-  
-  .paragraph {
-    font-size: 1rem;
-  }
-  
-  .text404 {
-    font-size: 16rem;
-  }
-
-  .banner404Container {
-    bottom: calc(-80vw * 0.05);
+    padding-top: 1.5rem;
   }
 
   .image404 {
-    bottom: calc(-5%);
+    height: 50%;
   }
 }
+
+@media screen and (max-width: 414px) {
+  .bannerTextContainer {
+    padding-top: 2.2rem;
+  }
+  
+  .image404 {
+    height: 40%;
+  }
+}
+
+@media screen and (max-height: 414px) {
+  .banner {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+  }
+
+  .whiteSpace {
+    display: none;
+  }
+
+  .bannerTextContainer {
+    padding: 0 0 0 2rem;
+    color: var(--neutral-light-surface1-color);
+  }
+  
+  .image404 {
+    position: unset;
+    transform: unset;
+    height: 50%;
+  }
+
+  .backLink {
+    padding: 0.5rem;
+    border-color: var(--neutral-light-surface1-color);
+    color: var(--neutral-light-surface1-color);
+  }
+}
+

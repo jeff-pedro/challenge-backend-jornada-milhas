@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { RiArrowGoBackFill } from "react-icons/ri";
+
 import styles from './NotFound.module.css';
 import notfound from 'assets/404-image.png';
-import { RiArrowGoBackFill } from "react-icons/ri";
 
 const NotFound  = () => {
   const navigate = useNavigate();
@@ -10,7 +11,6 @@ const NotFound  = () => {
     <div className={styles.notfoundContainer}>
 
       <div className={styles.banner}>
-      
         <div className={styles.bannerTextContainer}>
           <h1 className={styles.title}>
             Oops!
@@ -21,18 +21,11 @@ const NotFound  = () => {
           </p>      
         </div>
 
-        <div className={styles.banner404Container}>
-          <span className={styles.text404}>
-            404
-          </span>
-          
-          <img 
-            className={styles.image404} 
-            src={notfound} 
-            alt='Shipwrecked man with buoy' 
-          />
-        </div>
-
+        <img 
+          className={styles.image404} 
+          src={notfound} 
+          alt='Shipwrecked man with buoy' 
+        />
       </div>
 
       <div 
