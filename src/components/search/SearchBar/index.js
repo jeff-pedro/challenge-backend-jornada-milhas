@@ -16,6 +16,10 @@ const SearchBar = ({ onSearch }) => {
     e.preventDefault();
     const destinationFound = destinations.find((item) => item.name === destination);
     onSearch(destinationFound);
+    
+    if (e.key === 'Enter') {  
+      e.target.blur();
+    }
   } 
 
   return (
