@@ -23,7 +23,9 @@
 }
 
 .search input:focus {
-  border-color: var(--primary-container-on-color);
+  border: solid 2px var(--primary-color);
+  opacity: 0.5;
+  box-shadow: none;
 }
 
 .searchIcon {
@@ -43,6 +45,7 @@
   background-size: contain;
   pointer-events: none;
 }
+
 
 @media screen and (max-width: 480px) {
   .search input {

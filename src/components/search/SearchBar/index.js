@@ -1,17 +1,18 @@
-import { useState } from "react";
+import styles from './SearchBar.module.css';
+import { useEffect, useState } from "react";
 // components
 import DefaultButton from "components/ui/DefaultButton";
 import SearchInput from "components/ui/SearchInput";
 // data
 import { destinations } from "data/destinations";
 
-import styles from './SearchBar.module.css';
-
 const SearchBar = ({ onSearch }) => {
 
   const [destination, setDestination] = useState('');
+  const [scrollPosition, setScrollPosition] = useState(0);
 
-  
+  const screenSize = 896;
+
   const handleSubmit = (e) => {
     e?.preventDefault();
     const destinationFound = destinations.find((item) => item.name === destination);
@@ -20,13 +21,25 @@ const SearchBar = ({ onSearch }) => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      handleSubmit?.();
+      handleSubmit();
       e.target.blur();
     }
   }
 
+  // On smaller screens, automatically scroll the SearchBar component to the top
+  const scrollToSearch = () => {
+    if (window.innerWidth >= screenSize) return;
+    window.scroll(0, scrollPosition);
+  }
+  
+  useEffect(() => {
+    const searchElement = document.getElementById('searchbar')
+    const positionY = searchElement.getBoundingClientRect().y;
+    setScrollPosition(positionY);
+  }, []);
+
   return (
-    <section className={styles.search}>
+    <section id='searchbar' className={styles.search}>
       <form 
         className={styles.form}
         onSubmit={handleSubmit}
@@ -42,6 +55,7 @@ const SearchBar = ({ onSearch }) => {
             placeholder='Origem' 
             onChange={(destination) => setDestination(destination)}
             handleKeyDown={handleKeyDown}
+            onFocus={scrollToSearch}
           />
 
           <DefaultButton children='Buscar' />
