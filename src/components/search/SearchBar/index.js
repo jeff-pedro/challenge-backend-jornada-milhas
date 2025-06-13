@@ -13,14 +13,14 @@ const SearchBar = ({ onSearch }) => {
 
   
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     const destinationFound = destinations.find((item) => item.name === destination);
     onSearch(destinationFound);
-    handleKeyDown();
   }
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
+      handleSubmit?.();
       e.target.blur();
     }
   }
@@ -30,7 +30,7 @@ const SearchBar = ({ onSearch }) => {
       <form 
         className={styles.form}
         onSubmit={handleSubmit}
-        // onKeyDown={handleKeyDown}
+        onKeyDown={handleKeyDown}
       >
         
         <h2 className={styles.title}>
