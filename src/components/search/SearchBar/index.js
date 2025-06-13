@@ -1,6 +1,5 @@
 import { useState } from "react";
 // components
-import Form from "components/ui/Form";
 import DefaultButton from "components/ui/DefaultButton";
 import SearchInput from "components/ui/SearchInput";
 // data

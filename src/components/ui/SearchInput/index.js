@@ -5,12 +5,20 @@ const SearchInput = ({ placeholder, onChange }) => {
     e.preventDefault();
     onChange(e.target.value);
   }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.target.blur();
+    }
+  }
   
   return (
     <div className={styles.search}>
         <div className={styles.searchIcon}>
           <input 
-            onChange={onType} 
+            onChange={onType}
+            onKeyDown={handleKeyDown}
+            enterKeyHint='enter'
             id='search-input' 
             type="text" 
             placeholder={ placeholder } 
