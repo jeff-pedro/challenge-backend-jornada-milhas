@@ -28,7 +28,7 @@ const TestimonialCarousel = ({ testimonials }) => {
   };
 
   const onTouchEnd = () => {
-    if (window.innerWidth <= screenSize) return;
+    if (window.innerWidth >= screenSize) return;
     if (!touchStart || !touchEnd) return;
     
     const distance = touchStart - touchEnd;
