@@ -16,11 +16,13 @@ const SearchBar = ({ onSearch }) => {
     e.preventDefault();
     const destinationFound = destinations.find((item) => item.name === destination);
     onSearch(destinationFound);
-    
-    if (e.key === 'Enter') {  
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
       e.target.blur();
     }
-  } 
+  }
 
   return (
     <section className={styles.search}>
@@ -37,6 +39,7 @@ const SearchBar = ({ onSearch }) => {
           <SearchInput 
             placeholder='Origem' 
             onChange={(destination) => setDestination(destination)}
+            handleKeyDown={handleKeyDown}
           />
 
           <DefaultButton children='Buscar' />
