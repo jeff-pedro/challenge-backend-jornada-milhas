@@ -17,7 +17,7 @@ const SearchInput = ({ placeholder, onChange, handleKeyDown }) => {
         <div className={styles.searchIcon}>
           <input
             onChange={onType}
-            onKeyDown={handleKeyDown}
+            // onKeyDown={handleKeyDown}
             enterKeyHint='search'
             id='search-input' 
             type="text" 

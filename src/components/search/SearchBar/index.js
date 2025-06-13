@@ -29,6 +29,7 @@ const SearchBar = ({ onSearch }) => {
       <form 
         className={styles.form}
         onSubmit={handleSubmit}
+        onKeyDown={handleKeyDown}
       >
         
         <h2 className={styles.title}>
