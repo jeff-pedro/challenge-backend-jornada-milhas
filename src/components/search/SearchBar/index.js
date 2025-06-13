@@ -10,6 +10,7 @@ import styles from './SearchBar.module.css';
 const SearchBar = ({ onSearch }) => {
 
   const [destination, setDestination] = useState('');
+
   
   const handleSubmit = (e) => {
     e.preventDefault();
