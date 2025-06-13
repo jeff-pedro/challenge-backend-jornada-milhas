@@ -18,7 +18,7 @@ const SearchInput = ({ placeholder, onChange }) => {
           <input 
             onChange={onType}
             onKeyDown={handleKeyDown}
-            enterKeyHint='enter'
+            enterKeyHint='search'
             id='search-input' 
             type="text" 
             placeholder={ placeholder } 
