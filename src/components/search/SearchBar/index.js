@@ -3,10 +3,8 @@ import { useEffect, useState } from "react";
 // components
 import DefaultButton from "components/ui/DefaultButton";
 import SearchInput from "components/ui/SearchInput";
-// data
-import { destinations } from "data/destinations";
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSearch, destinations }) => {
 
   const [destination, setDestination] = useState('');
   const [scrollPosition, setScrollPosition] = useState(0);
