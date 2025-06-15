@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown'
 // styles
 import styles from './Destination.module.css';
 import './Destination.css';
+import plane from 'assets/place.gif';
 // components
 import ScrollToTop from 'components/ui/ScrollToTop';
 // api
@@ -14,16 +15,20 @@ const MAX_PHOTOS = 2;
 
 const Destination = () => {
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   const [destination, setDestination] = useState(null);
   const [photos, setPhotos] = useState([]);
 
   const fetchDestination = async (id) => {
     try {
+      setIsLoading(true);
       const response = await getDestinationById(id);
       setDestination(response);
       setPhotos(response.photos || []);
     } catch (error) {
-      console.error('Erro ao carregar destino: ', error.message);
+      console.error('Erro ao carregar destino:', error.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -31,8 +36,13 @@ const Destination = () => {
     fetchDestination(id);
   }, [id]);
 
+  if (isLoading) {
+    // return <div>Carregando...</div>;
+    return <img src={plane} alt='Plane animation'></img>;
+  }
+
   if (!destination) {
-    return <div>Destino não encontrado</div>
+    return <div>Destino não encontrado</div>;
   }
 
   const bannerImage = photos[0]?.url || '';
