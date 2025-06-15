@@ -1,43 +1,64 @@
+import { useEffect, useState } from 'react';
 // dependencies
 import { useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown'
-
 // styles
 import styles from './Destination.module.css';
 import './Destination.css';
-
-// API data
-import { destinations } from 'data/destinations';
+// components
 import ScrollToTop from 'components/ui/ScrollToTop';
+// api
+import { getDestinationById } from 'services/destinations';
+
+const MAX_PHOTOS = 2;
 
 const Destination = () => {
-  const params = useParams();
+  const { id } = useParams();
+  const [destination, setDestination] = useState(null);
+  const [photos, setPhotos] = useState([]);
 
-  const destination = destinations.find(destination => destination.id === params.id);
-  
-  // get only 2 photos
-  const photosUrl = destination.photos.slice(0, 2);
+  const fetchDestination = async (id) => {
+    try {
+      const response = await getDestinationById(id);
+      setDestination(response);
+      setPhotos(response.photos || []);
+    } catch (error) {
+      console.error('Erro ao carregar destino: ', error.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchDestination(id);
+  }, [id]);
+
+  if (!destination) {
+    return <div>Destino não encontrado</div>
+  }
+
+  const bannerImage = photos[0]?.url || '';
 
   return(
     <article className={styles.destinationModelContainer}>
       <div 
         className={styles.banner}
-        style={{ backgroundImage  : `url(${photosUrl[0].url})`}}
+        style={{ backgroundImage: `url(${bannerImage})` }}
       ></div>
 
       <div className={styles.contentContainer}>
         <h1 className={styles.title}>
-          {destination.descriptiveText.title}
+          {destination.target}
+          {/* {destination.descriptiveText.title} */}
         </h1>
 
         <h2 className={styles.subtitle}>
-          {destination.descriptiveText.subtitle}
+          {destination.target}
+          {/* {destination.descript iveText.subtitle} */}
         </h2>
 
         <ul className={styles.photoContainer}>
-          {photosUrl.map(photo => 
+          {photos.slice(0, MAX_PHOTOS).map((photo, index) =>   
             <li 
-              key={photo.id}
+              key={`photo-${photo.id || index}`}
               className={styles.photoItem}
             >
               <img 
@@ -52,7 +73,8 @@ const Destination = () => {
         {/* Markdown Text */}
         <div className="text">
           <ReactMarkdown>
-            {destination.descriptiveText.text}
+            {destination.descriptiveText}
+            {/* {destination.descriptiveText.text} */}
           </ReactMarkdown>
         </div>
       </div>

@@ -5,8 +5,7 @@ import SearchBar from 'components/search/SearchBar';
 import DestinationGrid from 'components/destinations/DestinationGrid';
 import TestimonialSection from 'components/testimonials/TestimonialSection';
 import BannerBottom from 'components/layout/BannerBottom';
-// data
-// import { destinations } from "data/destinations";
+// api
 import { getDestinations } from 'services/destinations';
 import { testimonials } from 'data/testimonials';
 
