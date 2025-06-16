@@ -4,10 +4,18 @@ import TestimonialCarousel from 'components/testimonials/TestimonalCarousel';
 
 const TestimonialSection = ({ testimonials }) => {
   return(
-    <section className={styles.testimonials}>
-      <Title>Depoimentos</Title>
-      <TestimonialCarousel testimonials={testimonials}/>
-    </section>
+    <>
+      {testimonials && testimonials.length > 0
+        ?
+          (
+            <section className={styles.testimonials}>
+              <Title>Depoimentos</Title>
+              <TestimonialCarousel testimonials={testimonials}/>
+            </section>
+          )
+        : ''
+      }
+    </>
   );
 }
 

@@ -97,8 +97,8 @@ const TestimonialCarousel = ({ testimonials }) => {
         {currentTestimonials.map(testimonial =>
             <TestimonialCard
               key={testimonial.id}
-              text={testimonial.text}
-              author={testimonial.author}
+              text={testimonial.testimonial}
+              author={testimonial.user.author}
               image={testimonial.image}
             />
       
