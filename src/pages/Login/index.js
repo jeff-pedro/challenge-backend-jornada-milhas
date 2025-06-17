@@ -3,6 +3,7 @@ import styles from './Login.module.css';
 import Form from 'components/ui/Form';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { login } from 'services/auth';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,8 +11,7 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // replace it with API
-    console.log('submit: ', email, password);
+    login({ email, password });
   }
 
   return(
