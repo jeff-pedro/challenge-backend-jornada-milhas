@@ -13,6 +13,16 @@ const getUserById = async (id) =>  {
   return response.data;
 }
 
+const postUser = async (data) =>  {
+  try {
+    const response = await usersAPI.post('/', data);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao cadastrar usuário:', error.message);
+  }
+}
+
 export {
   getUserById,
+  postUser
 }
