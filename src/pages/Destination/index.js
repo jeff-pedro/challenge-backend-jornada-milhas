@@ -45,6 +45,14 @@ const Destination = () => {
     return <div>Destino não encontrado</div>;
   }
 
+  if (!destination.description) {
+    destination.description = {
+      text: '',
+      title: '',
+      subtitile: ''
+    }
+  }
+
   const bannerImage = photos[0]?.url || '';
 
   return(
@@ -56,13 +64,11 @@ const Destination = () => {
 
       <div className={styles.contentContainer}>
         <h1 className={styles.title}>
-          {destination.target}
-          {/* {destination.descriptiveText.title} */}
+          {destination.description.title}
         </h1>
 
         <h2 className={styles.subtitle}>
-          {destination.target}
-          {/* {destination.descript iveText.subtitle} */}
+          {destination.description.subtitle}
         </h2>
 
         <ul className={styles.photoContainer}>
@@ -83,8 +89,7 @@ const Destination = () => {
         {/* Markdown Text */}
         <div className="text">
           <ReactMarkdown>
-            {destination.descriptiveText}
-            {/* {destination.descriptiveText.text} */}
+            {destination.description.text}
           </ReactMarkdown>
         </div>
       </div>

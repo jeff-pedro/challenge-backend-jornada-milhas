@@ -16,7 +16,7 @@ const getDestinations = async () => {
 const getDestinationById = async (id) => {
   const response = await destinationsAPI.get(`/${id}`, {
     headers: {
-      Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyOGEwYTUzOS0yNmU4LTRiMjktODBlYy1lM2Q0YzQ1ODU3OTciLCJ1c2VybmFtZSI6ImplZmZlcnNvbi5zYW50b3MiLCJpYXQiOjE3NDk5NTU4MjUsImV4cCI6MTc1MDIxNTAyNX0.niPcAayP5aXnn2sodPEkgOrQFYHr9593MISIv9xhQLM"
+      Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzYyZGRmOS04OWRkLTQ3NGQtOTZjYi0yMDJkNWFiMmI2MTciLCJ1c2VybmFtZSI6ImFkbWluLmpvcm5hZGEgbWlsaGFzIiwiaWF0IjoxNzUwNTY0NjI2LCJleHAiOjE3NTA4MjM4MjZ9.01wJPdmNLKQc-wIIiJJ71a8aH39FanYd_PE7t-oPEy4"
     }
   });
   return response.data;
