@@ -98,10 +98,9 @@ const TestimonialCarousel = ({ testimonials }) => {
             <TestimonialCard
               key={testimonial.id}
               text={testimonial.testimonial}
-              author={testimonial.user.author}
-              image={testimonial.image}
+              author={`${testimonial.user.firstName} ${testimonial.user.lastName}`}
+              image={testimonial?.photo?.url ?? null}
             />
-      
       )}
 
         {/* Button for Smaller Screens */}

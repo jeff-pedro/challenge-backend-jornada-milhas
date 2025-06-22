@@ -8,7 +8,6 @@ import BannerBottom from 'components/layout/BannerBottom';
 // api
 import { getDestinations } from 'services/destinations';
 import { getTestimonials } from 'services/testimonials';
-import { getUserById } from 'services/users';
 
 const Home = () => {
   const [destination, setDestination] = useState({});
@@ -21,15 +20,8 @@ const Home = () => {
   }
 
   const fetchTestimonials = async () => {
-    const testimonialsApi = await getTestimonials();
-
-    testimonialsApi.map(async (testimonial) => {
-      const user = await getUserById(testimonial.user.id);
-      testimonial.user.author = `${user.firstName} ${user.lastName}`;
-      return testimonial;
-    });
-
-    setTestimonials(testimonialsApi);
+    const response = await getTestimonials();
+    setTestimonials(response);
   }
 
 
