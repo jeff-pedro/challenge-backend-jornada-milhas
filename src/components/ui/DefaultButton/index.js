@@ -1,7 +1,7 @@
 import styles from './DefaultButton.module.css';
 
-const DefaultButton = ({ children }) => {
-  return (<button className={styles.button}>{children}</button>);
+const DefaultButton = ({ children, disabled = false }) => {
+  return (<button className={styles.button} disabled={disabled}>{children}</button>);
 }
 
 export default DefaultButton;

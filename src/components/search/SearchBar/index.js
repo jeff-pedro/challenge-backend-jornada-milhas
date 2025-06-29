@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 // components
 import DefaultButton from "components/ui/DefaultButton";
 import SearchInput from "components/ui/SearchInput";
-// data
-import { destinations } from "data/destinations";
 
 const SearchBar = ({ onSearch }) => {
 
@@ -15,8 +13,9 @@ const SearchBar = ({ onSearch }) => {
 
   const handleSubmit = (e) => {
     e?.preventDefault();
-    const destinationFound = destinations.find((item) => item.name === destination);
-    onSearch(destinationFound);
+    // const destinationFound = destinations.find((item) => item.name === destination);
+    // onSearch(destinationFound);
+    onSearch(destination);
   }
 
   const handleKeyDown = (e) => {

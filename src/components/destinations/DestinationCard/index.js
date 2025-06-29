@@ -2,8 +2,8 @@ import DefaultLinkButton from 'components/ui/DefaultLinkButton';
 import styles from './DestinationCard.module.css';
 
 const DestinationCard = ({ destination, linkText }) => {
-  const photo = destination.photos[0].url;
-  const alternativeText = destination.photos[0].description;
+  const photo = destination.photos[0]?.url;
+  const alternativeText = destination.photos[0]?.description;
   
   return (
     <div className={styles.card}>

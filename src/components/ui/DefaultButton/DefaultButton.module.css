@@ -16,3 +16,8 @@
 .button:hover {
   background-color: var(--primary-click-color);
 }
+
+.button:disabled {
+  background-color: var(--primary-click-color);
+  pointer-events: none;
+}

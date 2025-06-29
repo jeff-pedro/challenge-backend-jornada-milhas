@@ -97,11 +97,10 @@ const TestimonialCarousel = ({ testimonials }) => {
         {currentTestimonials.map(testimonial =>
             <TestimonialCard
               key={testimonial.id}
-              text={testimonial.text}
-              author={testimonial.author}
-              image={testimonial.image}
+              text={testimonial.testimonial}
+              author={testimonial.user.fullName}
+              image={testimonial?.photo?.url ?? null}
             />
-      
       )}
 
         {/* Button for Smaller Screens */}
