@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import DefaultButton from "components/ui/DefaultButton";
 import SearchInput from "components/ui/SearchInput";
 
-const SearchBar = ({ onSearch, destinations }) => {
+const SearchBar = ({ onSearch }) => {
 
   const [destination, setDestination] = useState('');
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -13,8 +13,9 @@ const SearchBar = ({ onSearch, destinations }) => {
 
   const handleSubmit = (e) => {
     e?.preventDefault();
-    const destinationFound = destinations.find((item) => item.name === destination);
-    onSearch(destinationFound);
+    // const destinationFound = destinations.find((item) => item.name === destination);
+    // onSearch(destinationFound);
+    onSearch(destination);
   }
 
   const handleKeyDown = (e) => {

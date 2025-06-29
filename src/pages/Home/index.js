@@ -6,7 +6,7 @@ import DestinationGrid from 'components/destinations/DestinationGrid';
 import TestimonialSection from 'components/testimonials/TestimonialSection';
 import BannerBottom from 'components/layout/BannerBottom';
 // api
-import { getDestinations } from 'services/destinations';
+import { getDestinationByName, getDestinations } from 'services/destinations';
 import { getTestimonials } from 'services/testimonials';
 
 const Home = () => {
@@ -14,25 +14,34 @@ const Home = () => {
   const [destinations, setDestinations] = useState([]);
   const [testimonials, setTestimonials] = useState(null);
 
-  const fetchDestinations = async () => {
-    const { results } = await getDestinations();
-    setDestinations(results);
+  const fetchAllDestinations = async () => {
+    const response = await getDestinations();
+    setDestinations(response);
   }
 
-  const fetchTestimonials = async () => {
+  const fetchDestination = async (name) => {
+    const response = await getDestinationByName(name);
+    setDestination(response);
+  }
+
+  const fetchAllTestimonials = async () => {
     const response = await getTestimonials();
     setTestimonials(response);
   }
 
 
   useEffect(() => {
-    fetchDestinations();
-    fetchTestimonials();
-  }, [])
+    fetchAllDestinations();
+    fetchAllTestimonials();
+  }, []);
+
+  const handleSearch = async (searchDestination) => {
+    await fetchDestination(searchDestination);
+  }
   
-  const handleSearch = (destinationFound) => !destinationFound
-    ? setDestination({})
-    : setDestination(destinationFound);
+  // const handleSearch = (destinationFound) => !destinationFound
+  //   ? setDestination({})
+  //   : setDestination(destinationFound);
 
   return(
     <main>

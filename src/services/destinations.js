@@ -12,7 +12,21 @@ const getDestinations = async () => {
         limit: 6,
       }
     });
-    return response.data;
+    return response.data.results;
+  } catch (error) {
+    if (error.status === 404) return [];
+  }
+}
+
+const getDestinationByName = async (name) => {
+  try {
+    const response = await destinationsAPI.get('/', { params: { search: name } });
+
+    if (response.data.results.length === 0) {
+      return {};
+    }
+
+    return response.data.results[0];
   } catch (error) {
     if (error.status === 404) return [];
   }
@@ -29,5 +43,6 @@ const getDestinationById = async (id) => {
 
 export {
   getDestinations,
-  getDestinationById
+  getDestinationById,
+  getDestinationByName,
 }
