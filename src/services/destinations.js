@@ -6,7 +6,12 @@ const destinationsAPI = axios.create({
 
 const getDestinations = async () => {
   try {
-    const response = await destinationsAPI.get('/');
+    const response = await destinationsAPI.get('/', {
+      params: {
+        page: 1,
+        limit: 6,
+      }
+    });
     return response.data;
   } catch (error) {
     if (error.status === 404) return [];

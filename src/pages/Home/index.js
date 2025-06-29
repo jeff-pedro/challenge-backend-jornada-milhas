@@ -15,8 +15,8 @@ const Home = () => {
   const [testimonials, setTestimonials] = useState(null);
 
   const fetchDestinations = async () => {
-    const response = await getDestinations();
-    setDestinations(response);
+    const { results } = await getDestinations();
+    setDestinations(results);
   }
 
   const fetchTestimonials = async () => {
