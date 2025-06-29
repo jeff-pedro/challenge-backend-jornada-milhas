@@ -38,10 +38,6 @@ const Home = () => {
   const handleSearch = async (searchDestination) => {
     await fetchDestination(searchDestination);
   }
-  
-  // const handleSearch = (destinationFound) => !destinationFound
-  //   ? setDestination({})
-  //   : setDestination(destinationFound);
 
   return(
     <main>

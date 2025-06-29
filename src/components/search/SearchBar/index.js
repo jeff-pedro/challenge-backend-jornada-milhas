@@ -13,8 +13,6 @@ const SearchBar = ({ onSearch }) => {
 
   const handleSubmit = (e) => {
     e?.preventDefault();
-    // const destinationFound = destinations.find((item) => item.name === destination);
-    // onSearch(destinationFound);
     onSearch(destination);
   }
 
