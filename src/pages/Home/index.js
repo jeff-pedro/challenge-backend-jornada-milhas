@@ -13,6 +13,10 @@ const Home = () => {
   const [destination, setDestination] = useState({});
   const [destinations, setDestinations] = useState([]);
   const [testimonials, setTestimonials] = useState(null);
+  const [testimonialPage, setTestimonialPage] = useState(1);
+  const [testimonialQuantityPerPage, setTestimonialQuantityPerPage] = useState(3);
+
+  const MIN_SCREEN_SIZE = 896;
 
   const fetchAllDestinations = async () => {
     const response = await getDestinations();
@@ -24,24 +28,47 @@ const Home = () => {
     setDestination(response);
   }
 
-  const fetchAllTestimonials = async () => {
-    const response = await getTestimonials();
+  const fetchAllTestimonials = async (numberPage, quantityPerPage) => {
+    const response = await getTestimonials(numberPage, quantityPerPage);
     setTestimonials(response);
   }
 
-
   useEffect(() => {
     fetchAllDestinations();
-    fetchAllTestimonials();
+   
+    // Adjust the amount of cards to be displayed according to the screen size
+    const handleResize = () => {
+      if (window.innerWidth <= MIN_SCREEN_SIZE) {
+        setTestimonialQuantityPerPage(1);
+      } else {
+        setTestimonialQuantityPerPage(3);
+      }
+    };
+    // Set initial value to run when the component is mounted
+    handleResize();
+    // Add event listener to monitor when user resizes screen
+    window.addEventListener('resize', handleResize);
+    // Remove the event when the component is unmounted
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    fetchAllTestimonials(testimonialPage, testimonialQuantityPerPage);
+  }, [testimonialPage, testimonialQuantityPerPage]);
+
+  const handleTestimonialLoadPage = async (numberPage, quantityPerPage) => {
+    if (testimonials && testimonials.total && testimonials.limit) {
+      const totalPages = Math.ceil(testimonials.total / testimonials.limit);
+      
+      if (numberPage >= 1 && totalPages >= 1 && numberPage <= totalPages) {
+        setTestimonialPage(numberPage);
+      }
+    }
+  };
 
   const handleSearch = async (searchDestination) => {
     await fetchDestination(searchDestination);
   }
-  
-  // const handleSearch = (destinationFound) => !destinationFound
-  //   ? setDestination({})
-  //   : setDestination(destinationFound);
 
   return(
     <main>
@@ -59,6 +86,8 @@ const Home = () => {
 
       <TestimonialSection 
         testimonials={testimonials}
+        loadPage={(numberPage, quantityPerPage) => handleTestimonialLoadPage(numberPage, quantityPerPage)}
+        currentPage={testimonialPage}
       />
       
       <BannerBottom />

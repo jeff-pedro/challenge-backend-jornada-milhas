@@ -1,15 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import styles from './TestimonialCarousel.module.css';
 import TestimonialCard from 'components/testimonials/TestimonialCard';
 
-import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
-
-const TestimonialCarousel = ({ testimonials }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  
-  // Define how many testimonials card at a time 
-  const [testimonialsPerPage, setTestimonialsPerPage] = useState(3);
-  
+const TestimonialCarousel = ({ testimonials, currentPage, loadPage }) => {
   // Set the start and end of the screen tap action
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
@@ -17,6 +11,7 @@ const TestimonialCarousel = ({ testimonials }) => {
   const minSwipeDistance = 50;
   
   const screenSize = 896;
+
 
   const onTouchStart = (e) => {
     setTouchEnd(null);
@@ -34,7 +29,7 @@ const TestimonialCarousel = ({ testimonials }) => {
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
-
+    
     if (isLeftSwipe) {
       nextSlide();
     }
@@ -42,48 +37,16 @@ const TestimonialCarousel = ({ testimonials }) => {
       prevSlide();
     }
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setTestimonialsPerPage(window.innerWidth <= screenSize ? 1 : 3);
-    }
-
-    // Set initial value to run when the component is mounted
-    handleResize();
-
-    // Add event listener to monitor when user resizes screen
-    window.addEventListener('resize', handleResize);
-
-    // Remove the event when the component is unmounted
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
   
-  // Calculate total number of pages
-  const totalPages = Math.ceil(testimonials.length / testimonialsPerPage);
-
-  // Go to the next index of testimonials array
+  const totalPages = Math.ceil(testimonials.total / testimonials.limit);
+  
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex + testimonialsPerPage >= testimonials.length
-        ? prevIndex
-        : prevIndex + testimonialsPerPage
-    );
+    loadPage(currentPage + 1);
   }
 
-  // Go to the prev index of testimonials array
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex - testimonialsPerPage <= 0
-        ? 0
-        : prevIndex - testimonialsPerPage
-    );
+    loadPage(currentPage - 1);
   }
-  
-  // Get the testimonials of current page
-  const currentTestimonials = testimonials.slice(
-    currentIndex,
-    Math.min(currentIndex + testimonialsPerPage, testimonials.length)
-  );
 
   return (  
     <div className={styles.carousel}>
@@ -94,7 +57,7 @@ const TestimonialCarousel = ({ testimonials }) => {
         onTouchEnd={onTouchEnd}
       >
       
-        {currentTestimonials.map(testimonial =>
+        {testimonials.results.map(testimonial =>
             <TestimonialCard
               key={testimonial.id}
               text={testimonial.testimonial}
@@ -113,13 +76,14 @@ const TestimonialCarousel = ({ testimonials }) => {
         </button>
       </div>
           
+      {/* Buttons */}
       <div className={styles.carouselControls}>
         <button
           className={`
             ${styles.carouselControls} 
             ${styles.carouselButton} 
             ${styles.carouselButtonPrev} 
-            ${currentIndex === 0 ? styles.carouselButtonInactive : ''}
+            ${currentPage === 1 ? styles.carouselButtonInactive : ''}
           `} 
           onClick={prevSlide}
           aria-label="Previous testimonials"
@@ -127,12 +91,13 @@ const TestimonialCarousel = ({ testimonials }) => {
           <MdNavigateBefore size={35} />
         </button>
         
+        {/* Buttons dots */}
         <div className={styles.carouselIndicators}>
           {Array.from({ length: totalPages }).map((_, index) => (
             <button
               key={index}
-              className={`${styles.carouselIndicator} ${currentIndex === index * testimonialsPerPage ? styles.carouselIndicatorActive : ''}`}
-              onClick={() => setCurrentIndex(index * testimonialsPerPage)}
+              className={`${styles.carouselIndicator} ${currentPage === (index + 1) ? styles.carouselIndicatorActive : ''}`}
+              onClick={() => loadPage(index + 1)}
               aria-label={`Página ${index + 1} de depoimentos`}
             />
           ))}
@@ -142,7 +107,7 @@ const TestimonialCarousel = ({ testimonials }) => {
           className={`
             ${styles.carouselButton} 
             ${styles.carouselButtonNext} 
-            ${currentIndex + testimonialsPerPage >= testimonials.length ? styles.carouselButtonInactive : ''}
+            ${currentPage === totalPages ? styles.carouselButtonInactive : ''}
           `}
           onClick={nextSlide}
           aria-label="Próximos testimonials"
